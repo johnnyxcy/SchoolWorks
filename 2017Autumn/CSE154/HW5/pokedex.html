@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Pokedex</title>
+    <link href="pokedex.css" type="text/css" rel="stylesheet" />
+    <link rel="shortcut icon" type="image/x-icon" href="icons/favicon.ico">
+    <script src="https://courses.cs.washington.edu/courses/cse154/17sp/lib/ajax-promise.js"
+            type="text/javascript"></script>
+    <script src="https://courses.cs.washington.edu/courses/cse154/17au/lecture/AjaxCheckStatusHelper.js"
+            type="text/javascript"></script>       
+    <script src="pokedex.js" type="text/javascript"></script>
+  </head>
+  <body>
+    <h1 id="title">Your Pokedex</h1>
+
+    <main>
+      <div id="my-card">
+        <!-- Buffs/debuffs are added to this container whenever your Pokemon
+             has them during a game -->
+        <div class="hidden buffs"></div>
+
+        <div class="card-container">
+          <!-- Health point information should be hidden when the Pokedex view is shown, and
+               displayed when the pokedex view is hidden (ie, in the Game View) -->
+          <div class="hidden hp-info">
+            <p>HP:</p>
+            <div class="health-bar-container">
+              <div class="health-bar"></div>
+            </div>
+          </div>
+
+          <div class="card">
+            <img src="icons/normal.jpg" alt="type" class="type"/>
+            <span class="hp">60HP</span>
+            <h2 class="name">Pokemon Name</h2>
+            <div class="pokemon-pic">
+              <img src="images/pokeball.png" alt="pokemon" class="pokepic" />
+            </div>
+            <p class="info">Description here</p>
+            <div class="moves">
+              <button>
+                <span class="move">Move Name Here</span> <span class="dp"></span>
+                <img src="icons/fighting.jpg" alt="Pokemon move" />
+              </button>
+              <button>
+                <span class="move">Move Name Here</span> <span class="dp"></span>
+                <img src="icons/fighting.jpg" alt="Pokemon move" />
+              </button>
+              <button>
+                <span class="move">Move Name Here</span> <span class="dp"></span>
+                <img src="icons/fighting.jpg" alt="Pokemon move" />
+              </button>
+              <button>
+                <span class="move">Move Name Here</span> <span class="dp"></span>
+                <img src="icons/fighting.jpg" alt="Pokemon move" />
+              </button>
+            </div>
+            <img src="icons/fighting.jpg" alt="weakness" class="weakness" />
+          </div>
+
+          <button class="hidden" id="start-btn">Choose This Pokemon!</button>
+          <button class="hidden" id="flee-btn">Flee the Battle!</button>
+        </div>
+      </div>
+
+      <!-- You populate this using JavaScript -->
+      <div id="pokedex-view"></div>
+
+      <!-- Results container to display move results in each turn (between the two
+           cards in the Game View) -->
+      <div class="hidden" id="results-container">
+        <p class="hidden" id="p1-turn-results"></p>
+        <p class="hidden" id="p2-turn-results"><p>
+        <img class="hidden" id="loading" src="icons/loading-pikachu.gif" alt="loading" />
+        <button class ="hidden" id="endgame">Back to Pokedex</button>
+      </div>
+
+      <!-- The opponent's card should be populated when the game has started and the
+           #pokedex-view is hidden} -->
+      <div class="hidden" id="their-card">
+        <div class="buffs"></div>
+        <div class="card-container">
+          <div class="hp-info">
+            <p>HP:</p>
+            <div class="health-bar-container">
+              <div class="health-bar"></div>
+            </div>
+          </div>
+
+          <div class="card">
+            <img src="icons/normal.jpg" alt="type" class="type"/>
+            <span class="hp">60HP</span>
+            <h2 class="name">Pokemon Name</h2>
+            <div class="pokemon-pic">
+              <img src="images/pokeball.png" alt="pokemon" class="pokepic" />
+            </div>
+            <div class="info-container">
+              <p class="info">Description here</p>
+            </div>
+            <div class="moves">
+              <button>
+                <span class="move">Move Name Here</span> <span class="dp"></span>
+                <img src="icons/fighting.jpg" alt="Pokemon move" />
+              </button>
+              <button>
+                <span class="move">Move Name Here</span> <span class="dp"></span>
+                <img src="icons/fighting.jpg" alt="Pokemon move" />
+              </button>
+              <button>
+                <span class="move">Move Name Here</span> <span class="dp"></span>
+                <img src="icons/fighting.jpg" alt="Pokemon move" />
+              </button>
+              <button>
+                <span class="move">Move Name Here</span> <span class="dp"></span>
+                <img src="icons/fighting.jpg" alt="Pokemon move" />
+              </button>
+            </div>
+            <img src="icons/fighting.jpg" alt="weakness" class="weakness" />
+          </div>
+        </div>
+      </div>
+    </main>
+  </body>
+</html>

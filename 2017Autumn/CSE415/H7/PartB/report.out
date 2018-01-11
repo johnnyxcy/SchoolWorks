@@ -1,0 +1,32 @@
+\BOOKMARK [1][-]{section.1}{Introduction}{}% 1
+\BOOKMARK [2][-]{subsection.1.1}{Definition}{section.1}% 2
+\BOOKMARK [2][-]{subsection.1.2}{History}{section.1}% 3
+\BOOKMARK [1][-]{section.2}{Formulation}{}% 4
+\BOOKMARK [1][-]{section.3}{Techniques Used}{}% 5
+\BOOKMARK [2][-]{subsection.3.1}{Naive Bayes}{section.3}% 6
+\BOOKMARK [2][-]{subsection.3.2}{Support Vector Machine}{section.3}% 7
+\BOOKMARK [2][-]{subsection.3.3}{Differnce \046 Similarity}{section.3}% 8
+\BOOKMARK [2][-]{subsection.3.4}{Other Classifiers}{section.3}% 9
+\BOOKMARK [1][-]{section.4}{Training and Testing Data Used}{}% 10
+\BOOKMARK [1][-]{section.5}{Experiments}{}% 11
+\BOOKMARK [2][-]{subsection.5.1}{Seprate Training Data \046 Testing Data}{section.5}% 12
+\BOOKMARK [2][-]{subsection.5.2}{Vectorize Data}{section.5}% 13
+\BOOKMARK [3][-]{subsubsection.5.2.1}{tf-idf}{subsection.5.2}% 14
+\BOOKMARK [3][-]{subsubsection.5.2.2}{CountVectorizer}{subsection.5.2}% 15
+\BOOKMARK [1][-]{section.6}{Results}{}% 16
+\BOOKMARK [2][-]{subsection.6.1}{Naive Bayes Classifier}{section.6}% 17
+\BOOKMARK [3][-]{subsubsection.6.1.1}{CountVectorizer}{subsection.6.1}% 18
+\BOOKMARK [3][-]{subsubsection.6.1.2}{TFIDF}{subsection.6.1}% 19
+\BOOKMARK [2][-]{subsection.6.2}{Support Vector Machine\(SVM\)}{section.6}% 20
+\BOOKMARK [3][-]{subsubsection.6.2.1}{CountVectorizer}{subsection.6.2}% 21
+\BOOKMARK [3][-]{subsubsection.6.2.2}{TFIDF}{subsection.6.2}% 22
+\BOOKMARK [2][-]{subsection.6.3}{Decision Tree}{section.6}% 23
+\BOOKMARK [3][-]{subsubsection.6.3.1}{CountVectorizer}{subsection.6.3}% 24
+\BOOKMARK [3][-]{subsubsection.6.3.2}{TFIDF}{subsection.6.3}% 25
+\BOOKMARK [2][-]{subsection.6.4}{KNeighbors Classifier}{section.6}% 26
+\BOOKMARK [3][-]{subsubsection.6.4.1}{CountVectorizer}{subsection.6.4}% 27
+\BOOKMARK [3][-]{subsubsection.6.4.2}{TFIDF}{subsection.6.4}% 28
+\BOOKMARK [2][-]{subsection.6.5}{Comparison of F1 Scores}{section.6}% 29
+\BOOKMARK [1][-]{section.7}{Discussion}{}% 30
+\BOOKMARK [1][-]{section.8}{Personal Retrospective}{}% 31
+\BOOKMARK [1][-]{appendix.A}{Appendix A}{}% 32

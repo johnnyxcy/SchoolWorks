@@ -1,0 +1,39 @@
+public class list<E> {
+		private class listNode {
+			String dat;
+			listNode next;
+			
+			public listNode(String dat, listNode next) {
+				this.dat = dat;
+				this.next = next;
+			}
+		}
+		
+		listNode front;
+		listNode last;
+		public list() {
+			this.front = null;
+			this.last = null;
+		}
+		public void add(String next) {
+			if (front == null) {
+				front = new listNode(next, null);
+				last = front;
+			} else {
+				last.next = new listNode(next, null);
+				last = last.next;
+			}
+		}
+		public int find(String target) {
+			int result = 0;
+			listNode cur = front;
+			while (cur != null) {
+				if (cur.dat.equals(target)) {
+					return result;
+				}
+				result++;
+				cur = cur.next;
+			}
+			return -1;
+		}
+	}

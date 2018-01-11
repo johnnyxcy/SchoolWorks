@@ -1,0 +1,69 @@
+\documentclass[]{exam}
+    \usepackage[utf8]{inputenc}
+    \usepackage{enumitem} % allows us to use the enumerate command
+    \usepackage{amsmath} % allows us to type in math
+    \usepackage{amsfonts}
+    \usepackage{setspace}
+    \usepackage{verbatim} % allows us to type code like text
+    \usepackage{graphicx} % allows us to include figures
+    \usepackage{gensymb}
+    \usepackage{color}
+    \usepackage{commath}
+    \doublespacing
+    %opening
+    \title{}
+    
+    %===> Formatting ===>
+    \setlength{\parskip}{8pt}
+    \setlength{\parindent}{20pt}
+    %<=== Formatting <===
+    
+    
+    \title{CSE 415 Homework 2 Part 1}
+    \author{Chongyi Xu}
+    
+    \begin{document}
+        
+    \maketitle
+    \begin{questions}
+        \question For each of the following, determine which of the two relations “subsetof”
+        or “element-of” is being represented, and reformulate the statement
+        to make this clearer. The first one is done for you. If you find genuine
+        ambiguity in a statement, justify each of the possible interpretations.
+        \begin{itemize}
+            \item Fido is a dog
+            \\ Fido $\in$ dogs
+
+            \item A parrot is a bird
+            \\ parrot $\subset$ birds
+
+            \item Polly is a parrot
+            \\ Polly $\in$ parrots
+
+            \item David Jones is a Jones
+            \\ David Jones $\in$ Jones
+
+            \item \"George Washington\" is a great name
+            \\ George Washington $\in$ names
+
+            \item Artificial Intellengence is a state of mind
+            \\ Artificial Intellengence $\subset$ state of minds
+        \end{itemize}
+
+        \question For each of the following relations, state whether or not it is reflexive,
+        whether or not it is symmetric, whether or not it is transitive, whether
+        or not it is antisymmetric, and whether or not it is a partial order. For
+        each example, let the set S on which the relation is defined be the set of
+        elements mentioned in that example.
+        \begin{itemize}
+            \item {(a, a)}
+            Reflexive, antisymmetric, symmetric and transitive. So it is partial order.
+            \item {(a, b), (a, c), (b, c)}
+            Antisymmetric only.
+            \item {(a, b), (b, c)}
+            Antisymmetric only.
+            \item {}
+            Reflexive, antisymmetric, symmetric and transitive. So it is partial order.            
+        \end{itemize}
+    \end{questions}
+    \end{document}

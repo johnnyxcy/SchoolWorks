@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta name="author" content="Chongyi Xu">
+        <meta   charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" type="text/css" href="index.css">
+        <script src = "index.js" type = "text/javascript"></script>
+        <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+        <title>Chongyi Xu</title>
+    </head>
+    <body>
+        <div class="sidebar barblock black box" style="width:130px">
+            <h5 class="BarItem">Chongyi Xu</h5>
+            
+            <button class="BarItem button BarLinks redTab" id = "Profile">Profile</button>
+            <button class="BarItem button BarLinks" id = "Programmer">As Programmer</button>
+            <button class="BarItem button BarLinks" id = "Language">Multi-Language</button>
+            <button class="BarItem button BarLinks" id = "Internship">Internship</button>
+            <button class="BarItem button BarLinks" id = "Area-of-interests">Interest Areas</button>
+            <button class="BarItem button BarLinks" id = "Projects">Project</button>
+            <p class="contact">
+                <a href="mailto:johnny.xcy1997@gmail.com"><img src="mail1.png" alt="mail" height="30" width="30"></a>
+                <a href="https://www.linkedin.com/in/chongyi-xu-361637118/"><img src="linkedin1.png" alt="linkedin" height="30" width="30"></a>
+            </p> 
+        </div>
+        <div id = "Prof" class = "container animate-top link show">
+            <h2>Profile</h2>
+                <p>My name is Chongyi Xu. Just call me Johnny for simple English.</p>
+                <p>I was born in China and also grew in China before I came to UW for study.</p>
+                <p>I am a junior at <a href="https://www.washington.edu/" id = "uw">University of Washington</a>, majoring <em>ACMS</em>, in specific, <em>Data Science and Statistics</em>.</p>
+                <img src="IMG_prof.jpg" alt="flower" width="512" height="512">
+        </div>
+        <div id = "Prog" class = "container animate-top link hidden">
+        <h2>A Passionate Programmer</h2>
+        <p>I have learned a lot of programming languages by myself as following:</p>
+        <ul>
+            <li>Python</li>
+            <li>Java</li>
+            <li>JavaScript</li>
+            <li>MySQL, SQL Server</li>
+            <li>PHP</li>
+            <li>Matlab</li>
+            <li>LaTex</li>
+            <li>R</li>
+            <li>HTML, CSS (in progress)</li>
+            <li>...</li>
+        </ul>
+        <img src="IMG_coding.jpg" alt="coding" width="480" height="270">
+        </div>
+        <div id = "Lang" class = "container animate-top link hidden">
+        <h2>Master in 3 Languages</h2>
+        <select id = "dropdown">
+            <option value = "English" selected = "selected">English</option>
+            <option value = "Chinese">Chinese</option>
+            <option value = "Japanese">Japanese</option>
+        </select>
+        <p id = "English" style = "display:block">
+            Since I was born in China, I am native in <u>Chinese</u>. And I began studying <u>English</u> since elementary school when I was 6.
+             With a chance, I began to study <u>Japanese</u>. This is the second year for me to study in Japanese. In order to improve my Japanese
+            skills, I have watched various genres of Japanese TV Dramas and entertainment shows. I am planning to take my N1 Test (Japanese Language
+            Proficient Test) in this December.
+        </p>
+        <p id = "Chinese" style = "display:none">
+            我出生在中国，所以我的母语是中文。我自从6岁，从小学起就开始学习英语。因此英语水平也随着时日渐长，如今可以被称作是第二母语了。
+            机缘巧合下我开始了日语的学习。今年是我日语学习生涯的第二年。 为了提高日语水平，我平时经常有看日语的电视剧和娱乐节目。我准备在今年的12月去参加 N1 考试（日语水平测试）。
+        </p>
+        <p id = "Japanese" style = "display:none">
+            私は中国生まれのため、中国語は第一言語だ。英語の勉強は六歳、つまり小学校の時からずっと勉強し続けていた。いまは第二言語と言っても過言ではない。
+            機会で日本語の勉強も始めていた。今年は第二年目だ。日本語を上達するため、私は毎週のように日本語のテレビ番組とかを見ている。今年の12月は、初めてのN1テストに挑戦できるように努力している。
+        </p>
+        <div id = "movies">
+            <h4>Some recommened Japanese Movies I watched recently</h4>
+            <ul>
+                <li><a href="http://www.imdb.com/title/tt5338222/?ref_=nm_knf_t2"> Tomorrow I Will Date with Yesterday's You</a></li>
+                <li><a href="http://www.imdb.com/title/tt5167966/?ref_=tt_rec_tt">One Week Friends </a></li>
+                <li><a href="http://www.imdb.com/title/tt4785440/">Chihayafuru</a></li>
+                <li><a href="http://www.imdb.com/title/tt5914996/?ref_=nv_sr_2">No Game, No Life the Movie:ZERO</a></li>
+            </ul>
+        </div>
+        </div>
+        <div id = "Inte" class = "container animate-top link hidden">
+        <h2>Internship Experience</h2>
+        <ul>
+            <li>Internship at Big Data Depertment in Lenovo, China <i>(from 2017/08 to 2017/10)</i></li>
+        </ul>
+        <img src="IMG_Lenovo.jpg" alt="lenovo" width="400" height="300">
+        </div>
+        <div id = "Area" class = "container animate-top link hidden">
+        <h2>Interest Areas</h2>
+        <p class='note'><em>Ranked as interst level</em></p>
+        <ol>
+            <li>Machine Learning</li>
+            <li>Big-Data Processing</li>
+            <li>Algorithm Develop</li>
+            <li>UI Design</li>
+            <li>Web Develop</li>
+            <li>Financial Analysis</li>
+        </ol>
+        </div>
+        <div id="Proj" class = "container animate-top link hidden">
+            <h2>Python works</h2>
+            <a href = "https://github.com/JohnniaX/CA_Ironman">Conversation Agent</a>
+        </div>
+    </body>
+</html>

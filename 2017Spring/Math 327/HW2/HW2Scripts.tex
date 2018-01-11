@@ -1,0 +1,214 @@
+\documentclass[]{exam}
+\usepackage[utf8]{inputenc}
+\usepackage{enumitem} % allows us to use the enumerate command
+\usepackage{amsmath} % allows us to type in math
+\usepackage{amsfonts}
+\usepackage{setspace}
+\usepackage{verbatim} % allows us to type code like text
+\usepackage{graphicx} % allows us to include figures
+\usepackage{gensymb}
+\usepackage{color}
+\usepackage{commath}
+\doublespacing
+%opening
+\title{}
+
+%===> Formatting ===>
+\setlength{\parskip}{8pt}
+\setlength{\parindent}{20pt}
+%<=== Formatting <===
+
+
+\title{Math 327 Homework 2}
+\author{Chongyi Xu}
+
+\begin{document}
+	
+\maketitle
+\renewcommand{\labelitemii}{$\circ$}
+\begin{questions}
+\question Prove the following.
+	\begin{parts}
+	\part For any $a, b$ real numbers, $|a| - |b| \leq |a + b|$.
+	\\ Let $b = b + a - a$, then $|b| = |b + a - a| \leq |a + b| - |a|$(By Triangular Inequality)
+	\\ Since $-|b| \leq +|b|$, so $-|b| \leq |b| \leq |a + b| - |a|$
+	\\ Thus $|a| - |b| \leq |a| + |b| \leq |a + b|$ Q.E.D.\\
+
+	\part For any $a, b$ real numbers, $||a| - |b|| \leq |a + b|$.
+	\begin{align*}
+	&\rightarrow \text{if}\ |a| - |b| \geq 0,\ \text{part(a) tells it is true}.\\
+	&\rightarrow \text{if}\ |a| - |b| < 0,\ ||a| - |b|| = |b| - |a| \leq |b + a|\text{(By part(a))}.
+	\end{align*}
+	In both cases $||a| - |b|| \leq |a + b|$ Q.E.D.\\
+
+	\part For any $a, b$ real numbers, $||a| - |b|| \leq |a - b|$.
+	\\ Let $b = -c,\ c \in \mathbb{R}$. In part(b), it is proved that $||a| - |c|| \leq |a + c|$. So in this case, let $c = -b$, then we have $||a| - |b|| \leq |a - b|$ since $|-c| = c$. Q.E.D
+	\end{parts}
+
+\question Prove Bernoulli's Inequality
+	\begin{equation*}
+		(1 + b) ^ n \geq 1 + nb
+	\end{equation*}
+	in two different ways:
+	\begin{parts}
+	\part For any $b \geq 0$, using the binomial formula.
+		\\ Binomial Formula tells that $(a + b) ^ n = \sum_{k = 0}^{n} {{n}\choose{k}} a^{n - k}b ^ k$. So we have
+		\\ Let $a = 1$, 
+		\begin{align*}
+		& (1 + b) ^ n = \sum_{k = 0}^{n} {{n}\choose{k}} b ^ k\\
+		&\rightarrow \text{when}\ k = 0,\ {{n}\choose{0}}\cdot b ^ 0 = 1\\
+		&\rightarrow \text{when}\ k = 1,\ {{n}\choose{1}}\cdot b ^ 1 = nb
+		\end{align*}
+		So $(1 + b) ^ n = 1 + nb + \sum_{k = 2}^{n} {{n}\choose{k}}b ^ k$.
+		\\ Since given $b \geq 0$, then $\sum_{k = 2}^{n} {{n}\choose{k}}b ^ k \geq 0$.
+		\\ Therefore $(1 + b) ^ n \geq 1 + nb$. Q.E.D.
+
+	\part For any $b > -1$, using mathematical induction.
+		\\ Assume $b > -1$. 
+		\begin{itemize}
+			\item Base Case($n = 0$)\\
+			$(1 + b) ^ 0 = 1 \geq 1 + 0 \cdot b$
+			\item Inductive Step
+			\\ Assume $(1 + b) ^ n \geq 1 + nb$
+			\\ Prove $(1 + b) ^ {n + 1} \geq 1 + (n + 1) \cdot b$
+			\\ $\bullet$ Proof: 
+			\begin{align*}
+			(1 + b) ^ {n + 1} &= (1 + b) ^ {n} \cdot (1 + b)\\
+			\text{Since}\ b &> -1\ \text{by assumption}\\
+			(1 + b) ^ {n} \cdot (1 + b) &\geq (1 + nb)(1 + b) \text{(inductive hypothesis)}\\
+										  &\geq 1 + b + nb + nb^2\\
+										  &\geq 1 + (n + 1)b + nb^2
+			\end{align*}
+			\\ Since $b ^ 2 \geq 0,\ nb ^ 2 \geq 0$
+			\\ Therefore $(1 + b) ^ {n + 1} \geq 1 + (n + 1)b$. Q.E.D.
+		\end{itemize}
+	\end{parts}
+
+\question Decide if the following are true or false. If true, give a short proof. If false, find a counter example.
+	\begin{parts}
+	\part If the sequence $|a_n|$ converges, then so does $(a_n)$
+	\\ \textit{True}. Assume $|a_n|$ converges, then $\exists N \in \mathbb{N}\ \text{such that}$
+	\\ $||a_n| - a| < \varepsilon$ when $n \geq N$ for $\varepsilon > 0$
+	\\
+	\\ $\rightarrow$ if $a_n \geq 0$, then $|a_n - a| < \varepsilon$
+	\\ Converges to $a \surd$
+	\\
+	\\ $\rightarrow$ if $a_b < 0$
+	\begin{align*}
+			|-a_n - a|  &< \varepsilon\\
+			|a_n + a|  &< \varepsilon\\
+			|a_n - (-a)|&< \varepsilon\\
+			\text{Let } b = -a,\\
+			|a_n - b|   &< \varepsilon&&
+	\end{align*}
+	Converges to b. Q.E.D.
+	\\ $\Rightarrow$ Therefore, $(a_n)$ also converges if $|a_n|$ converges.
+
+	\part If the sequence $(a_n + b_n)$ converges, then so do the sequences $(a_n)$ and $(b_n)$.
+	\\ \textit{False}. Let $a_n = 2n,\ b_n = -2n$, then $(a_n + b_n)$ converges to 0, but$a_n,\ b_n$ do not.
+
+	\part If the sequences $(a_n + b_n)$ and $(a_n)$ converge, then so does the sequence $(b_n)$.
+	\\ \textit{True}. Assume $|a_n + b_n - c| < \frac{\varepsilon}{2},\ |a_n - a| < \frac{\varepsilon}{2}$ for any $n \geq N$, where $N \in \mathbb{N}$
+	\\ Let $c = a + b$, then we have $|a_n + b_n - (a + b)| < \frac{\varepsilon}{2}$
+	\begin{equation*}
+	\begin{split}
+	|b_n - b| &= |a_n - a -a_n + a + b_n -b|\\
+			  &= |a_n - a + b_n - b + (a - a_n)|\\
+			  &\leq |a_n - a + b_n - b| + |a - a_n| \text{(Triangular Inequality)}\\
+	\text{Since } |a - a_n| = |a_n - a|\\
+	|b_n - b| &\leq |a_n - a + b_n - b| + |a_n - a|\\
+			  &< \frac{\varepsilon}{2} + \frac{\varepsilon}{2}\\
+			  &< \varepsilon
+	\end{split}
+	\end{equation*}
+	\\ Therefore, $(b_n)$ converges. Q.E.D.
+	\end{parts}
+
+\question Use the definition of convergence to show the following limits.
+	\begin{parts}
+	\part $\lim_{n \to \infty} \frac{1}{\sqrt{n}} = 0$
+	\\ $\bullet$ Proof: Given $\varepsilon > 0$, Archimedean Property(2) tells that there exists a $M \in \mathbb{N},\ \frac{1}{M} < \varepsilon$. Let $N = M ^ 2$, then $\frac{1}{\sqrt{N}} < \varepsilon$
+	\\ Assume $n \geq N$, then
+	\begin{equation*}
+	\begin{split}
+	\abs{\frac{1}{\sqrt{n}} - 0} &= \abs{\frac{1}{\sqrt{n}}}\\
+							 &\leq \frac{1}{\sqrt{n}}\\
+							 &\leq \frac{1}{\sqrt{N}} \text{, since }n\geq N\\
+							 &< \varepsilon
+	\end{split}
+	\end{equation*}
+	\\Therefore, $\frac{1}{\sqrt{n}}$ converges to 0 $\iff \lim_{n \to \infty} \frac{1}{\sqrt{n}} = 0$.
+
+	\part $\lim_{n \to \infty} \frac{n ^ 2}{n ^ 2 + n} = 1$
+	\\ Prove $|\frac{n ^ 2}{n ^ 2 + n} - 1| < \varepsilon$, for $n \geq N$
+	\\ $\bullet$ Proof: Given $\varepsilon > 0$, Archimedean Property(2) tells that there exists a $N \in \mathbb{N},\ \frac{1}{N} < \varepsilon$. And Archimedean Property(1) tells that there exists a $N + 1 \in \mathbb{N}$. So $\frac{1}{N + 1} < \frac{1}{N} < \varepsilon$.
+	\\ Assume $n \geq N \iff n + 1 \geq N + 1$, then
+	\begin{equation*}
+	\begin{split}
+	\abs{\frac{n ^ 2}{n ^ 2 + n} - 1} &= \abs{\frac{n ^ 2 - n ^ 2 - n}{n ^ 2 + n}}\\
+								  &= \abs{\frac{-n}{n ^ 2 + n}}\\
+								  &= \abs{\frac{-1}{n + 1}}\\
+								  &= \abs{\frac{1}{n + 1}}\\
+								  &\leq \frac{1}{n + 1}\\
+								  &\leq \frac{1}{N + 1}\\
+								  &< \frac{1}{N}\\
+								  &< \varepsilon
+	\end{split}
+	\end{equation*}
+	\\ Therefore, $\frac{n ^ 2}{n ^ 2 + n}$ converges to 1 $\iff \lim_{n \to \infty} \frac{n ^ 2}{n ^ 2 + n} = 1$
+	\end{parts}
+
+\question Discuss the convergence of the sequence $(\sqrt{n + 1} - \sqrt{n})_{n\in\mathbb{N}}$
+	\\ \textit{Claim} $(\sqrt{n + 1} - \sqrt{n})_{n\in\mathbb{N}}$ converges.
+	\\ $\bullet$ Proof: Given $\varepsilon > 0$, Archimedean Property(2) tells that there exists a $M \in \mathbb{N},\ \frac{1}{M} < 2\varepsilon$. Let $M = \sqrt{N}$, then $\frac{1}{\sqrt{N}} < 2\varepsilon \Rightarrow \frac{1}{2\sqrt{N}} < \varepsilon$.
+	\\ Assume $n \geq N$, then
+	\begin{equation*}
+	\begin{split}
+	\abs{\sqrt{n + 1} - \sqrt{n}} &= \abs{\frac{n + 1 - n}{\sqrt{n + 1} + \sqrt{n}}}\\
+									  &= \abs{\frac{1}{\sqrt{n + 1} + \sqrt{n}}}\\
+									  &< \frac{1}{2\sqrt{n}}\\
+									  &\leq \frac{1}{2\sqrt{N}}\\
+									  &< \varepsilon
+	\end{split}
+	\end{equation*}
+	\\ Therefore, $(\sqrt{n + 1} - \sqrt{n})_{n\in\mathbb{N}}$ converges to 0. 
+
+\question Let $a_1 = 1$ and for $n \geq 1$, 
+	\begin{equation*}
+		a_{n + 1} =  
+			\begin{cases}
+			a_n + \frac{1}{n}  & \text{if } a_n ^ 2 \leq 2\\
+			a_n - \frac{1}{n}  & \text{if } a_n ^ 2 > 2
+			\end{cases}
+	\end{equation*}
+	Show that for every $n$, $\abs{a_n - \sqrt{2}} < \frac{2}{n}$ and prove that the sequence converges to $\sqrt{2}$. 
+	\\ Since $a_1 = 1$ and $n \geq 1 \iff \frac{1}{n} \leq 1$, $a_n > 0$
+	
+
+\question For a sequence $(a_n)$ of positive numbers, prove that 
+	\begin{equation*}
+		a_n \to \infty\ \text{if and only if } \frac{1}{a_n} \to 0.
+	\end{equation*}
+	\begin{itemize}
+		\item ($\Rightarrow$) Assume $a_n \to \infty$, prove $\frac{1}{a_n} \to 0$.
+		\\ Proof: $a_n \to \infty$ implies that for every $\varepsilon > 0$, $\abs{a_n - 0} > \varepsilon$ when $n \geq N$.
+		\\ So we have 
+		\begin{align*}
+			\abs{a_n} &> \varepsilon\\
+			a_n &> \varepsilon \text{, since $a_n$ are all positive numbers}\\
+			\frac{1}{a_n} &< \frac{1}{\varepsilon}
+		\end{align*}
+		Therefore, $\frac{1}{a_n} \to 0$ since for every $\frac{1}{\varepsilon} > 0$, $\abs{\frac{1}{a_n}} < \frac{1}{\varepsilon}$ when $n \geq N$.
+		\item ($\Leftarrow$) Assume $\frac{1}{a_n} \to 0$, prove $a_n \to \infty$.
+		\\ Proof: $\frac{1}{a_n} \to 0$ implies for every $\varepsilon > 0$, there exists $N\in \mathbb{N}$ such that $\abs{\frac{1}{a_n} - 0} < \varepsilon$ when $n \geq N$. 
+		\\ So we have
+		\begin{align*}
+			\abs{\frac{1}{a_n}} &< \varepsilon\\
+			\frac{1}{a_n} &< \varepsilon \text{, since $a_n$ are all positive numbers}\\
+			a_n &> \frac{1}{\varepsilon}
+		\end{align*}
+		Therefore, $a_n \to \infty$ since $a_n$ will always be greater than $\frac{1}{\varepsilon}$, where $\varepsilon > 0$.
+	\end{itemize}
+	Q.E.D.
+\end{questions}
+\end{document} 

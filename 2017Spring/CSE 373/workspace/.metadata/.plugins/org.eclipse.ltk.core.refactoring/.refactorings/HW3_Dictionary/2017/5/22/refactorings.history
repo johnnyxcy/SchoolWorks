@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Copy 2 elements to &apos;AVL/src/(default package)&apos;&#x0D;&#x0A;- Original project: &apos;HW3_Dictionary&apos;&#x0D;&#x0A;- Destination element: &apos;AVL/src/(default package)&apos;&#x0D;&#x0A;- Original elements:&#x0D;&#x0A;     BSTDict.java&#x0D;&#x0A;     Dictionary.java" description="Copy compilation units" destination="=AVL/src&lt;" element1="/src&lt;{BSTDict.java" element2="/src&lt;{Dictionary.java" files="0" flags="589830" folders="0" id="org.eclipse.jdt.ui.copy" policy="org.eclipse.jdt.ui.copyResources" stamp="1496184925350" units="2" version="1.0"/>
+</session>

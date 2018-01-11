@@ -1,0 +1,18 @@
+Chongyi Xu
+1531273
+CSE 415 HW 3
+Result.txt
+
+puzzle name        euclidean                   hamming             manhattan                  custom
+--------------------------------------------------------------------------------------------------------------
+puzzle10a.py     Path length = 10           Path length = 10        Path length = 10        Path length = 10 
+                20 states examined         38 states examined      14 states examined      24 states examined
+
+puzzle12a.py     Path length = 12           Path length = 12        Path length = 12        Path length = 12 
+                60 states examined         81 states examined      43 states examined      63 states examined
+
+puzzle14a.py     Path length = 14           Path length = 14        Path length = 14        Path length = 14 
+                53 states examined         149 states examined      81 states examined      80 states examined
+
+puzzle16a.py     Path length = 16           Path length = 16        Path length = 16        Path length = 16 
+                274 states examined        506 states examined     216 states examined     290 states examined

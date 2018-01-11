@@ -1,0 +1,40 @@
+\documentclass[]{exam}
+\usepackage[utf8]{inputenc}
+\usepackage{enumitem} % allows us to use the enumerate command
+\usepackage{gensymb}
+\usepackage{verbatim} % allows us to type code like text
+\usepackage{fancyvrb}
+
+
+%opening
+\title{}
+
+%===> Formatting ===>
+\setlength{\parskip}{8pt}
+\setlength{\parindent}{0pt}
+%<=== Formatting <===
+
+
+\title{Homework Set 1}
+\author{Chongyi Xu}
+
+\begin{document}
+	
+\maketitle
+
+\section*{Write Up Part 2}
+For each of your 5 tests, once you have found a sequence that produces an error, describe why that implementation is incorrect. Here, a simple description of the types of sequences which cause an error is sufficient. Additionally, propose some ideas about what might be wrong with the implementation. These ideas can be high level, it is very difficult to isolate the exact problem in black box testing.
+	\\
+\begin{enumerate}
+	\item Test 1
+	\\ The sequence I found is just a simple combination of \verb|enqueue()| and \verb|dequeue()|. The issue could be having a wrong implementation in \verb|enqueue()| or \verb|dequeue()|.
+	\item Test 2
+	\\ The sequence I found is \verb|enqueue a, enqueue b, dequeue a|. The problem could be incorrect implementation of \verb|enqueue()|. In specific, the problem might be the connection between two nodes, because it works correctly when I tried \verb|enqueue a, dequeue a|.
+	\item Test 
+3	\\ The sequence I found is \verb|enqueue()| and \verb|dequeue()| a lot of elements(more than ten). The problem might be incorrectly resizing in implementation.
+	\item Test 4
+	\\ Same with Test 3, the problem might be resizing when there is more than 10 elements.
+	\item Test 5
+	\\ The sequence I found is firstly \verb|enqueue()|  and \verb|dequeue()| once. Then \verb|enqueue()| and \verb|dequeue()| twice. The problem is probably incorrect implementation in \verb|dequeue()| such as losing nodes, etc.
+\end{enumerate}
+\end{document}

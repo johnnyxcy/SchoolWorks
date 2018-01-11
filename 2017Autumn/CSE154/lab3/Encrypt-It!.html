@@ -1,0 +1,33 @@
+
+<!-- saved from url=(0093)https://courses.cs.washington.edu/courses/cse154/17au/labs/jslab/code/starter/encrypt-it.html -->
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>Encrypt-It!</title>
+    <script src="encrypt-it.js" type="text/javascrpt"></script>
+  </head>
+  <body>
+    <h1>Encrypt-It!</h1>
+    <h2>Translate any text message into a super-secret cipher!</h2>
+    <div id="output"></div>
+    <div class = "text-area">
+      <h4>Text to Encypt</h4>
+      <textarea rows = "10" cols = "60"></textarea>
+    </div>
+
+    <div class = "options">
+      <h4>Encrypt Options</h4>
+      <p id = "type">
+        Cipher Type: 
+        <div class="dropdown">
+            <button class="dropbtn" >Shirt Cipher</button>
+            <div id="myDropdown" class="dropdown-content">
+              <a href="#shift">Shift Cipher</a>
+              <a href="#random">Randomized</a>
+            </div>
+        </div>
+        <button id = "encrypt" onclick="myFunction()">Encrypt it!</button>
+      </p>
+    </div>
+
+</body></html>

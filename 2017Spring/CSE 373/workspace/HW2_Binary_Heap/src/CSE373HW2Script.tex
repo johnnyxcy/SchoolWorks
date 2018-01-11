@@ -1,0 +1,85 @@
+\documentclass[]{exam}
+\usepackage[utf8]{inputenc}
+\usepackage{gensymb}
+\usepackage{verbatim} % allows us to type code like text
+\usepackage{fancyvrb}
+\usepackage{amsmath}
+\usepackage{setspace}
+\doublespacing
+
+
+%opening
+\title{}
+
+%===> Formatting ===>
+\setlength{\parskip}{8pt}
+\setlength{\parindent}{0pt}
+%<=== Formatting <===
+
+
+\title{Homework Set 2}
+\author{Chongyi Xu}
+
+\begin{document}
+	
+\maketitle
+\begin{questions}
+\section*{Write Up}
+	\question For each of the functions that you implemented given by the \verb|PriorityQueue.java| interface, give the worst-case bigO notation for their runtime. Give the notation in terms of n, which should be the number of elements in the heap. This should be the tightest upper bound you can provide and should be a bigTheta bound if possible. Explain briefly how you came to each answer.
+	\begin{itemize}
+		\item \verb|isEmpty()| has $\Theta(1)$ runtime. Because \verb|size| is stored and \verb|isEmpty()| returns true if \verb|size == 0|, returns false otherwise.
+		\item \verb|size()| has $\Theta(1)$ runtime. Because \verb|size| is stored and \verb|size()| simply returns \verb|size|.
+		\item \verb|findMin()| has $\Theta(1)$ runtime. Because |findMin()| simply returns the first element in the heap array.
+		\item \verb|insert()| has $O(log n)$ runtime. Because |insert()| (1) adds the element at the bottom and (2) percolates up to the correct position. In these two steps, (1) has $\Theta(1)$ and (2) has $O(log n)$. So \verb|insert()| has $O(log n)$.
+		\item \verb|deleteMin()| has $O(log n)$ runtime. Because |deleteMin()| (1) removes the top element, (2) moves the last element to the top and (3) percolates down. In these three steps, (1) has $\Theta(1)$, (2) has $O(log n)$ and (3) has $\Theta(1)$ . So \verb|deleteMin()| has $O(log n)$.
+		\item \verb|changePriority()| has $O(n)$ runtime. Because it (1) finds the element($O(n)$), (2) changes the priority($\Theta(1)$) and (3) percolates up or down($O(log n)$). So \verb|changePriority()| has $O(n)$.
+		\item \verb|makeEmpty()| has $\Theta(1)$ runtime. Because it just simply recreate a new heap.
+	\end{itemize}
+
+	\question From your \verb|testMany|, describe any helper test that you may have created. Additionally, identify the function you found most difficult to test. Explain why this function was most difficult. Finally, explain why BinaryHeap was easier or more difficult to test than the Queue from last week.
+	\\ I did not use any helper test. I found it most difficult to test \verb|changePrioirty()| because the function itself returns \textit{boolean} of whether the change is successful. But it can be hard to check if the heap property is still hold. I finally try\verb|deleteMin()| and check if it equals string that a correct heap should have. And it works out(at least I think so).
+	\\ It is more difficult to test because BinaryHeap has to check if the resizing works as expected, while Queue does not need to resize. 
+
+	\question Given the following segments of code, determine their asymptotic(bigTheta) runtimes in terms of n. For part c, only give the runtime of \verb|mysteryThree(int n)|
+	\begin{Verbatim}
+	(a) public void mysteryOne(int n) {
+			int sum = 0;
+			for (int i = n; i >= 0; i--) {
+				if ((i % 5) == 0) {
+					break;
+				} else {
+					for (int j = 1; j < n; j *= 2) {
+						sum++;
+					}
+				}
+			}
+		}
+	\end{Verbatim}
+	(a) has $O(n ^ 2)$ runtime.
+	\begin{Verbatim}
+	(b)	public void mysteryTwo(int n) { 
+			int x = 0;
+			for (int i = 0; i < n; i++) {
+				for (int j = 0; j < (n *(n + 1) / 3); j++) {
+					x += j;
+				}
+			}
+		}
+	\end{Verbatim}
+	(b) has $O(n ^ 3)$ runtime
+	\begin{Verbatim}
+	(c) public void mysteryThree(int n) {
+			for (int i = 0; i < n; i++) {
+				printCats(n);
+			}
+		}
+
+		public void printCats(int n) {
+			for (int i = 0; i < n; i++) {
+				System.out.println("catsmoop");
+			}
+		}
+	\end{Verbatim}
+	(c) has $O(n ^ 2)$ runtime
+\end{questions}
+\end{document}

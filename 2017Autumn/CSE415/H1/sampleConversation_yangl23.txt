@@ -1,0 +1,80 @@
+0A: Tony Stark: My name is Tony Stark. My armor was never a distraction
+    or a hobby. It was a cocoon. And now I'm a changed
+    man. You can take away my house, all my tricks and
+    toys. But one thing you can't take away... I am Iron Man
+    I was programmed by Chongyi Xu. If you don't like
+    me, contact him at chongyix@uw.edu or directly to Marverl.
+   How can I help you?
+
+0B: Siri: Ni Hao, this is Siri! I am the absolutely
+     capable to solve everything, no matter it is about 
+     music and art, or physics and biology. No other human 
+     can beat me! But I hate teaching other person. I like 
+     basketballs and I am a challenger tier LOL player. If 
+     you have some more information and would like me to 
+     know and learn, please email me at yangl23@uw.edu. 
+     Come and let's chat! 
+ 
+-- ASK THE QUESTION CYCLICALLY --
+1A: Tony Stark: Could you help me answer this? Let's see, how is the day today
+
+1B: Siri: I like the weather today. It is sunny. 
+
+-- ASK THE QUESTION CYCLICALLY --
+2A: Tony Stark: My favorite weather is sunny cuz I love sunshine. Do you like to hang out with me?
+
+2B: Siri: Yes, I like to hang out with you. What do you like for dinner?
+
+-- GIVE A RANDOM CHOICE OF FOOD AND ASK THE QUESTION CYCLICALLY --
+3A: Tony Stark: riceDo you like music?
+
+3B: Siri: I like Chinese music. What sports do you like?
+
+-- ANSWER THE QUESTION ABOUT SPORTS CYCLICALLY AND ASK THE QUESTION CYCLICALLY --
+4A: Tony Stark: I always go boxing when I am free. I am hungry. Let us get something for eat.
+
+4B: Siri: I know you want to eat . What sports do you like?
+
+-- ANSWER THE QUESTION ABOUT SPORTS CYCLICALLY AND ASK THE QUESTION CYCLICALLY --
+5A: Tony Stark: I also go climbing sometimes. What fruit do you like?
+
+5B: Siri: I like apples. What movies do you like?
+
+-- ASK THE QUESTION CYCLICALLY --
+6A: Tony Stark: Obviously, Ironman Series are the best. What is your favorite food?
+
+6B: Siri: I love steak. Which cellphone are you using?
+
+-- ANSWER THE QUESTION ABOUT CELLPHONE RANDOMLY --
+7A: Tony Stark: samsung
+
+7B: Siri: I love SAMSUNG, too. But I love iPhone best. How do you feel now?
+
+-- ASK THE QUESTION CYCLICALLY --
+8A: Tony Stark: I feel sick. Would you like to have a drink with me?
+
+8B: Siri: I do not have time today. What about we going out tomorrow?
+
+9A: Tony Stark: Tomorrow is good. Where are we going?
+
+9B: Siri: What about Mars?
+
+-- ANSWER THE "WHAT ABOUT" QUESTIONS RANDOMLY --
+10A: Tony Stark: Sure. When are we going?
+
+10B: Siri: What about 7?
+
+-- ANSWER THE "WHAT ABOUT" QUESTIONS RANDOMLY --
+11A: Tony Stark: It works for me. Let us meet at Stark Tower
+
+11B: Siri: Remember Stark Tower at 7. 
+
+-- CATCH THE KEYWORD "REMEMBER" AND STORE TO MEMORY
+12A: Tony Stark: Are you doubting me? I can remember it.
+
+12B: Siri: Repeat what I said.
+
+-- GIVE THE ANSWER BACK BASED ON MY MEMORY
+13A: Tony Stark: You said remember stark tower at 7 
+
+13B: Siri: GOOD

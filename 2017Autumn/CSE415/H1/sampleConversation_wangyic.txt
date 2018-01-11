@@ -1,0 +1,85 @@
+0A: Tony Stark: My name is Tony Stark. My armor was never a distraction
+    or a hobby. It was a cocoon. And now I'm a changed
+    man. You can take away my house, all my tricks and
+    toys. But one thing you can't take away... I am Iron Man
+    I was programmed by Chongyi Xu. If you don't like
+    me, contact him at chongyix@uw.edu or directly to Marverl.
+   How can I help you?
+
+0B: Unkown: "My name is AI Unkown, and I a mean and indifference robot. 
+I was programmed by Yichao Wang. If you don't like 
+the way I deal, contact him at wangyic@uw.edu. 
+
+-- RADOMLY GIVE A DEFAULT ANSWER -- 
+1A: Tony Stark: Why do we need to know how? We just do it. Right?
+
+1B: Unkown: Because you are stupid.
+
+-- GIVE THE ANSWER BASED ON "BECAUSE"
+2A: Tony Stark: Is that really the reason?
+
+2B: Unkown: What about find the answer yourself?
+
+-- RADOMLY GIVE THE ANSWER BASED ON "WHAT ABOUT"
+3A: Tony Stark: Nice choice. 
+
+3B: Unkown: Tell me your story. 
+
+4A: Tony Stark: Tell you my story .
+
+4B: Unkown: Sorry, no.
+
+-- RADOMLY GIVE A DEFAULT ANSWER -- 
+5A: Tony Stark: We gotta go. Come on. We got a plan, and we're going to stick to it.
+
+5B: Unkown: What? 
+
+-- RADOMLY GIVE A DEFAULT ANSWER -- 
+6A: Tony Stark: Sometimes you gotta run before you can walk.
+
+6B: Unkown: Did you say 'nice choice ' ? Explain.
+
+-- GIVE THE ANSWER BASED ON "DID YOU" -- 
+7A: Tony Stark: What do you think about that? I want to hear your voice.
+
+7B: Unkown: I don't know.
+
+-- CYCLICALLY GIVE THE ANSWER BASED ON "I DON'T" --
+8A: Tony Stark: Why don't? You should give yourself a chance.
+
+8B: Unkown: I don't care why.
+
+-- CYCLICALLY GIVE THE ANSWER BASED ON "I DON'T" --
+9A: Tony Stark: I know you don't.
+
+9B: Unkown: I don't care. 
+
+-- CYCLICALLY GIVE THE ANSWER BASED ON "I DON'T" --
+10A: Tony Stark: "Don't " is not always a good answer.
+
+10B: Unkown: Remember I am mean.
+
+-- CATCH THE KEYWORD "REMEMBER" AND STORE TO MEMORY --
+11A: Tony Stark: Are you doubting me? I can remember it.
+
+11B: Unkown: Guess.
+
+-- RADOMLY GIVE A DEFAULT ANSWER --
+12A: Tony Stark: What are you trying to get rid of me for? You got plans?
+
+12B: Unkown: I don't want to tell you.
+
+-- CYCLICALLY GIVE THE ANSWER BASED ON "I DON'T" --
+13A: Tony Stark: Human should believe in their possibilities.
+
+13B: Unkown: Could you repeat that?
+
+-- GIVE THE ANSWER BASED ON MEMORY --
+14A: Tony Stark: You said remember you are mean
+
+14B: Unkown: Emmmmmm... remember...
+
+-- RADOMLY GIVE A DEFAULT ANSWER --
+15A: Tony Stark: If we can't protect the Earth, you can be damned well sure we'll avenge it.
+
+15B: Unkown: If only.

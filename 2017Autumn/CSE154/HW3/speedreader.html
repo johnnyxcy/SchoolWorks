@@ -1,0 +1,58 @@
+<!--
+   Name: Chongyi Xu
+   Date: 10/18/2017
+   Section: CSE 154 AI
+   
+   This is the html for speed runer. It takes user's input as text and 
+   test if the user could read the text under certain conditions. Conditions
+   could be controlled by user.
+   -->
+   <!DOCTYPE html>
+   <html>
+      <head>
+         <link rel="stylesheet" type="text/css" href="speedreader.css" />
+         <script src="speedreader.js" type="text/javascript"></script>
+         <meta charset="UTF-8">
+         <meta name="author" content="Chongyi Xu">
+         <title>Speed Reader</title>
+      </head>
+      <body>
+         <h1>SpeedReader</h1>
+         <div id="output-box" class="medium"></div>
+         <div class="controls">
+            <fieldset>
+               <legend>Play Control:</legend>
+               <button id="start">Start</button>
+               <button id="stop">Stop</button>
+            </fieldset>
+            <fieldset>
+               <legend>Speed:</legend>
+               <select id="change-speeds">
+                  <option value = "1200">50 wpm</option>
+                  <option value = "200">300 wpm</option>
+                  <option value = "171" selected = "selected">350 wpm</option>
+                  <option value = "150">400 wpm</option>
+                  <option value = "133">450 wpm</option>
+                  <option value = "120">500 wpm</option>
+               </select>
+            </fieldset>
+            <fieldset>
+               <legend>Size:</legend>
+               <label><input type="radio" value="36pt" name="text-size" checked="checked" id="medium" />Medium</label>
+               <label><input type="radio" value="48pt" name="text-size" id="big" />Big</label>
+               <label><input type="radio" value="60pt" name="text-size" id="bigger" />Bigger</label>
+            </fieldset>
+         </div>
+         <div id="input-box">
+            <fieldset>
+               <legend>Input Text</legend>
+               <textarea rows="10" cols="80" id="input"></textarea>
+            </fieldset>
+         </div>
+         <div class="validator">
+            <a href="http://validator.w3.org/#validate_by_input"><img src="https://webster.cs.washington.edu/images/w3c-html-blue.png" alt="Valid HTML5" /></a> 
+            <a href="http://jigsaw.w3.org/css-validator/#validate_by_input"><img src="https://webster.cs.washington.edu/images/w3c-css-blue.png" alt="Valid CSS" /></a> 
+            <a href="http://www.jslint.com"><img src="https://webster.cs.washington.edu/images/w3c-js-blue.png" alt="Valid JS" /></a> 
+         </div>
+      </body>
+   </html>

@@ -1,0 +1,177 @@
+import java.util.Iterator;
+import java.util.NoSuchElementException;
+
+public class AVLTree implements StringTree{
+	
+	private class AVLNode{
+		//Do not change these variable names
+		String key;
+		String value;
+		AVLNode left;
+		AVLNode right;
+		int height;
+		
+		//Place any additional fields you need here
+			
+		//TODO implement the node class here
+		public AVLNode(String key, String value) {
+			this (key, value, null, null);
+		}
+		public AVLNode(String key, String value, AVLNode left,
+				AVLNode right) {
+			this.key = key;
+			this.value = value;
+			this.left = left;
+			this.right = right;
+		}
+	}
+	
+	//Use this variable as your root
+	AVLNode root;
+
+	
+	//You may use any additional fields here as you see fit
+	private int size;
+	
+	public void makeEmpty() {
+		// TODO Remove all elements from the AVL tree.
+		root = null;
+		size = 0;
+	}
+	
+	public int size() {
+		// TODO Return the number of elements currently in the tree.
+		return size;
+	}
+
+	public void insert(String key, String value) {
+		// TODO Insert the <key,value> pair into the AVLTree
+		// Throw an IllegalArgumentException if the client attempts to insert a duplicate key
+		if (find(key, root) != null) {
+			throw new IllegalArgumentException();
+		} 
+		size++;
+		root = insert(key, value, root);
+	}
+	private AVLNode insert(String key, String value, AVLNode root) {
+		if (root == null) {
+			return new AVLNode(key, value);
+		}
+		if (root.key.compareTo(key) < 0) {
+			root.left = insert(key, value, root.left);
+			if (root.left.height == root.right.height + 2) {
+				if (root.left.key.compareTo(key) > 0) {
+					root = rotateLeft(root);
+				} else {
+					root = rotateLeftRight(root);
+				}
+			}
+		} else if (root.key.compareTo(key) > 0) {
+			root.right = insert(key,value, root.right);
+			if (root.right.height == root.left.height + 2) {
+				if (root.right.key.compareTo(key) < 0) {
+					root = rotateRight(root);
+				} else {
+					root = rotateRightLeft(root);
+				}
+			}
+		}
+		root.height = updateHeight(root);
+		return root;
+	}
+	private AVLNode rotateLeft(AVLNode root) {
+		AVLNode C = root;
+		AVLNode B = root.left;
+		AVLNode A = root.left.left;
+		C.left = B.right;
+		B.right = C;
+		C.height = updateHeight(C);
+		B.height = updateHeight(B);
+		return B;
+	}
+	private AVLNode rotateLeftRight(AVLNode root) {
+		root.left = rotateRight(root.left);
+		return rotateLeft(root);
+	}
+	private AVLNode rotateRight(AVLNode root) {
+		AVLNode A = root;
+		AVLNode B = root.right;
+		AVLNode C = root.right.right;
+		A.right = B.left;
+		B.left = A;
+		A.height = updateHeight(A);
+		B.height = updateHeight(B);
+		return B;
+	}
+	private AVLNode rotateRightLeft(AVLNode root) {
+		root.right = rotateLeft(root.right);
+		return rotateRight(root);
+		
+	}
+	
+	private int updateHeight(AVLNode root) {
+		if (root.left.height > root.right.height) {
+			return root.left.height + 1;
+		} else {
+			return root.right.height + 1;
+		}
+	}
+	public String find(String key) {
+		// TODO Return the value affiliated with the String key.
+		// Throw an ObjectNotFoundException if the key is not in the AVLTree
+		if (find(key, root) == null) {
+			throw new NoSuchElementException();
+		}
+		return find(key, root);
+	}
+	private String find(String target, AVLNode root) {
+		if (root == null) {
+			return null;
+		}
+		if (root.key.equals(target)) {
+			return root.value;
+		} else if (root.key.compareTo(target) < 0) {
+			return find(target, root.left);
+		} else {
+			return find(target, root.right);
+		}
+	}
+
+	public Iterator<String> getBFSIterator() {
+		// TODO Only complete this section if you wish to attempt the 10 points EC
+		// This function should return a BFSIterator: Starter code provided below
+		return new BFSIterator(root);
+	}
+	
+	private class BFSIterator implements Iterator<String>{
+		
+		private list<AVLNode> dict;
+		
+		public BFSIterator(AVLNode root) {
+			dict = new list<AVLNode>();
+			dict.add(root);
+		}
+		public boolean hasNext() {
+			// TODO Return true if the iterator has another value to return
+			return !dict.isEmpty();
+		}
+
+		public String next() {
+			// TODO Return the next value in a BFS traversal of the tree
+			// It should start at the root and iterate through left children before right
+			if (!hasNext()) {
+				return null;
+			}
+			AVLNode cur = dict.remove();
+			if (cur.left != null && cur.right != null) {
+				dict.add(cur.left);
+				dict.add(cur.right);
+			} else if (cur.left != null) {
+				dict.add(cur.left);
+			} else if (cur.right != null) {
+				dict.add(cur.right);
+			}
+			return cur.key;
+		}
+	}
+}

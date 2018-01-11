@@ -1,0 +1,138 @@
+\documentclass[]{exam}
+\usepackage[utf8]{inputenc}
+\usepackage{enumitem}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{setspace}
+\usepackage{verbatim} 
+\usepackage{graphicx} 
+\usepackage{gensymb}
+\usepackage{color}
+\usepackage{commath}
+\doublespacing
+%opening
+\title{}
+
+%===> Formatting ===>
+\setlength{\parskip}{8pt}
+\setlength{\parindent}{20pt}
+%<=== Formatting <===
+
+
+\title{Math 327 Homework 5}
+\author{Chongyi Xu}
+
+\begin{document}
+	
+\maketitle
+\renewcommand{\labelitemii}{$\circ$}
+\begin{questions}
+\question Determine if the following series converge. Explain.
+\begin{parts}
+\part $\sum\limits_{n = 1}^\infty {\frac{1}{5n - 2}}$ 
+	\\ It diverges. Apply limit comparison test with $\sum\limits_{n = 1}^\infty \frac{1}{n}$. $\lim\limits_{n\to\infty} \abs{\frac{\frac{1}{5n - 2}}{\frac{1}{n}}} = \lim\limits_{n\to\infty} \abs{\frac{n}{5n - 2}} = \frac{1}{5} \neq 0$. Since $\sum\limits_{n = 1}^\infty \frac{1}{n}$ diverges(harmonic series), then $\sum\limits_{n = 1}^\infty {\frac{1}{5n - 2}}$ also diverges.
+\part $\sum\limits_{n = 1}^{\infty} \frac{(-1)^n}{\sqrt{n}}$
+	\\ It converges. In order to apply alternating series test, we need to prove $\frac{1}{\sqrt{n}}$ is non-increasing and converges to 0.
+	\begin{itemize}
+	\item Claim: $\frac{1}{\sqrt{n}}$ is non-increasing.
+	\\ Proof: Let $\frac{1}{\sqrt{n}} = a_n$. Then $a_n - a_{n + 1} = \frac{1}{\sqrt{n}} - \frac{1}{\sqrt{n + 1}} = \frac{\sqrt{n + 1} - \sqrt{n}}{\sqrt{n(n + 1)}}$. Since $\sqrt{n(n + 1)} > 0$ and $n + 1 > n \iff \sqrt{n + 1} > \sqrt{n}$ for $n\in\mathbb{N}$, then $a_n - a_{n + 1} > 0$. So $\frac{1}{\sqrt{n}}$ is non-increasing(decreasing). 
+	\item Claim: $\frac{1}{\sqrt{n}}$ converges to 0.
+	\\ Proof: Let $\varepsilon > 0$. By Archimedean Property, choose $N$ with $\frac{1}{N} < \varepsilon ^ 2$. Then for any $n \geq N$, $\abs{\frac{1}{\sqrt{n}} - 0} = \frac{1}{\sqrt{n}} \leq \frac{1}{\sqrt{N}}\text{ (since $n\geq N$)} < \varepsilon$ (by the choice of N). So $\frac{1}{\sqrt{n}}$ converges to 0.
+	\end{itemize}
+	So by alternating sereis test, $\sum\limits_{n = 1}^{\infty} \frac{(-1)^n}{\sqrt{n}}$ converges.
+\part $\sum\limits_{n = 1}^{\infty} (\frac{n + 1}{n^2 + 1}) ^ 3$
+	\\ It converges by applying comparison test.
+	\\ For $n = 1$, $(\frac{n + 1}{n^2 + 1}) ^ 3 = 1$. So $\sum\limits_{n = 1}^{\infty} (\frac{n + 1}{n^2 + 1}) ^ 3 = 1 + \sum\limits_{n = 2}^{\infty} (\frac{n + 1}{n^2 + 1}) ^ 3$. Therefore, we only need to consider the $\sum\limits_{n = 2}^{\infty} (\frac{n + 1}{n^2 + 1}) ^ 3$ part for convergence. 
+	\\ Claim: $(\frac{n + 1}{n^2 + 1}) ^ 3 < \frac{1}{n^3} \iff \frac{n + 1}{n^2 + 1} < \frac{1}{n}$
+	\begin{equation*}
+	\begin{split}
+	\text{Since $n\geq 2$, } \frac{n + 1}{n^2 + 1} = \frac{(n + 1)(n - 1)}{(n^2 + 1)(n - 1)} &= \frac{n ^ 2 - 1}{n^3 - n^2 + n - 1}\\
+						&< \frac{n^2}{n^3 - n^2 + n - 1} \\
+						\text{Since for $n\geq 2$, } - n^2 + n - 1 = n(1 - n) - 1  &< 0 \\
+						&< \frac{n^2}{n^3}\\
+						&= \frac{1}{n}
+	\end{split}
+	\end{equation*}
+	So we have $(\frac{n + 1}{n^2 + 1}) ^ 3 < \frac{1}{n^3} < \frac{1}{n^2}$. Since $\sum\limits_{n = 1}^\infty \frac{1}{n^2}$ converges, by comparison test, $\sum\limits_{n = 1}^\infty (\frac{n + 1}{n^2 + 1}) ^ 3$ converges
+\part $\sum\limits_{n = 1}^\infty\frac{n!}{n^n}$
+	\\ It converges by Ratio Test.
+	\begin{equation*}
+	\begin{split}
+	\lim\limits_{n\to\infty} \frac{\frac{(n + 1)!}{(n + 1)^{n + 1}}}{\frac{n!}{n^n}}
+				&=\lim\limits_{n\to\infty} \frac{(n + 1)!n^n}{(n + 1)^{n + 1} n!} \\
+				&=\lim\limits_{n\to\infty} \frac{(n + 1)!}{n!} \cdot \frac{n^n}{(n + 1)^{n + 1}} \\
+				&=\lim\limits_{n\to\infty} (n + 1) \cdot (\frac{n}{n + 1}) ^ n \cdot \frac{1}{n + 1} \\
+				&=\lim\limits_{n\to\infty} (\frac{n}{n + 1}) ^ n \\
+				&=\lim\limits_{n\to\infty} (\frac{1}{1 + \frac{1}{n}}) ^ n \\
+				&= \frac{1}{e} < 1\text{ since } \lim\limits_{n\to\infty} (1 + \frac{1}{n}) ^ n = e
+	\end{split}
+	\end{equation*}
+	Since $0 \leq \lim\limits_{n\to\infty} \frac{\frac{(n + 1)!}{(n + 1)^{n + 1}}}{\frac{n!}{n^n}} < 1$, by Ratio Test, it (absolutely) converges.
+\part $1 + \frac{1\cdot 2}{1\cdot 3} + \frac{1\cdot 2\cdot 3}{1\cdot 3\cdot 5} + ...$
+	\\ It converges by Ratio Test.
+	\\ Since $1 + \frac{1\cdot 2}{1\cdot 3} + \frac{1\cdot 2\cdot 3}{1\cdot 3\cdot 5} + ... = \sum\limits_{n = 1}^\infty \frac{n!}{(2n - 1)!}$
+	\begin{equation*}
+	\begin{split}
+	\lim\limits_{n\to\infty} \frac{\frac{(n + 1)!}{[2(n + 1) - 1]!}}{\frac{n!}{(2n - 1)!}}
+				&= \lim\limits_{n\to\infty} \frac{(n + 1)!}{n!} \cdot \frac{(2n - 1)!}{(2n + 1)!} \\
+				&= \lim\limits_{n\to\infty} (n + 1) \cdot \frac{1}{2n} \cdot \frac{1}{2n + 1} \\
+				&= \lim\limits_{n\to\infty} \frac{n + 1}{2n + 1}\cdot \frac{1}{2n} \\
+				&= \lim\limits_{n\to\infty} \frac{n + 1}{4n^2 + 2n} \\
+				&= \lim\limits_{n\to\infty} \frac{\frac{1}{n} + \frac{1}{n^2}}{4 + \frac{2}{n}} \\
+				&= \frac{\lim\limits_{n\to\infty}\frac{1}{n} + \lim\limits_{n\to\infty}\frac{1}{n^2}}{4 + \lim\limits_{n\to\infty}\frac{2}{n}} \\
+				&= 0 < 1
+	\end{split}
+	\end{equation*}
+	Since $0\leq \lim\limits_{n\to\infty} \frac{\frac{(n + 1)!}{[2(n + 1) - 1]!}}{\frac{n!}{(2n - 1)!}} < 1$, by Ratio Test, it (absolutely) converges.
+\part $\sum\limits_{n = 1}^\infty \frac{n}{2^n}$
+	\\ It converges by Ratio Test.
+	\begin{equation*}
+	\begin{split}
+	\lim\limits_{n\to\infty} \frac{\frac{n + 1}{2^{n + 1}}}{\frac{n}{2^n}}
+				&= \lim\limits_{n\to\infty} \frac{n + 1}{n} \cdot \frac{2^n}{2^{n + 1}}\\
+				&= \lim\limits_{n\to\infty} \frac{1 + \frac{1}{n}}{1} \cdot \frac{1}{2} \\
+				&= \frac{1 + \lim\limits_{n\to\infty} \frac{1}{n}}{1} \cdot \frac{1}{2}
+				&= \frac{1}{2} < 1
+	\end{split}
+	\end{equation*}
+	Since $0\leq \lim\limits_{n\to\infty} \frac{\frac{n + 1}{2^{n + 1}}}{\frac{n}{2^n}} < 1$, by Ratio Test, it (absolutely) converges.
+\end{parts}
+
+\question Redo your exam.
+\begin{parts}
+\part Find the infimum and supremum of $S = \{\frac{2n + 5}{3n - 1}: n\in\mathbb{N}\}$ and prove your claims.
+\\ Claim: $infS = \frac{2}{3},\ supS = \frac{7}{2}$. Let $\frac{2n + 5}{3n - 1} = a_n$
+\begin{itemize}
+	\item Prove $supS = \frac{7}{2}$
+	\\ For $n\in\mathbb{N}$, 
+	\begin{equation*}
+	\begin{split}
+	a_{n + 1} - a_n 	&= \frac{2(n + 1) + 5}{3(n + 1) - 1} - \frac{2n + 5}{3n - 1} \\
+						&= \frac{2n + 7}{3n + 2} - \frac{2n + 5}{3n - 1} \\
+						&= \frac{(2n + 7)(3n - 1) - (2n + 5)(3n + 2)}{(3n + 2)(3n - 1)} \\
+						&= \frac{-17}{9n^2 + 3n - 2} < 0\text{since } n\geq 1
+	\end{split}
+	\end{equation*}
+	So $a_n$ is monotone and decreasing. Then $a_1 > a_2 > a_3 >...$, which means $a_1$ is the upper bound.
+	\\ And since $\frac{7}{2} \in S$, it is the maximum elements. So no smaller number works.
+	\item Prove $infS = \frac{2}{3}$
+	\\ For $n\in\mathbb{N}$,
+	\begin{equation*}
+	a_n - \frac{2}{3} = \frac{2n + 5}{3n - 1} - \frac{2}{3} = \frac{17}{9n - 3} > 0
+	\end{equation*}
+	So $a_n > \frac{2}{3}$ for any $n$, which implies $\frac{2}{3}$ is a lower bound
+	\\ Let $r > 0$. Archimedean Property tells that there exists an $M$ such that $\frac{1}{M} < \frac{3r}{17}$. Let $N_0 = M + 1$. Then
+	\begin{equation*}
+	\frac{2}{3} + \frac{17}{9N_0 - 3} = \frac{2}{3} + \frac{17}{9M + 6} < \frac{2}{3} + \frac{17}{3M} < \frac{2}{3} + r
+	\end{equation*}
+	But $\frac{2}{3} + \frac{17}{9N_0 - 3} = \frac{2N_0 + 5}{3N_0 - 1}\in S$ for $n = N_0$. So $\frac{2}{3} + r$ is not a lower bound. Q.E.D.
+\end{itemize}
+\part Determine if the following are true or false.
+\begin{parts}
+	\part An increasing bounded sequence converges.
+	\\ It is true. Since it is increasing, it is monotone. And Monotone Convergence Theroem tells that if a sequence is bounded and monotone, it converges.
+	\part The set $\mathbb{Q}$ of rational numbers is closed.
+	\\ 
+\end{parts}
+\end{questions}
+\end{document}

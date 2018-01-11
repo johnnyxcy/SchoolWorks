@@ -1,0 +1,67 @@
+\documentclass[]{exam}
+\usepackage[utf8]{inputenc}
+\usepackage{enumitem}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{setspace}
+\usepackage{verbatim} 
+\usepackage{graphicx} 
+\usepackage{gensymb}
+\usepackage{color}
+\usepackage{commath}
+\doublespacing
+
+\title{}
+
+%===> Formatting ===>
+\setlength{\parskip}{8pt}
+\setlength{\parindent}{20pt}
+%<=== Formatting <===
+
+
+\title{Math 327 Homework 7}
+\author{Chongyi Xu}
+
+\begin{document}
+	
+\maketitle
+\begin{questions}
+\question Prove that there is a solution of the equation $x^9 + x^2 + 4 = 0$. Start with an interval $[a, b]$ with integer coordinates and using the proof of the Intermediate Value Theorem, find an interval of length less than or equal to 0.1 which contains the solution. This is essentially an exercise to decipher the proof of the Intermediate Value Theorem
+\\
+\\ Assume $a = -2,\ b = -1,\ c = 0$. Then we have $f(a) = -504 < c < 2 = f(b)$. Define two sequences $(a_n)$ and $(b_n)$ inductively such that
+\\ $\rightarrow$ If $f(\frac{a_n + b_n}{2}) > c$, then $a_{n + 1} = a_n$ and $b_{n + 1} = \frac{a_n + b_n}{2}$
+\\ $\rightarrow$ if $f(\frac{a_n + b_n}{2}) \leq c$, then $a_{n + 1} = \frac{a_n + b_n}{2}$ and $b_{n + 1} = b_n$
+\\ Then when $n = 5$, the difference between $a_n = -1.25$ and $b_n = -1.1875$ will be less than 0.1. Which implies there is a solution $x_0$ that $f(x_0) = 0$ between $[-1.25, -1.1875]$.
+
+\question Edmund and Tenzing are planning to climb mount Rainier on the same day. Edmund starts hiking up the trail towards the top of the mountain at 11am. At the same time, Tenzing is starting his descent along the same trail. Neither Edmund nor Tenzing will keep a constant speed. Suppose that Edmund gets to the top and Tenzing gets to the bottom at the same time, 3pm. Prove, using the Intermediate Value Theorem, that they have to meet at some point along the trail.
+\\
+\\ Let $a = 11am$, $b = 3pm$, $c = 0$. Define $f:[a, b] \rightarrow \mathbb{R}$ to be a function that represents the distance from Tenzing and Edmund at time $t\in[a, b]$. Consider positive direction as bottom of the mountain to top of the mountain. Let the length of the trail to be $L > 0$. Then $f(a) = -L$ and $f(b) = L$. So we have $f(a) < c = 0 < f(b)$. Since Edmund and Tenzing start climbing at the same time and get to their destinations at the same time, the function $f(t)$ will be continuous. Then, by \textit{Intermediate Value Theorem}, there exists a $t_0\in[a, b]$ that $f(t_0) = c = 0$. So Edmund and Tenzing have to meet(distance between $= 0$) at $t_0$ along the trail.
+
+\question For a function $f:D\rightarrow \mathbb{R}$, solution of the equation
+\begin{equation*}
+f(x) = x
+\end{equation*} 
+is called a \textit{fixed point}. Geometrically, the fixed point is the x-coordinate of the point where the graphs of $y = f(x)$ and $y = x$ intersect.
+\begin{parts}
+	\part Find examples
+	\\
+	\\ No fixed point: $f:\mathbb{R}\rightarrow\mathbb{R},\ f(x) = x^2 + 1$.
+	\\ A unique fixed point: $f:\mathbb{R}\rightarrow\mathbb{R},\ f(x) = -x$.
+	\\ 3 fixed point: $f:\mathbb{R}\rightarrow\mathbb{R},\ f(x) = x^5+x^2-1$.
+	\\ Infinitely many fixed points: $f:\mathbb{R}\rightarrow\mathbb{R},\ f(x) = |x|$.
+
+	\part Prove that if $f:=[-1, 1] \rightarrow\mathbb{R}$ is continuous and $f(-1) > -1$ and $f(1) < 1$, then $f$ has a fixed point.
+	\\
+	\\ Let $f:[-1, 1] \rightarrow \mathbb{R}$ to be continuous and $f(-1) > -1$, $f(1) < 1$.
+	\\ Let $x_0 \in(f(-1), f(1)) \subset (-1, 1)$, then we have $f(-1) < x_0 < f(1)$. Then by \textit{Intermediate Value Theorem}, there is an $x_0 \in(-1, 1)$ such that $f(x_0) = x_0$, which implies $f$ has a fixed point. Q.E.D.
+
+	\part Can you generalize the previous statement in any way?
+	\\
+	\\ If $f:[a, b]\rightarrow [a, b]$ is continuous, then $f$ has a fixed point.
+
+	\part Prove that if $f:\mathbb{R} \rightarrow\mathbb{R}$ is continuous and bounded then it has a fixed point.
+	\\
+	\\ Proof: Let $g(x) = f(x) - x$. Since $f:\mathbb{R}\rightarrow\mathbb{R}$ is continuous, then for every sequences $(x_n)_{n\in\mathbb{N}}$ in $\mathbb{R}$ with $x_n\rightarrow x_0$, $f(x_n)\rightarrow f(x_0)$. Then $g(x)\rightarrow f(x_0) - x_0 = g(x_0)$ (\textit{Limit Property}). Therefore $g(x)$ is also continuous. Since $f(x)$ is bounded, $a < f(x) < b$, where $a, b\in\mathbb{R}$. Then $g(a) = f(a) - a > 0$, $g(b) = f(b) - b < 0$. So $g(b) < 0 < g(a)$. By \textit{Intermediate Value Theorem}, there is an $x_0\in(a, b)$ such that $g(x_0) = f(x) - x = 0$, which implies $f(x) = x$. Therefore, it has a fixed point. Q.E.D.
+\end{parts}
+\end{questions}
+\end{document}

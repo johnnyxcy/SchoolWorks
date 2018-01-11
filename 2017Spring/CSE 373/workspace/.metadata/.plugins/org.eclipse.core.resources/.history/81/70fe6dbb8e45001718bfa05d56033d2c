@@ -1,0 +1,73 @@
+public class BSTDict {
+	private class BSTNode{
+		String dat;
+		BSTNode left;
+		BSTNode right;
+		int height;
+		
+		public BSTNode(String dat) {
+			this(dat, null, null);
+		}
+
+		public BSTNode(String dat, BSTNode left, BSTNode right) {
+			this.dat = dat;
+			this.left = left;
+			this.right = right;
+			this.height = 0;
+		}
+	}
+	
+	BSTNode overallRoot;
+	
+	public BSTDict() {
+		overallRoot = null;
+	}
+	
+	public void insert(String dat) {
+		// TODO implement insert
+		overallRoot = insert(overallRoot, dat);
+	}
+
+	private BSTNode insert(BSTNode root, String dat) {
+		if (root == null) {
+			root = new BSTNode(dat);
+		} else if (dat.compareTo(root.dat) < 0) {
+			root.left = insert(root.left, dat);
+		} else if (dat.compareTo(root.dat) > 0) {
+			root.right = insert(root.right, dat);
+		}
+		return root;
+	}
+
+	public int getHeight(String dat) {
+		BSTNode find = find(dat);
+		if (find.left.height < find.right.height) {
+			return find.right.height;
+		} else {
+			return find.left.height;
+		}
+	}
+
+	public BSTNode find(String dat) {
+		// TODO implement find
+		BSTNode searchResult = explore(dat, overallRoot);
+		if (searchResult != null) {
+			return searchResult;
+		}
+		return null;
+	}
+
+	private BSTNode explore(String dat, BSTNode node) {
+		if (node != null) {
+			if (node.dat.compareTo(dat) > 0) {
+				return explore(dat, node.left);
+			} else if (node.dat.compareTo(dat) < 0) {
+				return explore(dat, node.right);
+			} else {
+				return node;
+			}
+		}
+		return null;
+	}
+
+}

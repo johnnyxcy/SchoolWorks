@@ -1,0 +1,39 @@
+import java.util.Iterator;
+
+public abstract class AVLTester {
+
+	public static boolean verifyAVL(StringTree toTest){
+		// TODO Return true if toTest is an AVL implementation of a String tree and false otherwise. 
+		// All StringTree interface methods must behave correctly
+		// You may assume that size() and isEmpty() return the correct values
+		return isBinary(toTest) && isBalanced(toTest);
+	}
+	
+	// You may use as many static helper functions as you think are necessary
+	private static boolean isBinary(StringTree toTest) {
+		Iterator<String> it = toTest.getBFSIterator();
+		list<String> list = new list<String>();
+		String next = it.next();
+		while(it.hasNext()) {
+			next = it.next();
+			list.add(next);
+		}
+		long startTime = System.nanoTime();
+		toTest.find(next);
+		long endTime = System.nanoTime();
+		double treeTime = (startTime - endTime) / 1000000;
+		startTime = System.nanoTime();
+		list.find(next);
+		endTime = System.nanoTime();
+		double listTime = (startTime - endTime) / 1000000;
+		return treeTime <= listTime;
+	}
+	private static boolean isBalanced(StringTree toTest) {
+		Iterator<String> it = toTest.getBFSIterator();
+		BST dict = new BST();
+		while (it.hasNext()) {
+			dict.insert(it.next());
+		}
+		return isBalanced(dict.overallRoot);
+	}
+}

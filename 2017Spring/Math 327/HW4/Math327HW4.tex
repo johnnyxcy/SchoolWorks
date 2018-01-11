@@ -1,0 +1,119 @@
+\documentclass[]{exam}
+\usepackage[utf8]{inputenc}
+\usepackage{enumitem}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{setspace}
+\usepackage{verbatim} 
+\usepackage{graphicx} 
+\usepackage{gensymb}
+\usepackage{color}
+\usepackage{commath}
+\doublespacing
+%opening
+\title{}
+
+%===> Formatting ===>
+\setlength{\parskip}{8pt}
+\setlength{\parindent}{20pt}
+%<=== Formatting <===
+
+
+\title{Math 327 Homework 3}
+\author{Chongyi Xu}
+
+\begin{document}
+	
+\maketitle
+\renewcommand{\labelitemii}{$\circ$}
+\begin{questions}
+\question Let $c$ be a number with $|c| < 1$.
+	\begin{parts}
+	\part Show that there exists a $d > 0$ such that $|c| = \frac{1}{1 + d}$. Then, use the binomial theorem to show that 
+	\begin{equation*}
+		\abs{c ^ n} \leq \frac{1}{1 + nd} \leq \frac{1}{dn} \text{ for every integer } n \geq 1.
+	\end{equation*}
+	\begin{itemize}
+		\item Assume $d > 0$, then $1 + d > 1$. So $0 < \frac{1}{1 + d} < 1$. Therefore $\frac{1}{1 + d} = \abs{c}$ since $0 < \abs{c} < 1$.
+		\item Obviously, $\frac{1}{1 + nd} \leq \frac{1}{nd}$ for any $n \geq 1 $ and $d > 0$. And since $\abs{c^n} = \frac{1}{(1 + d) ^ n}$, prove $(1 + d) ^ n \geq 1 + nd$ by induction on $n$.
+		\begin{itemize}
+			\item Base Case$(n = 1)$.
+			\\ $(1 + d) ^ 1 = 1 + d$
+			\item Inductive Step
+			\\ Binomial Theorem tells that $(1 + d) ^ n = \sum_{k = 0}^{n} {n\choose k} (nd) ^ k$. So
+			\begin{align*}
+			(1 + d) ^ {n + 1}	&= (1 + d) ^ n \cdot (1 + d)\\
+								&\geq (1 + nd) \cdot (1 + d) \text{ Inductive Hypothesis}\\
+								&= 1 + d + nd + nd^2
+			\end{align*}
+			\\ Since $n \geq 1$, $nd^2 > 0$. Therefore, $(1 + d) ^ {n + 1} \geq 1 + d + nd = 1 + (n + 1)d$
+			\\ So we have
+			\begin{align*}
+			(1 + d) ^ n 			&\geq 1 + nd 			\geq nd\\
+			\frac{1}{(1 + d) ^ n}	&\leq \frac{1}{1 + nd}	\leq \frac{1}{nd}\\
+			\abs{c ^ n}				&\leq \frac{1}{1 + nd}	\leq \frac{1}{nd}
+			\end{align*}
+			\\	Q.E.D.
+		\end{itemize}
+	\end{itemize}
+	\part Use the Sandwich Theorem to give an alternative proof of $c ^ n \rightarrow 0.$
+	\begin{itemize}
+		\item $(c ^ n > 0)$. Let $a_n = 0$, then $a_n \rightarrow 0$.
+		\\ Let $b_n = \frac{1}{nd}$. In part(a), it has been proved that $c ^ n \leq \frac{1}{dn}$. And $\frac{1}{dn}\rightarrow 0$ since $d > 0$ and $n \geq 1$.
+		\\ So $a_n \leq c ^ n \leq b_n$ and $a_n \rightarrow 0,\ b_n \rightarrow 0$. Sandwich Theorem tells $c ^ n$ also converges to 0.
+		\item $(c ^ n < 0)$. Let $\alpha_n = -a_n$, $\beta_n = -b_n$.
+		\\ Then $\beta_n \leq c ^ n \leq \alpha_n$. Sandwich Theorem tells $c^n$ converges to 0. 
+	\end{itemize}
+	Q.E.D.
+	\part Prove that $\sqrt{n}c^n \rightarrow 0.$
+	\\ Let $\varepsilon > 0$. Arithmetic Property tells that there exists an $N\in \mathbb{N}$ such that $\frac{1}{\sqrt{N}d} < \varepsilon$, for $d > 0$. Assume $n \geq N$, so $\sqrt{n} \geq \sqrt{N}\Rightarrow\frac{1}{\sqrt{n}}\leq \frac{1}{\sqrt{N}}$. Then
+	\begin{align*}
+	\abs{\sqrt{n}c^n - 0}	&= \sqrt{n}\abs{c^n}\text{ since $\sqrt{n} \geq 1$}\\
+							&= \sqrt{n}\frac{1}{(1 + d) ^ n}\\
+							&\leq \frac{\sqrt{n}}{dn}\text{ from part(a)}\\
+							&= \frac{1}{d\sqrt{n}}\\
+							&\leq \frac{1}{d\sqrt{N}}\text{ since $n \geq N$}\\
+							&< \varepsilon\text{ by the choice of N}.
+	\end{align*}
+	\\ So $\sqrt{n}c ^ n$ converges to 0. Q.E.D.
+	\\ \verb|RECONSIDER THIS!!!!!!_____________________________|
+	\part Prove that if $0 < c < 1$, then $nc^n \rightarrow 0.$
+	\\ From part(c), we have $\sqrt{n}c ^ n$ converges to 0. Limit properties tell that $\sqrt{n}c ^ n \cdot \sqrt{n}c ^ n$ also converges to 0. So $nc ^ {2n}$ converges to 0. Since $\sqrt{n} \leq n \leq n ^ 2$, then $\sqrt{n} c ^ n \leq nc ^ n \leq n ^ 2c ^ n$. Since both upper bound and lower bound are converge to 0, Sandwich Theorem tells $nc ^ n$ also converges to 0. Q.E.D.
+	\end{parts}
+
+\question For a pair of positive numbers $\alpha$ and $\beta$, $\frac{\alpha + \beta}{2}$ is called the arithmetic mean and $\sqrt{\alpha\beta}$ is called the geometric mean.
+	\begin{parts}
+	\part Prove that
+	\begin{equation*}
+		\frac{\alpha + \beta}{2} \geq \sqrt{\alpha\beta}
+	\end{equation*}
+	\\ Proof:
+	\begin{align*}
+	\frac{\alpha + \beta}{2} - \sqrt{\alpha\beta}	&= \frac{\alpha + \beta - 2\sqrt{\alpha\beta}}{2}\\
+													&= \frac{(\alpha - \beta) ^ 2}{2} \geq 0
+	\end{align*}
+	Q.E.D.
+	\part Let $a, b > 0$. Define sequences $(a_n)$ and $(b_n)$ recursively with $a_1 = a,\ b_1 = b,$
+	\begin{equation*}
+		a_{n + 1} = \frac{a_n + b_n}{2} \text{ and } b_{n + 1} = \sqrt{a_nb_n}.
+	\end{equation*}
+	Prove $(a_n)$ and $(b_n)$ are monotone and that they have the same limit. This limit is called the Gauss arithmetic-geometric mean on $a$ and $b$.
+	\\ Proof: From part(a), we have for all $n > 1$, $a_n \geq b_n$. Since $b_n \geq 0$, and $a, b > 0$, then $a_n > 0$
+	\begin{itemize}
+		\item $\frac{a_{n + 1}}{a_n} = \frac{a_n + b_n}{2a_n} = \frac{1}{2}(1 + \frac{b_n}{a_n})$.
+		\\ Since $a_n\geq b_n\forall n$, $ 0 < \frac{b_n}{a_n} \leq 1$. So $\frac{1}{2} < \frac{a_{n + 1}}{a_n} \leq 1$. $(a_n)$ is non-increasing.
+		\item $\frac{b_{n + 1}}{b_n} = \sqrt{\frac{a_nb_n}{b_n ^ 2}} = \sqrt{\frac{a_n}{b_n}}$.
+		\\ Since $a_n\geq b_n\forall n$, $\frac{a_n}{b_n} \geq 1 \Rightarrow \frac{b_{n + 1}}{b_n} \geq 1$. $(b_n)$ is non-decreasing.
+	\end{itemize}
+	So for every $n$, $a_n \geq a_{n + 1} \geq b_{n + 1} \geq b_n$. Therefore, both $a_n$ and $b_n$ are monotone and bounded. \textit{Monotone Convergence Theorem} tells $a_n$ and $b_n$ both converge.
+	\\ Let $a_n \rightarrow A$ and $b_n \rightarrow B$. Then 
+	\begin{align*}
+	A = \lim_{n\rightarrow \infty}a_n 	&= \lim_{n\rightarrow\infty} {\frac{a_n + b_n}{2}}\\
+										&= \frac{1}{2}(\lim a_n + \lim b_n)\\
+										&= \frac{1}{2}(A + B)\\
+						\frac{1}{2}A	&= \frac{1}{2}B\\
+					\Rightarrow		A	&= B	
+	\end{align*}
+	\end{parts}
+\end{questions}
+\end{document}

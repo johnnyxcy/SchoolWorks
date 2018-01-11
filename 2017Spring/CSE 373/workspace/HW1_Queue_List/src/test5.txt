@@ -1,0 +1,6 @@
+enqueue a
+dequeue a
+enqueue b
+enqueue c
+dequeue b
+dequeue c

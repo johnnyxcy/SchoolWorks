@@ -1,0 +1,183 @@
+\documentclass{article}
+	\usepackage[utf8]{inputenc}
+	\usepackage{enumitem}
+	\usepackage{amsmath}
+	\usepackage{verbatim}
+	\usepackage{amsfonts}
+	\usepackage{setspace}
+	\doublespacing
+	
+	\title{}
+	
+	\setlength{\parskip}{8pt}
+	\setlength{\parindent}{20pt}
+	
+	\title{Math 383 Homework 1}
+	\author{Chongyi Xu}
+	\date{Oct, 17, 2017}
+	
+	\begin{document}
+	\maketitle
+	\begin{enumerate}
+	\item Let $y(t)$ be the number of $^{210}Pb$ atoms per gram of ordinary lead at time $t$. Let $t_0$ be the time the 
+	pigment was manufactured and $r$ the number of disintegrations of $^{226}Ra$ per gram of ordinary lead per unit time.
+	\begin{enumerate}
+		\item Explain why the following equations should govern the change in the amout of $^{210}Pb:$
+		\begin{equation*}
+			\frac{dy}{dt} = -\lambda y + r \textit{ while in the ore,}\\
+			\frac{dy}{dt} = -\lambda y \textit{ after manufacture}
+		\end{equation*}
+		$\lambda$ is the decay constant for $^{210}Pb$.
+		\\ Because during the period in the ore,  $^{210}Pb$ atoms and $^{226}Ra$ atoms are in "radioactive equilibrium", in the other words, $^{210}Pb$ atoms are decaying, but $^{226}Ra$ atoms are changing to $^{210}Pb$ atoms. After manufacture, all $^{226}Ra$ are eliminated, thus the only atoms that are decaying will be $^{210}Pb$.
+	
+		\item Measurements from a variety of ores over the earth's surface gave a range of values for the rate of disintegration of $^{226}Ra$ per gram of ordinary lead as
+		\begin{align*}
+			r &= 0 - 200 \textit{ per miniute}. \\
+			\textit{Show that it is reasonable to assume that }\\
+			\lambda_y(t_0) = r &= 0 - 200 \textit{per miniute}.
+		\end{align*}
+		\\ Since at $t = t_0$, it can be assumed that the atoms inside of the ore are $^{210}Pb$ that are changing from $^{226}Ra$ atoms. And the $^{210}Pb$ atoms that was in the ore have already decayed. So at very beginning of the decay session after manufacture, the intial rate of change in the number of $^{210}Pb$ atoms should be directly the rate of disintegration of $^{226}Ra$ atoms.
+	
+		\item Solve subject to the intial condition
+		\begin{equation*}
+			y(t_0) = r / \lambda
+		\end{equation*}
+		\\ Solution:
+		\begin{align*}
+			\frac{dy}{dt} &= -\lambda y \\
+			\int \frac{1}{y} &= \int -\lambda dt \\
+			ln{y} &= -\lambda t + C,\ C\in\mathbb{R} \\
+			y(t) &= y_0 e^{-\lambda t} \\
+			\textit{Let $t = t_0$, and given $y(t_0) = r / \lambda$} \\
+			\frac{r}{\lambda} &= y_0 e^{-\lambda t_0} \\
+			y_0 &= \frac{r}{\lambda} * e^{-\lambda t_0} \\
+			\textit{Therefore, } \\
+			y(t) &= \frac{r}{\lambda} e^{-\lambda(t - t_0)}
+		\end{align*}
+	
+		\item For the \textit{Disciples at Emmaus} painting, it was measured that
+		\begin{equation*}
+			-\frac{dy}{dt}(t) \simeq 8.5 per minute.
+		\end{equation*}
+		\\ Estimate $t - t_0$ to decide if the painting can be 300 years old.
+		\begin{align*}
+			\textit{From part(c), we have} \\
+			y(t) &= \frac{r}{\lambda} e^{-\lambda(t - t_0)} \\
+			\textit{And from (4.10), with given value of $\frac{dy}{dt}$} \\
+			\frac{dy}{dt} &= -\lambda y \textit{ after manufacture} \\
+			8.5 &= -\lambda \frac{r}{\lambda} e^{-\lambda(t - t_0)} \\
+			\textit{With $\lambda = ln{2} / \tau$} \\
+			e^{-\frac{ln{2}}{\tau}(t - t_0)} &= \frac{8.5}{r} \\
+			-\frac{ln2}{\tau} (t - t_0) &= ln{\frac{8.5}{r}} \\
+			t - t_0 &= \frac{-ln{8.5 / r}}{ln2}\tau \\
+			\textit{Taking $\tau = 300, r = 0 ~ 200$} \\
+			t - t_0 &= 1366.92 (r = 200) \\
+			t - t_0 &= 0 (r = 8.5 \textit{ Halflife could not be less than 0})
+		\end{align*}
+	\end{enumerate}
+	\item ... A drug therapy using RT (reverse transcriptase) inhibitors blocks infection, leading to $k \simeq 0$. Setting $k = 0$ in (4.11), solve for $T^{*}(t)$, Substitue it into (4.12) and solve for $V(t)$. Show that the solution is 
+	\begin{equation}
+		V(t) = \frac{V(0)}{c - \delta}[ce^{\delta t} - \delta e^{-ct}]
+	\end{equation}
+	\\ Solution:
+	\begin{align*}
+		\textit{With $k = 0$,} \\
+		\frac{dT^{*}}{dt} &= 0 - \delta T^{*} \\
+		T^{*}(t) &= T^{*}(0)e^{-\delta t} \\
+		\textit{Substitute $T^{*}(t) = T^{*}(0)e^{-\delta t}$ into $P(t)$} \\
+		P(t) &= N\delta T^{*}(0)e^{-\delta t} \\
+		\textit{Since the general solution to $V(t)$ is } \\
+		V(t) &= V(0)e^{-ct}\int_{0}^{t}e^c{\xi}P{\xi}d\xi \\
+		\textit{Substitute $P(t)$ into $V(t)$, }\\
+		V(t) &= V(0)e^{-ct}\int_{0}^{t}e^c{\xi}N\delta T^{*}(0)e^{-\delta \xi}d\xi \\
+		\textit{Then we have} \\
+		V(t) &= V(0)e^{-ct} - \frac{N\delta T^{*}(0)}{c - \delta}(e^{-ct} - e^{-\delta t}) \\
+		\textit{To find $N\delta T^{*}(0)$, assume equal clearance of production} \\
+		\frac{dV}{dt} = 0 &= N\delta T^{*}(0) \\
+		cV(0) &= N\delta T^{*}(0) \\
+		\textit{Then we have} \\
+		V(t) &= V(0)e^{-ct} - \frac{cV(0)}{c - \delta} (e^{-ct} - e^{-\delta t}) \\
+			   &= \frac{V(0)}{c - \delta} [ce^{-\delta t} - \delta e^{-ct}]
+	\end{align*}
+	
+	\item Protease inhibitors
+	\begin{enumerate}
+		\item Solve (4.15), substituting it into Eq. (4.13) to show that the solution for $T^{*}(t)$ is, assuming $T = T_0$ is a constant,
+		\begin{align*}
+			T^{*}(t) &= T^{*}(0) e^{-\delta t} + \frac{kT_0V_0(e^{-ct} - e^{-\delta t})}{\delta - c} \\
+					 &= kV_0T_0[ce^{-\delta t} - \delta e^{-ct}]/[\delta (c - \delta)] 
+		\end{align*}
+		\\ Solution:
+		\begin{align*}
+			\textit{Since $\frac{d}{dt}V_I = -cV_I$, }\\
+			V_I &= V_I(0)e^{-ct} \\
+			\textit{Substitute it into $\frac{dT^{*}(t)}{dt}$} \\
+			\frac{dT^{*}(t)}{dt} &= kV_IT - \delta T^{*} \\
+								 &= kV_I(0)e^{-ct}T(t) - \delta T^{*}(t) \\
+			\textit{Substitute $T = T_0,\ V_I(0) = V_0$} \\
+			\frac{dT^{*}(t)}{dt} &= kV_0e^{-ct}T_0 - \delta T^{*}(t) \\
+			T^{*}(t) &= T^{*}(0)e^{-\delta t} + e^{-\delta t}kV_0T_0\int_0^{t} e^{\delta \xi}\cdot e^{-c\xi} \\
+					 &= T^{*}(0)e^{-\delta t} + \frac{kV_0T_0}{\delta - c}[(e^{-\delta t}\cdot e^{\delta t}\cdot e^{-ct}) - (e^{-\delta t})] \\
+					 &= T^{*}(0)e^{-\delta t} + \frac{kT_0V_0(e^{-ct} - e^{-\delta t})}{\delta - c} \\
+					 &= kV_0T_0[ce^{-\delta t} - \delta e^{-ct}]/[\delta(c - \delta)]
+		\end{align*}
+		\item Substitue $T^{*}(t)$ found in (a) into (4.14) to show:
+		\begin{equation*}
+			V_{NI}(t) = \frac{cV_0}{c - \delta}[\frac{c}{c - \delta}(e^{-\delta t} - e^{-ct})-\delta t e^{-ct}]
+		\end{equation*}
+		\\ Solution:
+		\begin{align*}
+			\frac{dV_{NI}}{dt} 	&= N\delta T^{*}(t) - cV_{NI}\\
+			V_{NI}(t) 	&= V_{NI}(0)e^{-ct} + e^{-ct}\int_0^{t} e^{c\xi}N\delta T^{*}(\xi)d\xi\\
+						&= V_{NI}(0)e^{-ct} + e^{-ct}\int_0^t \frac{e^{c\xi}N\delta k V_0T_0[ce^{-\delta\xi} - \delta e^{-c\xi}]}{\delta (c - \delta)}d\xi\\
+						&= V_{NI}(0)e^{-ct} + e^{-ct}\frac{N\delta kV_0T_0}{\delta(c - \delta)}\int_0^{t}ce^{\xi(c - \delta)} - e^{c\xi}(1 - \delta)d\xi\\
+						&= V_{NI}(0)e^{-ct} + e^{-ct}\frac{N\delta kV_0T_0}{\delta(c - \delta)}[\frac{ce^{t(c - \delta)} - c}{c - \delta} - \frac{(1 - \delta)(e^{ct} - 1)}{c}]\\
+						&= V_{NI}(0)e^{-ct} + e^{-ct}\frac{NkV_0T_0}{(c - \delta)}\frac{c^2e^{t(c-\delta)} - (c^2 - \delta^2) - e^{ct}(c - \delta) - \delta e^{ct}(c - \delta) + c - \delta)}{c(c - \delta)}\\
+						&= ... \textit{ get lost, don't know where to go}
+		\end{align*}
+		\item Adding $V_{NI}(t)$ and $V_I(t)$, show that the total virion concentration is given by
+		\begin{equation*}
+			V(t) = V_0e^{-ct} + \frac{cV_0}{c - \delta}[\frac{c}{c - \delta}(e^{-\delta t} - e^{-ct}) - \delta te^{-ct}]
+		\end{equation*}
+		\\ Since from part(a), we have 
+		\begin{equation*}
+		    V_I = V_0e^{-ct}
+		\end{equation*}
+		\\ from part(c), we have 
+		\begin{equation*}
+		    V_{NI}(t) = \frac{cV_0}{c - \delta}[\frac{c}{c - \delta}(e^{-\delta t} - e^{-ct})-\delta t e^{-ct}]
+		\end{equation*}
+		\\ Then put $V_I$ and $V_{NI}$ into the equation $V = V_I + V_{NI}$, we have
+		\begin{equation*}
+			V(t) = V_0e^{-ct} + \frac{cV_0}{c - \delta}[\frac{c}{c - \delta}(e^{-\delta t} - e^{-ct}) - \delta te^{-ct}]
+		\end{equation*}
+		\end{enumerate}
+	\end{enumerate}
+	\end{document}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	

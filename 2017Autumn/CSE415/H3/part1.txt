@@ -1,0 +1,14 @@
+-----------------------
+CSE 415 HW 3
+PartⅠ. Written Answer
+Chongyi Xu
+1531273
+-----------------------
+
+1. "Tic-Tac-Toe"
+ans: There are (9\choose 4) * (5\choose 3)= 1260 distinct states
+
+2. "Tric-Trac-Toe"
+ans: There are (64\choose 2) * (62\choose 2) * (60\choose 2) = 29760 distinct states
+
+3. Husky Paperweights

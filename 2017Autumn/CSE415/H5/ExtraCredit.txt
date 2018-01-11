@@ -1,0 +1,3 @@
+My agent has the characteristic to be really mean. So my responses are accord with my settings. For instance, when the board state between my agent and opponent is far away, my agent will have the response like, I am the winner. That is a fact.
+When the game state changes, my agent will find the best state that my side could reach. 
+My agent will call the name of the opponent everytime, which is an interaction between my agent and opponent.

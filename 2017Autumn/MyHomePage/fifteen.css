@@ -1,0 +1,28 @@
+/* Style sheet for fifteen puzzle game*/
+	
+body, button {
+    font-family: cursive, serif;
+    font-size: 14pt;
+    text-align: center;
+}
+
+#puzzlearea {
+    height: 400px;
+    width: 400px;
+    margin-left: auto;
+    margin-right: auto;
+    position: relative;
+}
+
+.tiles {
+    border: 5px solid black;
+    font-size: 40pt;
+    height: 90px;
+    width: 90px;
+}
+
+.hover {
+    border: 5px solid red;
+    color: red;
+    cursor: pointer;
+}

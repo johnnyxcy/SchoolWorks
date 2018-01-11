@@ -1,0 +1,75 @@
+import java.util.ArrayList;
+import java.util.Iterator;
+
+public abstract class AVLTester {
+
+	public static boolean verifyAVL(StringTree toTest){
+		// TODO Return true if toTest is an AVL implementation of a String tree and false otherwise. 
+		// All StringTree interface methods must behave correctly
+		// You may assume that size() and isEmpty() return the correct values
+		return isBinary(toTest) && isBalanced(toTest);
+	}
+	
+	// You may use as many static helper functions as you think are necessary
+	private static boolean isBinary(StringTree toTest) {
+		Iterator<String> it = toTest.getBFSIterator();
+		ArrayList<String> list = new ArrayList<String>();
+		String next = it.next();
+		while(it.hasNext()) {
+			next = it.next();
+			list.add(next);
+		}
+		long startTime = System.nanoTime();
+		toTest.find(next);
+		long endTime = System.nanoTime();
+		double treeTime = (startTime - endTime) / 1000000;
+		startTime = System.nanoTime();
+		list.indexOf(next);
+		endTime = System.nanoTime();
+		double listTime = (startTime - endTime) / 1000000;
+		return treeTime <= listTime;
+	}
+	private static boolean isBalanced(StringTree toTest) {
+		Iterator<String> it = toTest.getBFSIterator();
+		
+	}
+	private class list<String> {
+		private class listNode {
+			String dat;
+			listNode next;
+			
+			public listNode(String dat, listNode next) {
+				this.dat = dat;
+				this.next = next;
+			}
+		}
+		
+		listNode front;
+		listNode last;
+		public list() {
+			this.front = null;
+			this.last = null;
+		}
+		public void insert(String next) {
+			if (front == null) {
+				front = new listNode(next, null);
+				last = front;
+			} else {
+				last.next = new listNode(next, null);
+				last = last.next;
+			}
+		}
+		public int find(String target) {
+			int result = 0;
+			listNode cur = front;
+			while (cur != null) {
+				if (cur.dat.equals(target)) {
+					return result;
+				}
+				result++;
+				cur = cur.next;
+			}
+			return -1;
+		}
+	}
+}

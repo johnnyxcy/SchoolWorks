@@ -1,0 +1,31 @@
+h1, h2 {
+    text-align: center;
+}
+.main {
+    display: flex;
+}
+.left {
+    flex-basis: 33.33%;
+}
+.right{
+    flex-basis: 66.66%;
+}
+#puppies {
+    width: 200px;
+    height: auto;
+    float : right;
+}
+#clearP {
+    clear: both;
+}
+.left, .right {
+    padding: 2em;
+    margin: 2em;
+    border: 4px;
+    border-color: red;
+    border-style: dashed;
+}
+#bottom {
+    position: fixed;
+    bottom: 5px;
+}

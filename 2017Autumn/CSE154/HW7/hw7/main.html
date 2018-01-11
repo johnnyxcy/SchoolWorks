@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>PokedexV2</title>
+    <link href="styles.css" type="text/css" rel="stylesheet" />
+    <link rel="shortcut icon" type="image/x-icon" href="https://webster.cs.washington.edu/pokedex/icons/favicon.ico">
+    <script src="https://courses.cs.washington.edu/courses/cse154/17sp/lib/ajax-promise.js"
+            type="text/javascript"></script>
+    <script src="lib.min.js" type="text/javascript"></script>
+    <script src="main.min.js" type="text/javascript"></script>
+  </head>
+  <body>
+    <h1 id="title">Game Menu</h1>
+    <button class="hidden" id="main-menu-btn">Back to Main Menu</button>
+    <section id="menu-view">
+      <ul id="menu-btns">
+        <li>
+          <button class="menu-btn" id="new-game-btn">New Game</button>
+        </li>
+        <li>
+          <button class="menu-btn" id="invite-btn">Current Games</button>
+        </li>
+        <li>
+          <button class="menu-btn" id="trade-btn">Trade Pokemon</button>
+        </li>
+        <li>
+          <button class="menu-btn" id="restart-btn">Reset Pokedex</button>
+        </li>
+      </ul>
+      <div id="new-game-view" class="sub-menu hidden">
+        <div id="opponent-btns" class="hidden part-0">
+          <h3>Please select an opponent type:</h3>
+          <button class="opponent-btn" id="-bot-">Bot</button>
+          <button class="opponent-btn" id="-random-">Random (Human) Player</button>
+          <button class="opponent-btn" id="student">Choose a Human Player...</button>
+        </div>
+        <div class="hidden part-i" id="choose-student">
+          Select a player to start a game with: 
+          <select id="opps"></select>
+        </div>
+        <div class="hidden part-ii">
+          <hr />
+          <button id="choose-pokemon-btn">Choose a Pokemon</button>
+        </div>
+        <div class="hidden part-iii">
+          <hr />
+          <h3 id="choose-pokemon-title">Choose a Pokemon:</h3>
+          <div id="choose-pokemon-container">
+            <div id="chosen-card">
+              <div class="card-container">
+                <div class="card">
+                  <img src="https://webster.cs.washington.edu/pokedex/icons/normal.jpg" alt="type" class="type"/>
+                  <span class="hp"></span>
+                  <h2 class="name">&nbsp;</h2>
+                  <div class="pokemon-pic">
+                    <img src="https://webster.cs.washington.edu/pokedex/images/pokeball.png" alt="pokemon" class="pokepic" />
+                  </div>
+                  <p class="info"></p>
+                  <div class="moves">
+                    <button>
+                      <span class="move"></span> <span class="dp"></span>
+                      <img src="https://webster.cs.washington.edu/pokedex/icons/fighting.jpg" alt="Pokemon move" />
+                    </button>
+                    <button>
+                      <span class="move"></span> <span class="dp"></span>
+                      <img src="https://webster.cs.washington.edu/pokedex/icons/fighting.jpg" alt="Pokemon move" />
+                    </button>
+                    <button>
+                      <span class="move"></span> <span class="dp"></span>
+                      <img src="https://webster.cs.washington.edu/pokedex/icons/fighting.jpg" alt="Pokemon move" />
+                    </button>
+                    <button>
+                      <span class="move"></span> <span class="dp"></span>
+                      <img src="https://webster.cs.washington.edu/pokedex/icons/fighting.jpg" alt="Pokemon move" />
+                    </button>
+                  </div>
+                  <img src="https://webster.cs.washington.edu/pokedex/icons/fighting.jpg" alt="weakness" class="weakness" />
+                </div>
+              </div>
+            </div>
+            <div class="dex-container">
+              <div class="pokedex" id="pokedex-view"></div>
+            </div>
+          </div>
+          <button class="hidden" id="start-game">Choose This Pokemon!</button>
+        </div>
+      </div>
+      <div class="hidden sub-menu" id="invite-view">
+        <h3>Current and Pending Games</h3>
+        <table class="results-table" id="games-table"></table>
+      </div>
+      <!-- <hr /> -->
+      <div class="hidden sub-menu" id="trade-view">
+        <h3>Please select a trade option:</h3>
+        <div id="trade-options">
+          <button class="mod-btn" id="view-proposals">View Proposals</button>
+          <button class="mod-btn" id="propose">Propose a Trade</button>
+        </div>
+        <div id="current-proposals-view" class="hidden part-ii">
+          <p class="hidden" id="trade-message"></p>
+          <div id= "by-you">
+              <h3>Proposals By You</h3>
+              <table class="hidden results-table">
+              </table>
+          </div>
+          <div id="to-you">
+              <h3>Proposals To You</h3>
+              <table class="hidden results-table">
+              </table>
+          </div>
+        </div>
+        <div id="new-proposal-view" class="hidden part-ii">
+          <div class="part-iii">
+            <hr />
+            <h3>Select a player to trade with:</h3>
+            <select id="users"></select>
+            <button class="mod-btn" id="show-p2-dex">Continue</button>
+          </div>
+          <div class="hidden part-iv">
+            <div id="proposal-error"></div>
+            <div id="pokedices" class="hidden">
+                <div class="dex-container">
+                  <h2>Pokemon to Offer: <span id="offer"></span></h2>
+                  <div id="my-pokemon" class="pokedex"></div>
+                </div>
+                <div class="dex-container">
+                  <h2>Pokemon to Request: <span id="request"></span></h2>
+                  <div id="their-pokemon" class="pokedex"></div>
+                </div>
+              </div>
+              <button class="mod-btn" id="propose-submit">Request Trade</button>
+              <p class="hidden" id="proposal-message"></p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- <hr /> -->
+      </section>
+      <section id="game-view" class="hidden">
+        <div id="my-card">
+        <!-- Buffs/debuffs are added to this container whenever your Pokemon
+             has them during a game -->
+          <div class="buffs"></div>
+
+          <div class="card-container">
+            <!-- Health point information should be hidden when the Pokedex view is shown, and
+                 displayed when the pokedex view is hidden (ie, in the Game View) -->
+            <div class="hp-info">
+              <p>HP:</p>
+              <div class="health-bar-container">
+                <div class="health-bar"></div>
+              </div>
+            </div>
+
+            <div class="card">
+              <img src="https://webster.cs.washington.edu/pokedex/icons/normal.jpg" alt="type" class="type"/>
+              <span class="hp">60HP</span>
+              <h2 class="name">Pokemon Name</h2>
+              <div class="pokemon-pic">
+                <img src="https://webster.cs.washington.edu/pokedex/images/pokeball.png" alt="pokemon" class="pokepic" />
+              </div>
+              <p class="info">Description here</p>
+              <div class="moves">
+                <button>
+                  <span class="move">Move Name Here</span> <span class="dp"></span>
+                  <img src="https://webster.cs.washington.edu/pokedex/icons/fighting.jpg" alt="Pokemon move" />
+                </button>
+                <button>
+                  <span class="move">Move Name Here</span> <span class="dp"></span>
+                  <img src="https://webster.cs.washington.edu/pokedex/icons/fighting.jpg" alt="Pokemon move" />
+                </button>
+                <button>
+                  <span class="move">Move Name Here</span> <span class="dp"></span>
+                  <img src="https://webster.cs.washington.edu/pokedex/icons/fighting.jpg" alt="Pokemon move" />
+                </button>
+                <button>
+                  <span class="move">Move Name Here</span> <span class="dp"></span>
+                  <img src="https://webster.cs.washington.edu/pokedex/icons/fighting.jpg" alt="Pokemon move" />
+                </button>
+              </div>
+              <img src="https://webster.cs.washington.edu/pokedex/icons/fighting.jpg" alt="weakness" class="weakness" />
+            </div>
+            <button class="hidden" id="start-btn">Choose This Pokemon!</button>
+            <button class="hidden" id="flee-btn">Flee the Battle!</button>
+          </div>
+      </div>
+
+      <!-- Results container to display move results in each turn (between the two
+           cards in the Game View) -->
+      <div class="hidden" id="results-container">
+        <p class="hidden" id="p1-turn-results"></p>
+        <p class="hidden" id="p2-turn-results"><p>
+        <p id="turn-status-p" class="hidden"><strong>Status: </strong><span id="turn-status"></span></p>
+        <img class="hidden" id="loading" src="https://webster.cs.washington.edu/pokedex/icons/loading-pikachu.gif" alt="loading" />
+        <button class ="hidden" id="endgame">Back to Pokedex</button>
+      </div>
+
+      <!-- The opponent's card should be populated when the game has started and the
+           #pokedex-view is hidden} -->
+      <div id="their-card">
+        <div class="card-container">
+          <div class="hp-info">
+            <p>HP:</p>
+            <div class="health-bar-container">
+              <div class="health-bar"></div>
+            </div>
+          </div>
+
+          <div class="card">
+            <img src="https://webster.cs.washington.edu/pokedex/icons/normal.jpg" alt="type" class="type"/>
+            <span class="hp">60HP</span>
+            <h2 class="name">Pokemon Name</h2>
+            <div class="pokemon-pic">
+              <img src="https://webster.cs.washington.edu/pokedex/images/pokeball.png" alt="pokemon" class="pokepic" />
+            </div> <div class="info-container">
+              <p class="info">Description here</p>
+            </div>
+            <div class="moves">
+              <button>
+                <span class="move">Move Name Here</span> <span class="dp"></span>
+                <img src="https://webster.cs.washington.edu/pokedex/icons/fighting.jpg" alt="Pokemon move" />
+              </button>
+              <button>
+                <span class="move">Move Name Here</span> <span class="dp"></span>
+                <img src="https://webster.cs.washington.edu/pokedex/icons/fighting.jpg" alt="Pokemon move" />
+              </button>
+              <button>
+                <span class="move">Move Name Here</span> <span class="dp"></span>
+                <img src="https://webster.cs.washington.edu/pokedex/icons/fighting.jpg" alt="Pokemon move" />
+              </button>
+              <button>
+                <span class="move">Move Name Here</span> <span class="dp"></span>
+                <img src="https://webster.cs.washington.edu/pokedex/icons/fighting.jpg" alt="Pokemon move" />
+              </button>
+            </div>
+            <img src="https://webster.cs.washington.edu/pokedex/icons/fighting.jpg" alt="weakness" class="weakness" />
+          </div>
+        </div>
+        <div class="buffs"></div>
+      </div>
+    </section>
+  </body>
+</html>

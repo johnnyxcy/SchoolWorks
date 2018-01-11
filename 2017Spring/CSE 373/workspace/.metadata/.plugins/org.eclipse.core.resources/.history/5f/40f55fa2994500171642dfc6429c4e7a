@@ -1,0 +1,92 @@
+public class BST {
+	private class BSTNode{
+		String dat;
+		BSTNode left;
+		BSTNode right;
+		
+		public BSTNode(String dat) {
+			this(dat, null, null);
+		}
+
+		public BSTNode(String dat, BSTNode left, BSTNode right) {
+			this.dat = dat;
+			this.left = left;
+			this.right = right;
+		}
+	}
+	
+	BSTNode overallRoot;
+	
+	public BST() {
+		overallRoot = null;
+	}
+	
+	public void insert(String dat) {
+		// TODO implement insert
+		overallRoot = insert(overallRoot, dat);
+	}
+
+	private BSTNode insert(BSTNode root, String dat) {
+		if (root == null) {
+			root = new BSTNode(dat);
+		} else if (dat.compareTo(root.dat) < 0) {
+			root.left = insert(root.left, dat);
+		} else if (dat.compareTo(root.dat) > 0) {
+			root.right = insert(root.right, dat);
+		}
+		return root;
+	}
+	
+	// Check if the tree right now is balanced
+	public boolean isBalanced() {
+		return isBalanced(overallRoot);
+	}
+	
+	// Check if the current node is balanced
+	private boolean isBalanced(BSTNode cur) {
+		int left = 0;
+		int right = 0;
+		boolean leftIsBalanced = true;
+		boolean rightIsBalanced = true;
+		if (cur != null) {
+			if (cur.left != null) {
+				leftIsBalanced = isBalanced(cur.left);
+				left = getHeight(cur.left);
+			}
+			if (cur.right != null) {
+				rightIsBalanced = isBalanced(cur.right);
+				right = getHeight(cur.right);
+			}
+		}
+		return leftIsBalanced && rightIsBalanced && abs(left - right) < 2;
+	}
+	
+	private int max(int a, int b) {
+		if (a > b) {
+			return a;
+		} else {
+			return b;
+		}
+	}
+	
+	private int abs(int a) {
+		if (a < 0) {
+			return -a;
+		} 
+		return a;
+	}
+	
+	private int getHeight(BSTNode node) {
+		int left = 0;
+		int right = 0;
+		if (node != null) {
+			if (node.left != null) {
+				left = getHeight(node.left);
+			}
+			if (node.right != null) {
+				right = getHeight(node.right);
+			}
+		}
+		return max(left, right) + 1;
+	}
+}

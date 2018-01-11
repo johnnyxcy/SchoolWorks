@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<!-- Yichao Wang -->
+<!-- CSE 154 AK -->
+<!-- A website for speed reading. The reader is only able to focus on a single word at a time.-->
+<html>
+	<head>
+		<title>SpeedReader</title>
+		<link href="speedreader.css" type="text/css" rel="stylesheet" />
+		<script src="speedreader.js" type="text/javascript"></script>
+	</head>
+	<body>
+		<h1>SpeedReader</h1>
+		<div id="reader">
+		</div>
+		<div id="controller">
+			<fieldset>
+				<legend>Play Controls:</legend>
+				<button id="start">Start</button>
+				<button id="stop">Stop</button>
+			</fieldset>
+			<fieldset>
+				<legend>Speed:</legend>
+				<select id="speed">
+					<option value="500">50 wpm</option>
+					<option value="200">300 wpm</option>
+					<option value="171" selected="selected">350 wpm</option>
+					<option value="150">400 wpm</option>
+					<option value="133">450 wpm</option>
+					<option value="120">500 wpm</option>
+				</select>
+			</fieldset>
+			<fieldset>
+				<legend>Size:</legend>
+				<label><input id="medium" type="radio" name="size" value="36pt" checked="checked" /> Medium</label>
+				<label><input id="big" type="radio" name="size" value="48pt" /> Big</label>
+				<label><input id="bigger" type="radio" name="size" value="60pt" /> Bigger</label>
+			</fieldset>
+		</div>
+		<div id="textPlace">
+			<fieldset>
+				<legend>Input Text</legend>
+				<textarea id="textBox" rows="10" cols="80"></textarea>
+			</fieldset>
+		</div>
+		<div id="validator">
+			<a href="https://webster.cs.washington.edu/validate-html.php"><img src="https://webster.cs.washington.edu/images/w3c-html-blue.png" alt="Valid HTML5" /></a> 
+			<a href="hhttps://webster.cs.washington.edu/validate-css.php"><img src="https://webster.cs.washington.edu/images/w3c-css-blue.png" alt="Valid CSS" /></a> 
+			<a href="https://webster.cs.washington.edu/jslint/?referer"><img src="https://webster.cs.washington.edu/images/w3c-js-blue.png" alt="Valid JS" /></a> 
+		</div>
+	</body>
+</html>

@@ -1,0 +1,33 @@
+CSE 415 Homework 2 Part 1
+Chongyi Xu
+October 13, 2017
+
+1. For each of the following, determine which of the two relations \subsetof" or \element-of" is being
+represented, and reformulate the statement to make this clearer. The first one is done for you. If you
+find genuine ambiguity in a statement, justify each of the possible interpretations.
+	a. Fido is a dog
+	Fido \element-of dogs
+	b. A parrot is a bird
+	parrot \subsetof birds
+	c. Polly is a parrot
+	Polly \element-of parrots
+	d. David Jones is a Jones
+	David Jones \element-of Jones
+	e. George Washington's a great name
+	George Washington \element-of names
+	f. Artifcial Intellengence is a state of mind
+	Artificial Intellengence \subsetof state of minds
+
+2. For each of the following relations, state whether or not it is re
+exive, whether or not it is symmetric,
+whether or not it is transitive, whether or not it is antisymmetric, and whether or not it is a partial
+order. For each example, let the set S on which the relation is defined be the set of elements mentioned
+in that example.
+	a. {(a, a)}
+	Reflexive, antisymmetric, symmetric and transitive. So it is partial order.
+	b. {(a, b), (a, c), (b, c)}
+	Antisymmetric only.
+	c. {(a, b), (b, c)} 
+	Antisymmetric only.
+	d. {}
+	Reflexive, antisymmetric, symmetric and transitive. So it is partial order.

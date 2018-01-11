@@ -1,0 +1,24 @@
+h1 {
+    text-align: center;
+    font-family: sans-serif;
+}
+
+#bubble-container {
+   border: 5px #001aaa solid;
+   border-radius: 10px;
+   width: 400px;
+   height: 400px;
+   margin-left: auto;
+   margin-right: auto;
+
+   display: flex;
+   flex-wrap: wrap;
+}
+
+.bubble {
+   width: 90px;
+   height: 90px;
+
+   border: 5px #42affa inset;
+   border-radius: 50px;
+}

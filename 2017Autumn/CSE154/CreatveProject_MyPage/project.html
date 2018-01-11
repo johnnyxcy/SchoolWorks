@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta name="author" content="Chongyi Xu">
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" type="text/css" href="index.css">
+        <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+        <title>Chongyi Xu</title>
+    </head>
+    <body>
+        <div class="sidebar barblock black box" style="width:130px">
+            <h5 class="BarItem">Chongyi Xu</h5>
+            
+            <button class="BarItem button BarLinks redTab" onclick="openLink(event, 'Python')">Python</button>
+
+            <p class="contact">
+                <a href="mailto:johnny.xcy1997@gmail.com">
+                    <img src="mail1.png" alt="mail" height="30" width="30">     
+                </a>
+                <a href="https://www.linkedin.com/in/chongyi-xu-361637118/">
+                    <img src="linkedin1.png" alt="linkedin" height="30" width="30">
+                </a>
+            </p> 
+        </div>
+        <div id = "Python" class = "container animate-top link" style="display: block">
+        <h2>Python works</h2>
+        <a href = "https://github.com/JohnniaX/CA_Ironman">Conversation Agent</a>
+        <script>
+        function openLink(evt, linkName) {
+            var i, x, tablinks;
+            x = document.getElementsByClassName("link");
+            for (i = 0; i < x.length; i++) {
+                x[i].style.display = "none";
+            }
+            tablinks = document.getElementsByClassName("BarLinks");
+            for (i = 0; i < x.length; i++) {
+                tablinks[i].className = tablinks[i].className.replace(" redTab", "");
+            }
+            document.getElementById(linkName).style.display = "block";
+            evt.currentTarget.className += " redTab";
+        }
+        </script>
+    </body>
+
+</html>

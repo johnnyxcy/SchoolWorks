@@ -1,0 +1,122 @@
+\documentclass[]{exam}
+\usepackage[utf8]{inputenc}
+\usepackage{enumitem}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{setspace}
+\usepackage{verbatim} 
+\usepackage{graphicx} 
+\usepackage{gensymb}
+\usepackage{color}
+\usepackage{commath}
+\doublespacing
+%opening
+\title{}
+
+%===> Formatting ===>
+\setlength{\parskip}{8pt}
+\setlength{\parindent}{20pt}
+%<=== Formatting <===
+
+
+\title{Math 327 Homework 3}
+\author{Chongyi Xu}
+
+\begin{document}
+	
+\maketitle
+\renewcommand{\labelitemii}{$\circ$}
+\begin{questions}
+\question Give examples of sequences with the following properties. If there is no such sequence, explain why not, citing a reference.
+	\begin{parts}
+	\part Non-increasing, convergent.
+	\\ $a_n = \sum 1 - \frac{1}{n^2}$
+	\part Not monotone, convergent.
+	\\ $a_n = 1$
+	\part Not monotone, divergent.
+	\\ $a_n = (-1) ^ n$
+	\part Unbounded, monotone.
+	\\ $a_n = n$
+	\part Bounded, increasing.
+	\\ $a_n = \sum \frac{1}{n^2}$
+	\part Unbounded, convergent.
+	\\ It is not possible. \textit{Monotone Convergence Theorem} tells that a monotone sequence converges if and only if it is bounded. So if a sequence is unbounded, it could not be convergent.
+	\part Monotone, divergent.
+	\\ $a_n = n$
+	\part Decreasing, unbounded.
+	\\ $a_n = \sum -\frac{1}{n}$
+	\end{parts}
+
+\question Prove that the set of prime numbers is closed in $\mathbb{R}$. A prime number is a positive integer greater than 1 whose only positive integer factors are 1 and itself.
+	\begin{itemize} 
+		\item Let $S = \{\text{all prime numbers}\}$. Assume $(a_n)_{n\in\mathbb{N}}$ in $S$, and $a_n \rightarrow a$, $a\in\mathbb{R}$. Let $\varepsilon = \frac{1}{2}$, then for all $n \geq N,\ \abs{a_n - a} < \frac{1}{2}$. So
+		\begin{align*}
+		\abs{a_{n + 1} - a_n}	&=\abs{a_{n + 1} - a + a - a_n}\\
+								&\leq \abs{a_{n + 1} - a} + \abs{a_n - a} \text{ by Triangular inequality}\\
+								&< \frac{1}{2} + \frac{1}{2} = 1 \text{ for any $n \geq N$}
+		\end{align*}
+		\\ Since $a_{n + 1} - a_n \in S$, then $a_{n + 1} - a_n = 0$
+		\\ So $a_n = a_N$ for all $n \geq N$.
+		\\ Thus for any $\varepsilon > 0$, there holds $\abs{a_n - a_N} = 0 < \varepsilon$
+		\\ Therefore, $a = a_N \in S$ Q.E.D.
+	\end{itemize}
+
+\question Prove the Sandwich Theorem: Let $(a_n),\ (b_n)$ and $(c_n)$ be sequences such that $a_n \leq b_n \leq c_n$ for all $n.$ Assume further that $lim_{n\rightarrow\infty} a_n = lim_{n\rightarrow\infty} c_n = m$. Then, $lim_{n\rightarrow\infty} b_n = m.$
+	\begin{itemize}
+		\item Proof: Given $a_n \leq b_n \leq c_n$ for all $n.$ 
+		\\ Since $a_n,c_n$ converges to $m$, thus for $n\geq N$, let $\abs{a_n - m} < \varepsilon_1$, and $\abs{c_n - m} , \varepsilon_2$ with $\varepsilon_1,\ \varepsilon_2 > 0$, then we have $-\varepsilon_1 < a_n - m < \varepsilon_1$ and $-\varepsilon_2 < c_n - m < \varepsilon_2$. Then,
+		\begin{equation*}
+		\begin{split}
+		-\varepsilon_1 < a_n - m \leq b_n - m \leq c_n - m < \varepsilon_2\\
+		\Rightarrow -\varepsilon_1 < b_n - m < \varepsilon_2\\
+		\Rightarrow \abs{b_n - m} < min\{\varepsilon_1, \varepsilon_2\}
+		\end{split}
+		\end{equation*}
+		\\ Since either $\varepsilon_1\text{ or } \varepsilon_2 > 0$, then $b_n$ also converges to $m$. Q.E.D.
+	\end{itemize}
+
+
+\question Suppose that the sequence $(a_n)$ is monotone. Prove that $(a_n)$ converges if and only if $(a_n^2)$ converges. Show by an example that his result does not hold without the monotone assumption.
+	\begin{itemize}
+		\item Example: $(a_n) = (-1) ^ n$. In this case, $(a_n)$ is not monotone and divergent but $(a_n^2)$ converges. 
+		\item Proof: ($\Rightarrow$) Assume $(a_n)$ is monotone and converges. Then \textit{Monotone Convergence Theorem} tells that $(a_n)$ is bounded. So $\abs{(a_n)} \leq \sqrt{\varepsilon} \forall n$, with $\varepsilon > 0$. Then $(a_n^2) = \abs{(a_n^2)} \leq \varepsilon \forall n$. Thus $(a_n^2)$ converges.
+		\\ ($\Leftarrow$) Assume $(a_n^2)$ converges and $(a_n)$ is monotone. Then $(a_n^2)$ is bounded since $\abs{(a_n^2)} = (a_n^2) < \varepsilon$. Let $\abs{(a_n^2)} \leq M^2 \forall n$, with $M\in\mathbb{R}$. Then $-M \leq (a_n) \leq M$. So $(a_n)$ is bounded. \textit{Monotone Convergence Theorem} tells $(a_n)$ converges.
+		\\ Q.E.D.
+	\end{itemize}
+
+\question If $(a_n)$ and $(b_n)$ are monotone sequences, is $(a_n + b_n)$ monotone? Is $(a_nb_n)$ monotone? Prove or give a counterexample.
+	\begin{itemize}
+		\item $(a_n + b_n)$ can be non-monotone. Counterexample: $(a_n)_{n\in\mathbb{N}} = 1, 2, 3, 4,... = n,\\ (b_n)_{n\in\mathbb{N}} = -1, -1, -3, -3, -5, -5,...$. Both $(a_n)$ and $(b_n)$ are monotone, but $(a_n + b_n) = 0, 1, 0, 1, 0, 1,...$, which is not monotone. 
+		\item $(a_nb_n)$ can be non-monotone. Counterexample: $(a_n)_{n\in\mathbb{N}} = 2, 4, 8, 16, 32,... = 2^n,\ (b_n)_{n\in\mathbb{N}} = \frac{1}{4}, \frac{1}{16}, \frac{1}{16}, \frac{1}{64}, \frac{1}{64},...$. Both $(a_n)$ and $(b_n)$ are monotone, but $(a_n \cdot b_n) = \frac{1}{2}, \frac{1}{4}, \frac{1}{2}, \frac{1}{4}, \frac{1}{2}, ...$, which is not monotone.
+	\end{itemize}
+
+
+\question Suppose that $(a_n)\ \rightarrow\ a$. Use induction to prove that for any $m\in\mathbb{N}$, the sequence $(a_n^m)$ converges to $a^m$.
+	\begin{itemize}
+		\item Proof by induction on $m\in\mathbb{N}$. Assume $a_n\ \rightarrow a$
+		\begin{itemize}
+			\item Base Case $m = 1$
+			\begin{equation*}
+			a_n\ \rightarrow a\text{ (by assumption)}
+			\end{equation*}
+			\item Inductive Step
+			\\ Assume $a_n^m\ \rightarrow a^m$. Prove $a_n^{m+1}\ \rightarrow a^{m+1}$.
+			\\ Let $\varepsilon > 0$ be given. Since $(a_n)$ converges, it is bounded. Then there exists $M > 0$ such that $\abs{a_n} \leq M\ \forall n\in\mathbb{N}$.
+			\\ Since $a_n\ \rightarrow a\text{ by assumption}$, there exists $N_0$ such that $\abs{a_n - a} < \frac{\varepsilon}{2M}$ when $n\geq N_0$.
+			\\ Since $a_n^m\ \rightarrow a^m\text{ by inductive hypothesis}$, there exists $N_m$ such that $\abs{a_n^m - a^m} < \frac{\varepsilon}{2(2 + \abs{a^m})}$ when $n\geq N_m$
+			\\ Define $N = max\{N_0, N_m\}$. Then
+			\begin{align*}
+			\abs{a_n^{m+1} - a^{m+1}}	&=\abs{a_n^m\cdot a_n - a^m\cdot a}\\
+										&=\abs{a_n^m a_n -a^m a_n + a^m a_n - a^m a}\\
+										&\leq \abs{a_n^m a_n -a^m a_n} + \abs{a^m a_n - a^m a}\text{(Triangular Inequality)}\\
+										&=\abs{a_n(a_n^m - a^m)} + \abs{a^m(a_n - a)}\\
+										&=\abs{a_n}\abs{a_n^m - a^m} + \abs{a^m}\abs{a_n - a}\\
+										&<M\frac{\varepsilon}{2M} + \abs{a^m}\frac{\varepsilon}{2(2 + \abs{a^m})}\\
+										&< \frac{\varepsilon}{2} + \frac{\varepsilon}{2}\text{ since }\frac{\abs{a^m}}{2 + \abs{a^m}} < 1\\
+										&= \varepsilon
+			\end{align*}
+			\\ So $\abs{a_n^{m+1} - a^{m+1}} < \varepsilon$. Therefore, $a_n^{m+1}\ \rightarrow a^{m+1}$.
+		\end{itemize}
+	\end{itemize}
+\end{questions}
+\end{document}

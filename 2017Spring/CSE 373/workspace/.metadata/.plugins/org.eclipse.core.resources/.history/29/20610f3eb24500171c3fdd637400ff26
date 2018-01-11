@@ -1,0 +1,205 @@
+import java.util.Iterator;
+import java.util.NoSuchElementException;
+
+public class AVLTree implements StringTree{
+	
+	private class AVLNode{
+		//Do not change these variable names
+		String key;
+		String value;
+		AVLNode left;
+		AVLNode right;
+		int height;
+		
+		//Place any additional fields you need here
+		
+		public AVLNode(String key, String value) {
+			this (key, value, null, null);
+		}
+		public AVLNode(String key, String value, AVLNode left,
+				AVLNode right) {
+			this.key = key;
+			this.value = value;
+			this.left = left;
+			this.right = right;
+		}
+	}
+	
+	//Use this variable as your root
+	AVLNode root;
+
+	
+	//You may use any additional fields here as you see fit
+	private int size;
+	
+	public void makeEmpty() {
+		root = null;
+		size = 0;
+	}
+	
+	public int size() {
+		return size;
+	}
+	
+	
+	public void insert(String key, String value) {
+		// Throw an IllegalArgumentException if the client attempts to insert a duplicate key
+		if (find(key, root) != null) {
+			throw new IllegalArgumentException("Duplicated Key");
+		} 
+		size++;
+		root = insert(key, value, root);
+	}
+	private int heightOf(AVLNode node) {
+		if (node == null) {
+			return 0;
+		}
+		return node.height;
+	}
+	
+	private AVLNode insert(String key, String value, AVLNode root) {
+		if (root == null) {
+			return new AVLNode(key, value);
+		} else if (key.compareTo(root.key) < 0) {
+			root.left = insert(key, value, root.left);
+			if (heightOf(root.left) >= heightOf(root.right) + 2) {
+				if (root.left.key.compareTo(key) > 0) {
+					root = rotateLeft(root);
+				} else {
+					root = rotateLeftRight(root);
+				}
+			}
+		} else if (key.compareTo(root.key) > 0) {
+			root.right = insert(key,value, root.right);
+			if (heightOf(root.right) >= heightOf(root.left) + 2) {
+				if (root.right.key.compareTo(key) < 0) {
+					root = rotateRight(root);
+				} else {
+					root = rotateRightLeft(root);
+				}
+			}
+		}
+		root.height = updateHeight(root);
+		return root;
+	}
+	
+	// Single Rotation with left child
+	//     C
+	//    /
+	//    B
+	//   /
+	//  A                             */
+	private AVLNode rotateLeft(AVLNode root) {
+		AVLNode C = root;
+		AVLNode B = root.left;
+		C.left = B.right;
+		B.right = C;
+		C.height = updateHeight(C);
+		B.height = updateHeight(B);
+		return B;
+	}
+	
+	// Double Rotation with left child
+	//	  	  C
+	//	     /
+	//	    B
+	//	     \
+	//	      A  						
+	private AVLNode rotateLeftRight(AVLNode root) {
+		root.left = rotateRight(root.left);
+		return rotateLeft(root);
+	}
+	
+	// Single Rotation with right child
+	//     A
+	//      \
+	//       B
+	//        \
+	//         C 
+	private AVLNode rotateRight(AVLNode root) {
+		AVLNode A = root;
+		AVLNode B = root.right;
+		A.right = B.left;
+		B.left = A;
+		A.height = updateHeight(A);
+		B.height = updateHeight(B);
+		return B;
+	}
+	
+	// Double Rotation with right child
+	//    A
+	// 	   \
+	// 	    B
+	// 	   /
+	// 	  C  
+	private AVLNode rotateRightLeft(AVLNode root) {
+		root.right = rotateLeft(root.right);
+		return rotateRight(root);
+		
+	}
+	
+	private int updateHeight(AVLNode root) {
+		if (heightOf(root.left) > heightOf(root.right)) {
+			return root.left.height + 1;
+		} else if (heightOf(root.right) > heightOf(root.left)){
+			return root.right.height + 1;
+		}
+		return 0;
+	}
+	public String find(String key) {
+		// Throw an ObjectNotFoundException if the key is not in the AVLTree
+		if (find(key, root) == null) {
+			throw new NoSuchElementException("Given key is not found");
+		}
+		return find(key, root);
+	}
+	private String find(String target, AVLNode root) {
+		if (root == null) {
+			return null;
+		}
+		if (root.key.equals(target)) {
+			return root.value;
+		} else if (root.key.compareTo(target) > 0) {
+			return find(target, root.left);
+		} else {
+			return find(target, root.right);
+		}
+	}
+
+	public Iterator<String> getBFSIterator() {
+		// This function should return a BFSIterator: Starter code provided below
+		return new BFSIterator(root);
+	}
+	
+	private class BFSIterator implements Iterator<String>{
+		
+		private list<AVLNode> dict;
+		
+		public BFSIterator(AVLNode root) {
+			dict = new list<AVLNode>();
+			dict.add(root);
+		}
+		public boolean hasNext() {
+			return !dict.isEmpty();
+		}
+		
+		// Returns next key with Breadth First Search.
+		// Throws NoSuchElementException when there is no next element.
+		public String next() {
+			// It should start at the root and iterate through left children before right
+			if (!hasNext()) {
+				throw new NoSuchElementException("There is no next element");
+			}
+			AVLNode cur = dict.remove();
+			if (cur.left != null && cur.right != null) {
+				dict.add(cur.left);
+				dict.add(cur.right);
+			} else if (cur.left != null) {
+				dict.add(cur.left);
+			} else if (cur.right != null) {
+				dict.add(cur.right);
+			}
+			return cur.key;
+		}
+	}
+}

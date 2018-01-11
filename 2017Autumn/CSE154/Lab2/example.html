@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<!-- saved from url=(0091)https://courses.cs.washington.edu/courses/cse154/17au/labs/layout/code/starter/example.html -->
+<html>
+    <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <link rel="stylesheet" href="example.css">
+    </head>
+
+    <body>
+        <hedaer>
+            <h1> 154 layout practice! Center me! </h1>
+            <h2> Center me, too! </h2>
+        </hedaer>
+
+        <p>
+            Welcome to the layout lab. This page contains the instructions for what to do...with this page. First,
+            download this file, create a CSS file to go along with it, and &lt;link&gt; it from the &lt;head&gt; section of the page.
+        </p>
+
+        <p>
+            Then, follow the instructions in this page to set various layout properties.
+        </p>
+
+        <p>
+            Wrap the &lt;h1&gt; and &lt;h2&gt; at the beginning of the page in a &lt;header&gt;, and center them with the
+            <code>text-align</code> property.
+        </p>
+
+        <p> 
+            Below this text is the main content area. It should be 70% wide, and centered in the page.
+            Wrap the two columns together into one page section (&lt;main&gt;), and make that page section a
+            flex container by setting it's <code>display</code> property to <code>flex</code>.
+        </p>
+
+        <!-- main area -->
+        <div class = "main">
+        <!-- left column -->
+        <aside class = "left"><h3>Left column</h3>
+        <p>
+            This column sits on the left of the main area. Wrap this column in a page section that indicates that it is
+            an &lt;aside&gt; for the page.
+        </p>
+        <p>        
+            It takes up 1/3 of the width of the overall content area. Accomplish this by setting the
+			<code>flex-basis</code> property to <code>33%</code>.<!--<code>1</code>. Note this
+            this is a unitless value, and only makes sense in comparison to the <code>flex-basis</code> of the other
+			column, which we'll set to <code>2</code>.-->
+        </p>
+        <!-- end left column -->
+        </aside>
+        <!-- right column -->
+        <div class = "right"><h3>Right column</h3>
+        <p>
+            This column is on the right of the main content area. It takes up 2/3 of the main content area width.
+			Accomplish this by setting it's <code>flex-basis</code> to <code>66%</code>.<!-- <code>2</code>. Flex-basis is a weird "unitless"
+            measure &mdash; this means that the <code>flex-basis</code> numbers are all simply relative to the other items
+			in the container.-->
+        </p>
+       
+        <img src="./example_files/puppy-mowgli.jpg" alt="puppies" id = "puppies">
+        <p>
+            Float the above image to the right, so that it's to the right of this text instead of above it. Set it's
+            <code>width</code> to <code>200px</code> so that it isn't so huge. The height will adjust to keep the scale
+            of the image.
+        </p>
+
+        <p id = "clearP">
+            For this paragraph, we don't want the text to wrap around the floating image anymore. Use
+            <code>clear: both</code> to cause this paragraph to move down below the floating image. Give it an
+            <code>id</code> or a <code>class</code> so that you can select this paragraph specifically in your CSS.
+        </p>
+        </div>
+        <!-- end right column -->
+        </div>
+        <!-- end main area -->
+
+        <p>
+            Both columns should have <code>2em</code> of padding, <code>2em</code> of margin, and a <code>4px</code>
+            dashed red border. Give both columns a class that they can share so that you don't have to duplicate this
+            box model CSS.
+        </p>
+
+        <p id = "bottom">
+            Finally, use <code>position: fixed</code> to set the position of this paragraph element so that is is
+            <code>5px</code> away from the bottom of the browser view port. Depending on how big your browser screen is,
+            other text from the page might overlap with it. That proves to be a big challenge with fixed position
+            elements.
+        </p>
+    
+
+</body></html>
