@@ -1,0 +1,7 @@
+f = cockroach_tuning(1:90, 1);
+sums = zeros(1, trial);
+for k = 1:trial
+    sums(k) = sum(spiketrain(k, :));
+end
+plot(f)
+errorbar(x, y, 
