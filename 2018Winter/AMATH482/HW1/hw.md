@@ -37,14 +37,14 @@ I started with cropped images first.
 %% cropped images
 path = 'data\CroppedYale';
 Files_in_main = dir(path);
-Files_in_sub = dir([path, '\ ', Files_in_main(3).name]);
+Files_in_sub = dir([path, '\', Files_in_main(3).name]);
 index = 1;
 % The "real" folder starts with index of 3
 for i = 3:length(Files_in_main)
-    subpath = [path, '\ ', Files_in_main(i).name];
+    subpath = [path, '\', Files_in_main(i).name];
     Files_in_sub = dir(subpath);
     for j = 3:length(Files_in_sub)
-        img_src = [subpath, '\ ', Files_in_sub(j).name];
+        img_src = [subpath, '\', Files_in_sub(j).name];
         img = imread(img_src);
         img = double(img);
         s = size(img);
@@ -77,7 +77,7 @@ Similarly, I imported the uncropped images.
 path = 'data\yalefaces';
 Files = dir(path);
 for i = 3:length(Files)
-    img_src = [path, '\ ', Files(i).name];
+    img_src = [path, '\', Files(i).name];
     img = imread(img_src);
     img = double(img);
     s = size(img);
@@ -209,7 +209,7 @@ From the previous work, we could make our conclusion that cropped images could b
 path = 'data\yalefaces';
 Files = dir(path);
 for i = 3:length(Files)
-    img_src = [path, '\ ', Files(i).name];
+    img_src = [path, '\', Files(i).name];
     img = imread(img_src);
     img = double(img);
     size_uncropped = size(img);
@@ -219,14 +219,14 @@ end
 %% cropped images
 path = 'data\CroppedYale';
 Files_in_main = dir(path);
-Files_in_sub = dir([path, '\ ', Files_in_main(3).name]);
+Files_in_sub = dir([path, '\', Files_in_main(3).name]);
 index = 1;
 % The "real" folder starts with index of 3
 for i = 3:length(Files_in_main)
-    subpath = [path, '\ ', Files_in_main(i).name];
+    subpath = [path, '\', Files_in_main(i).name];
     Files_in_sub = dir(subpath);
     for j = 3:length(Files_in_sub)
-        img_src = [subpath, '\ ', Files_in_sub(j).name];
+        img_src = [subpath, '\', Files_in_sub(j).name];
         img = imread(img_src);
         img = double(img);
         size_cropped = size(img);
