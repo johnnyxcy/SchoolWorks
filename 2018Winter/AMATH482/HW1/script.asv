@@ -1,0 +1,69 @@
+%% Import Data-------------------------------------------------------------
+%% uncropped images
+path = 'data\yalefaces';
+Files = dir(path);
+for i = 3:length(Files)
+    img_src = [path, '\', Files(i).name];
+    img = imread(img_src);
+    img = double(img);
+    size_uncropped = size(img);
+    data_uncropped(:, i) = reshape(img, size_uncropped(1) * size_uncropped(2), 1);
+end
+
+%% cropped images
+path = 'data\CroppedYale';
+Files_in_main = dir(path);
+Files_in_sub = dir([path, '\', Files_in_main(3).name]);
+index = 1;
+% The "real" folder starts with index of 3
+for i = 3:length(Files_in_main)
+    subpath = [path, '\', Files_in_main(i).name];
+    Files_in_sub = dir(subpath);
+    for j = 3:length(Files_in_sub)
+        img_src = [subpath, '\', Files_in_sub(j).name];
+        img = imread(img_src);
+        img = double(img);
+        size_cropped = size(img);
+        data_cropped(:, index) = reshape(img, size_cropped(1) * size_cropped(2), 1);
+        index = index + 1;
+    end
+end
+
+%% svd analysis------------------------------------------------------------
+% substract mean
+data_cropped = bsxfun(@minus, data_cropped, mean(data_cropped, 2));
+data_uncropped = bsxfun(@minus, data_uncropped, mean(data_uncropped, 2));
+% SVD
+[u_cropped, s_cropped, v_cropped] = svd(data_cropped, 'econ');
+[u_uncropped, s_uncropped, v_uncropped] = svd(data_uncropped, 'econ');
+
+%% Diagonalstic------------------------------------------------------------
+figure(2), plot(diag(s_cropped)/sum(diag(s_cropped)), 'ro', 'MarkerSize', 4)
+
+%% Reconstruction----------------------------------------------------------
+r2 = recons(2, data_cropped, u_cropped, s_cropped, v_cropped, size_cropped);
+r4 = recons(4, data_cropped, u_cropped, s_cropped, v_cropped, size_cropped);
+r20 = recons(20, data_cropped, u_cropped, s_cropped, v_cropped, size_cropped);
+r100 = recons(100, data_cropped, u_cropped, s_cropped, v_cropped, size_cropped);
+r500 = recons(500, data_cropped, u_cropped, s_cropped, v_cropped, size_cropped);
+
+% plot
+figure(3);
+subplot(2, 3, 1), imshow(r2), title('r = 2');
+subplot(2, 3, 2), imshow(r4), title('r = 4');
+subplot(2, 3, 2), imshow(r4), title('r = 4');
+
+
+
+
+
+
+
+function img = recons(rank, data_cropped, u_cropped, s_cropped, v_cropped, size_cropped)
+    mean_cropped = mean(data_cropped, 2);
+    num = 655;
+    r = u_cropped(:, 1:rank) * s_cropped(1:rank, 1:rank) * v_cropped(:, 1:rank).';
+    r = r + mean_cropped;
+    img = r(:, num);
+    img = reshape(uint8(img), size_cropped(1), size_cropped(2));
+end
