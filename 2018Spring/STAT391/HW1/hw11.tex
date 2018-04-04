@@ -61,7 +61,7 @@
     \maketitle
 
     \section{Problem 1- Practice with Probability}
-    \begin{itemize}
+    \begin{enumerate}[label=\alph*]
         \item Estimate $\theta = (\theta_0\ \theta_1\ \dots\ \theta_4)$
         \begin{lstlisting}
 observations = 0
@@ -80,11 +80,11 @@ print(theta)
         \begin{equation*}
             \theta = (0.149, 0.396, 0.049, 0.255, 0.151)
         \end{equation*}
-        And the sufficient statistics are the counts for each title, which is
+        And the sufficient statistics are the counts for each title, which is Table\ref{table1}
         \begin{table}[]
             \centering
             \caption{Sufficient Statistics for Books}
-            \label{my-label}
+            \label{table1}
             \begin{tabular}{lll}
             Book ID & Book Title                          & Count \\
             0       & War and Peace                       & 149   \\
@@ -126,9 +126,9 @@ print(theta)
     \item A customer buys n books. What is the probability that he buys at least one "Probability"?
     Denote the event that the customer buys at least one "Probability" among n books he bought
     \begin{equation*}
-        P(E) = 1 - P(^E) = 1 - (1 - 0.151)^n
+        P(E) = 1 - P(\neg E) = 1 - (1 - 0.151)^n
     \end{equation*}
-    \end{itemize} 
+    \end{enumerate} 
 
     \section{Problem 2 Practice with probability}
     A man claims to have extrasensory perception. As a test, a fair coin is fipped 10 times, and the man is
@@ -145,7 +145,7 @@ print(theta)
         T       & T          & 1    \\
         \end{tabular}
     \end{table}
-    \begin{itemize}
+    \begin{enumerate}[label=\alph*]
     \item Let $Y$ refer to the number of correct tests, and denote the outcomes of the 10 individual tests
     with the random variables $X_1,X_2, \cdots X_10$.What are the distributions of each $X_i$? What is the 
     relationship between $X_{1:10}$ and $Y$?
@@ -158,15 +158,33 @@ print(theta)
     \item What is the probability that he would have done at least this well if he had no ESP, i.e. if his guesses
     were essentially random?
     The event he would have done at least this well can be rewrite as $Y \geq 7$, denoting $Y$ as the number of 
-    correct tests. And since $Y$ is the sum of Bernoulli random variables, it will be a poisson random variable.
-    From the result table above, we can conclude that the occur rate $\lambda = 0.5 * 10 = 5$.
+    correct tests. And since $Y$ is the sum of Bernoulli random variables, it will also be a Bernoulli random variable.
+    From the result table above, we can conclude that the probability to get a head in a single trial is $p = 0.5$.
     \begin{align*}
         P(Y \geq 7)     &= P(Y=7) + P(Y=8) + P(Y=9) + P(Y=10) \\
-                        &= \frac{5^7e^{-5}}{7!} \\
-                        &\approx 8.106 * 10^{-5}
+                        &= \binom{10}{7}p^7(1-p)^3 + \binom{10}{8}p^8(1-p)^2
+                           + \binom{10}{9}p^9(1-p)^1 + \binom{10}{10}p^10(1-p)^0 \\
+                        &\approx 0.1719
     \end{align*}
 
-    \item 
+    \item Suppose the test is changed - now, the coin is flipped until the man makes an incorrect guess.
+    He guesses the first two correctly, but guesses the third wrong. What is the probability of this
+    experimental outcome (again, assuming no ESP)?
+    Denote the event that guessing first 2 correct and the third wrong to be $E$. Then,
+    \begin{equation*}
+        P(E) = 0.5^2 (1-0.5)^1 = 0.125
+    \end{equation*}
+
+    \item Assume both tests were planned beforehand. What is the probability that both of these tests turned
+    out the way they did? In other words, the plan was to first flip the coin 10 times and count how many times 
+    the man is correct (Y ) then to continue flipping until the man makes the next mistake, at flip 10 + Z. 
+    You are asked the probability that Y = 7 and Z = 3.
+    \begin{align*}
+        P(\{Y=7\}\cup \{Z=3\})  &= P(Y=7) \cdot P(Z=3) \\
+                            &= \binom{10}{7}p^7(1-p)^3 \cdot p^2 (1-p)^1 \\
+                            &\approx 0.01465
+    \end{align*}
+    \end{enumerate}
         %----------------------------------------------------------------------------------------
         %	APPENDIX
         %----------------------------------------------------------------------------------------
