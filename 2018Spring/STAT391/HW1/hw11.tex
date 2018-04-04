@@ -1,0 +1,175 @@
+\documentclass[preprint,12pt]{elsarticle}
+
+    \usepackage[sc]{mathpazo} % Use the Palatino font
+    \usepackage[T1]{fontenc} % Use 8-bit encoding that has 256 glyphs
+    \usepackage{microtype} % Slightly tweak font spacing for aesthetics
+    \usepackage[english]{babel} % Language hyphenation and typographical rules
+    \usepackage{booktabs} % Horizontal rules in tables
+    \usepackage{enumitem} % Customized lists
+    \usepackage[table,xcdraw]{xcolor}
+    \usepackage[utf8]{inputenc} % Required for inputting international characters
+    \usepackage{parskip}
+    \usepackage{graphicx}
+    \usepackage{hyperref}
+    \usepackage{pdfpages}
+    \usepackage{amsmath}
+    \usepackage{esvect}
+    \usepackage{listings}
+    \usepackage{color}
+    \usepackage[title]{appendix}
+    \hypersetup{
+        colorlinks=true,
+        linkcolor=blue,
+        filecolor=magenta,      
+        urlcolor=cyan,
+    }
+    \definecolor{dkgreen}{rgb}{0,0.6,0}
+    \definecolor{gray}{rgb}{0.5,0.5,0.5}
+    \definecolor{mauve}{rgb}{0.58,0,0.82}
+    \definecolor{lightgray}{rgb}{0.83, 0.83, 0.83}
+    \definecolor{timberwolf}{rgb}{0.86, 0.84, 0.82}
+    \definecolor{whitesmoke}{rgb}{0.96, 0.96, 0.96}
+    
+    \lstset{frame=tb,
+    language=python,
+    aboveskip=3mm,
+    belowskip=3mm,
+    showstringspaces=false,
+    columns=flexible,
+    basicstyle={\small\ttfamily},
+    numbers=none,
+    numberstyle=\tiny\color{gray},
+    keywordstyle=\color{blue},
+    commentstyle=\color{dkgreen},
+    stringstyle=\color{mauve},
+    breaklines=true,
+    breakatwhitespace=true,
+    tabsize=3,
+    backgroundcolor = \color{whitesmoke}
+    }
+
+    \begin{document}
+    \title{\LARGE \bf
+        STAT 391 Homework 1
+        }
+        
+        \author{ \parbox{3 in}{\centering Chongyi Xu \\
+                 University of Washington\\
+                 STAT 391 Spring 2018\\
+                 {\tt\small chongyix@uw.edu}}
+        }
+    \maketitle
+
+    \section{Problem 1- Practice with Probability}
+    \begin{itemize}
+        \item Estimate $\theta = (\theta_0\ \theta_1\ \dots\ \theta_4)$
+        \begin{lstlisting}
+observations = 0
+counter = {0:0, 1:0, 2:0, 3:0, 4:0}
+for line in open(r'C:\Users\johnn\Documents\UW\SchoolWorks
+\\2018Spring\STAT391\HW1\hw2-little-amazon.dat').readlines():
+    line = int(line.rstrip())
+    counter[line] = counter[line] + 1
+    observations = observations + 1
+
+theta = [counter[0]/observations, counter[1]/observations, \
+            counter[2]/observations, counter[3]/observations, counter[4]/observations]
+print(theta)
+        \end{lstlisting}
+        As the result, I got my $\theta$ to be
+        \begin{equation*}
+            \theta = (0.149, 0.396, 0.049, 0.255, 0.151)
+        \end{equation*}
+        And the sufficient statistics are the counts for each title, which is
+        \begin{table}[]
+            \centering
+            \caption{Sufficient Statistics for Books}
+            \label{my-label}
+            \begin{tabular}{lll}
+            Book ID & Book Title                          & Count \\
+            0       & War and Peace                       & 149   \\
+            1       & Harry Potter \& the Deathly Hallows & 396   \\
+            2       & Winnie the Pooh                     & 49    \\
+            3       & Get rich NOW                        & 255   \\
+            4       & Probability                         & 151  
+            \end{tabular}
+        \end{table}
+
+    \item A customer buys 3 books. What is the probability that he buys “War and Peace”, “Harry Potter”, 
+    “Probability” in this order?
+    Assign the event that a customer buys the $i^{th}$ book as $E_i$, then we are looking for the probability
+    that $P(E_0) \cdot P(E_1) \cdot P(E_4)$ since the book that every time that customer gets is an independent random
+    \begin{equation*}
+        P(E_0) \cdot P(E_1) \cdot P(E_4) = 0.149 * 0.396 * 0.151 \approx 0.008910
+    \end{equation*}
+    And getting these three books has $2 * 3 = 6$ combinations, and we are only looking for one of those, thus
+    \begin{equation*}
+        P = \binom{6}{1} \cdot (P(E_0) \cdot P(E_1) \cdot P(E_4)) \approx 0.001485
+    \end{equation*}
+    Therefore, the probability that the customer buys “War and Peace”, “Harry Potter”, “Probability” in this order
+    is $0.001484934$.
+
+    \item A customer buys 4 books. What is the probability that she buys only non-fiction, that is, $N={3, 4}$
+    ?
+    Denote the event that the customer buys 4 books and she buys only non-fiction as $E$. Then
+    \begin{equation*}
+        P(E) = (P(E_3) + P(E_4))^4 = (0.255 + 0.151)^4 \approx 0.02717
+    \end{equation*}
+
+    \item A customer buys 2 "Probability" books and 3 fiction (i.e 0 or 1 or 2) books. What is the probability
+    of this event?
+    Denote the event that the customer buys 2 "Probability" books and 3 fiction (i.e 0 or 1 or 2) books as $E$. Then
+    \begin{equation*}
+        P(E) = P(E_4)^2 * (P(E_0) + P(E_1) + P(E_2))^3 = 0.151^2 * (0.149 + 0.396 + 0.049)^3 \approx 0.004779
+    \end{equation*}
+
+    \item A customer buys n books. What is the probability that he buys at least one "Probability"?
+    Denote the event that the customer buys at least one "Probability" among n books he bought
+    \begin{equation*}
+        P(E) = 1 - P(^E) = 1 - (1 - 0.151)^n
+    \end{equation*}
+    \end{itemize} 
+
+    \section{Problem 2 Practice with probability}
+    A man claims to have extrasensory perception. As a test, a fair coin is fipped 10 times, and the man is
+    asked to predict the outcome in advance. He gets 7 out of 10 correct.
+    \begin{table}[]
+        \centering
+        \caption{Possible Results of Prediction}
+        \label{my-label}
+        \begin{tabular}{lll}
+        Outcome & Prediction & Result \\
+        H       & H          & 1  \\
+        H       & T          & 0   \\
+        T       & H          & 0   \\
+        T       & T          & 1    \\
+        \end{tabular}
+    \end{table}
+    \begin{itemize}
+    \item Let $Y$ refer to the number of correct tests, and denote the outcomes of the 10 individual tests
+    with the random variables $X_1,X_2, \cdots X_10$.What are the distributions of each $X_i$? What is the 
+    relationship between $X_{1:10}$ and $Y$?
+    For each random varibale $X_i$, it has a Bernoulli distribution to be either 1 (for correct test) or 0
+    (for incorrect test). The relationship between $X_i,\ 1\leq i\leq 10$ and $Y$ is 
+    \begin{equation*}
+        Y = \sum_{i=1}^{10} X_i
+    \end{equation*}
+
+    \item What is the probability that he would have done at least this well if he had no ESP, i.e. if his guesses
+    were essentially random?
+    The event he would have done at least this well can be rewrite as $Y \geq 7$, denoting $Y$ as the number of 
+    correct tests. And since $Y$ is the sum of Bernoulli random variables, it will be a poisson random variable.
+    From the result table above, we can conclude that the occur rate $\lambda = 0.5 * 10 = 5$.
+    \begin{align*}
+        P(Y \geq 7)     &= P(Y=7) + P(Y=8) + P(Y=9) + P(Y=10) \\
+                        &= \frac{5^7e^{-5}}{7!} \\
+                        &\approx 8.106 * 10^{-5}
+    \end{align*}
+
+    \item 
+        %----------------------------------------------------------------------------------------
+        %	APPENDIX
+        %----------------------------------------------------------------------------------------
+
+    \end{document}
+    
