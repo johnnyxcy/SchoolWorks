@@ -1,0 +1,850 @@
+<!doctype html><html><head><meta charset='utf-8'>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/github-markdown-css/2.4.1/github-markdown.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.11.0/styles/default.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.8.3/katex.min.css">
+<link rel="stylesheet" href="https://gitcdn.xyz/repo/goessner/mdmath/master/css/texmath.css">
+<link rel="stylesheet" href="https://gitcdn.xyz/repo/goessner/mdmath/master/css/vscode-texmath.css">
+
+</head><body class="markdown-body">
+<h1 data-line="0" class="code-line" id="amath-342-hw-3">AMATH 342 HW 3</h1>
+<h2 data-line="1" class="code-line" id="due-monday-feb-26">Due Monday, Feb 26</h2>
+<h3 data-line="2" class="code-line" id="chongyi-xu-univeristy-of-washington">Chongyi Xu, Univeristy of Washington</h3>
+<h2 data-line="4" class="code-line" id="i-filtering-of-inputs">I. Filtering of inputs</h2>
+<ul>
+<li data-line="5" class="code-line">
+<p data-line="5" class="code-line">Choose <eq><span class="katex"><span class="katex-mathml"><math><semantics><mrow><msub><mi>t</mi><mrow><mi>n</mi><mi>o</mi><mi>w</mi></mrow></msub><mo>=</mo><mn>3</mn><mn>0</mn><mi>m</mi><mi>s</mi></mrow><annotation encoding="application/x-tex">t_{now}=30ms</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.64444em;"></span><span class="strut bottom" style="height:0.79444em;vertical-align:-0.15em;"></span><span class="base"><span class="mord"><span class="mord mathit">t</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.151392em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathit mtight">n</span><span class="mord mathit mtight">o</span><span class="mord mathit mtight" style="margin-right:0.02691em;">w</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"></span></span></span></span></span><span class="mrel">=</span><span class="mord mathrm">3</span><span class="mord mathrm">0</span><span class="mord mathit">m</span><span class="mord mathit">s</span></span></span></span></eq>, <eq><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>V</mi><mo>(</mo><msub><mi>t</mi><mrow><mi>n</mi><mi>o</mi><mi>w</mi></mrow></msub><mo>)</mo><mo>=</mo><mn>1</mn><mn>0</mn><mi>m</mi><mi>V</mi></mrow><annotation encoding="application/x-tex">V(t_{now})=10mV</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.75em;"></span><span class="strut bottom" style="height:1em;vertical-align:-0.25em;"></span><span class="base"><span class="mord mathit" style="margin-right:0.22222em;">V</span><span class="mopen">(</span><span class="mord"><span class="mord mathit">t</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.151392em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathit mtight">n</span><span class="mord mathit mtight">o</span><span class="mord mathit mtight" style="margin-right:0.02691em;">w</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"></span></span></span></span></span><span class="mclose">)</span><span class="mrel">=</span><span class="mord mathrm">1</span><span class="mord mathrm">0</span><span class="mord mathit">m</span><span class="mord mathit" style="margin-right:0.22222em;">V</span></span></span></span></eq>, and <eq><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>R</mi><mo>∗</mo><mi>C</mi><mo>=</mo><mn>1</mn><mn>0</mn><mi>m</mi><mi>s</mi></mrow><annotation encoding="application/x-tex">R*C=10ms</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.68333em;"></span><span class="strut bottom" style="height:0.68333em;vertical-align:0em;"></span><span class="base"><span class="mord mathit" style="margin-right:0.00773em;">R</span><span class="mbin">∗</span><span class="mord mathit" style="margin-right:0.07153em;">C</span><span class="mrel">=</span><span class="mord mathrm">1</span><span class="mord mathrm">0</span><span class="mord mathit">m</span><span class="mord mathit">s</span></span></span></span></eq>. Find two input currents <eq><span class="katex"><span class="katex-mathml"><math><semantics><mrow><msub><mi>I</mi><mn>1</mn></msub><mo>(</mo><mi>t</mi><mo>)</mo></mrow><annotation encoding="application/x-tex">I_1(t)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.75em;"></span><span class="strut bottom" style="height:1em;vertical-align:-0.25em;"></span><span class="base"><span class="mord"><span class="mord mathit" style="margin-right:0.07847em;">I</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-left:-0.07847em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathrm mtight">1</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"></span></span></span></span></span><span class="mopen">(</span><span class="mord mathit">t</span><span class="mclose">)</span></span></span></span></eq> and <eq><span class="katex"><span class="katex-mathml"><math><semantics><mrow><msub><mi>I</mi><mn>2</mn></msub><mo>(</mo><mi>t</mi><mo>)</mo></mrow><annotation encoding="application/x-tex">I_2(t)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.75em;"></span><span class="strut bottom" style="height:1em;vertical-align:-0.25em;"></span><span class="base"><span class="mord"><span class="mord mathit" style="margin-right:0.07847em;">I</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-left:-0.07847em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathrm mtight">2</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"></span></span></span></span></span><span class="mopen">(</span><span class="mord mathit">t</span><span class="mclose">)</span></span></span></span></eq>.</p>
+<p data-line="7" class="code-line">First, set the values we have chosen.</p>
+</li>
+</ul>
+<pre class="hljs"><code><div>deltat=<span class="hljs-number">0.1</span> ; <span class="hljs-comment">%timestep</span>
+Tmax=<span class="hljs-number">50</span>;
+
+<span class="hljs-comment">%circuit parameters</span>
+R=<span class="hljs-number">10</span>;
+C=<span class="hljs-number">1</span>;
+</div></code></pre>
+<p data-line="17" class="code-line">And plug these values into the given file <code>euler_illustrateRC.m</code>.</p>
+<pre class="hljs"><code><div>deltat=<span class="hljs-number">0.01</span> ; <span class="hljs-comment">%timestep</span>
+Tmax=<span class="hljs-number">50</span>;
+
+tlist=<span class="hljs-built_in">linspace</span>(<span class="hljs-number">0</span>,Tmax,Tmax/deltat +<span class="hljs-number">1</span>) ;
+V1=<span class="hljs-built_in">zeros</span>(<span class="hljs-number">1</span>,<span class="hljs-built_in">length</span>(tlist));
+V2=<span class="hljs-built_in">zeros</span>(<span class="hljs-number">1</span>,<span class="hljs-built_in">length</span>(tlist));
+
+<span class="hljs-comment">%initialize</span>
+V0=<span class="hljs-number">0</span>;
+V1(<span class="hljs-number">1</span>)=V0;
+V2(<span class="hljs-number">1</span>)=V0;
+
+<span class="hljs-comment">%circuit parameters</span>
+R=<span class="hljs-number">10</span>;
+C=<span class="hljs-number">1</span>;
+</div></code></pre>
+<p data-line="37" class="code-line">And then we would like to find the input current that could give <eq><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>V</mi><mo>(</mo><msub><mi>t</mi><mrow><mi>n</mi><mi>o</mi><mi>w</mi></mrow></msub><mo>)</mo><mo>=</mo><mn>1</mn><mn>0</mn><mi>m</mi><mi>V</mi></mrow><annotation encoding="application/x-tex">V(t_{now}) = 10 mV</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.75em;"></span><span class="strut bottom" style="height:1em;vertical-align:-0.25em;"></span><span class="base"><span class="mord mathit" style="margin-right:0.22222em;">V</span><span class="mopen">(</span><span class="mord"><span class="mord mathit">t</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.151392em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathit mtight">n</span><span class="mord mathit mtight">o</span><span class="mord mathit mtight" style="margin-right:0.02691em;">w</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"></span></span></span></span></span><span class="mclose">)</span><span class="mrel">=</span><span class="mord mathrm">1</span><span class="mord mathrm">0</span><span class="mord mathit">m</span><span class="mord mathit" style="margin-right:0.22222em;">V</span></span></span></span></eq> when <eq><span class="katex"><span class="katex-mathml"><math><semantics><mrow><msub><mi>t</mi><mrow><mi>n</mi><mi>o</mi><mi>w</mi></mrow></msub><mo>=</mo><mn>3</mn><mn>0</mn><mi>m</mi><mi>s</mi></mrow><annotation encoding="application/x-tex">t_{now}= 30ms</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.64444em;"></span><span class="strut bottom" style="height:0.79444em;vertical-align:-0.15em;"></span><span class="base"><span class="mord"><span class="mord mathit">t</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.151392em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathit mtight">n</span><span class="mord mathit mtight">o</span><span class="mord mathit mtight" style="margin-right:0.02691em;">w</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"></span></span></span></span></span><span class="mrel">=</span><span class="mord mathrm">3</span><span class="mord mathrm">0</span><span class="mord mathit">m</span><span class="mord mathit">s</span></span></span></span></eq>. With testing for a several number of different input currents, the <eq><span class="katex"><span class="katex-mathml"><math><semantics><mrow><msub><mi>I</mi><mn>1</mn></msub><mo>(</mo><mi>t</mi><mo>)</mo></mrow><annotation encoding="application/x-tex">I_1(t)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.75em;"></span><span class="strut bottom" style="height:1em;vertical-align:-0.25em;"></span><span class="base"><span class="mord"><span class="mord mathit" style="margin-right:0.07847em;">I</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-left:-0.07847em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathrm mtight">1</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"></span></span></span></span></span><span class="mopen">(</span><span class="mord mathit">t</span><span class="mclose">)</span></span></span></span></eq> and <eq><span class="katex"><span class="katex-mathml"><math><semantics><mrow><msub><mi>I</mi><mn>2</mn></msub><mo>(</mo><mi>t</mi><mo>)</mo></mrow><annotation encoding="application/x-tex">I_2(t)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.75em;"></span><span class="strut bottom" style="height:1em;vertical-align:-0.25em;"></span><span class="base"><span class="mord"><span class="mord mathit" style="margin-right:0.07847em;">I</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-left:-0.07847em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathrm mtight">2</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"></span></span></span></span></span><span class="mopen">(</span><span class="mord mathit">t</span><span class="mclose">)</span></span></span></span></eq> I got are <eq><span class="katex"><span class="katex-mathml"><math><semantics><mrow><msub><mi>I</mi><mn>1</mn></msub><mo>(</mo><mi>t</mi><mo>)</mo><mo>=</mo><mn>1</mn><mi mathvariant="normal">.</mi><mn>0</mn><mn>5</mn><mn>1</mn><mn>5</mn><mn>7</mn></mrow><annotation encoding="application/x-tex">I_1(t) = 1.05157</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.75em;"></span><span class="strut bottom" style="height:1em;vertical-align:-0.25em;"></span><span class="base"><span class="mord"><span class="mord mathit" style="margin-right:0.07847em;">I</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-left:-0.07847em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathrm mtight">1</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"></span></span></span></span></span><span class="mopen">(</span><span class="mord mathit">t</span><span class="mclose">)</span><span class="mrel">=</span><span class="mord mathrm">1</span><span class="mord mathrm">.</span><span class="mord mathrm">0</span><span class="mord mathrm">5</span><span class="mord mathrm">1</span><span class="mord mathrm">5</span><span class="mord mathrm">7</span></span></span></span></eq> and <eq><span class="katex"><span class="katex-mathml"><math><semantics><mrow><msub><mi>I</mi><mn>2</mn></msub><mo>(</mo><mi>t</mi><mo>)</mo><mo>=</mo><mo>−</mo><mn>6</mn><mn>4</mn><mi mathvariant="normal">.</mi><mn>6</mn><mn>8</mn><mn>1</mn><mo>∗</mo><mi>s</mi><mi>i</mi><mi>n</mi><mo>(</mo><mi>t</mi><mo>)</mo></mrow><annotation encoding="application/x-tex">I_2(t) = -64.681 * sin(t)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.75em;"></span><span class="strut bottom" style="height:1em;vertical-align:-0.25em;"></span><span class="base"><span class="mord"><span class="mord mathit" style="margin-right:0.07847em;">I</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-left:-0.07847em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathrm mtight">2</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"></span></span></span></span></span><span class="mopen">(</span><span class="mord mathit">t</span><span class="mclose">)</span><span class="mrel">=</span><span class="mord">−</span><span class="mord mathrm">6</span><span class="mord mathrm">4</span><span class="mord mathrm">.</span><span class="mord mathrm">6</span><span class="mord mathrm">8</span><span class="mord mathrm">1</span><span class="mbin">∗</span><span class="mord mathit">s</span><span class="mord mathit">i</span><span class="mord mathit">n</span><span class="mopen">(</span><span class="mord mathit">t</span><span class="mclose">)</span></span></span></span></eq>, which are obviously very different from each other. However, they results in same <eq><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>V</mi><mo>(</mo><msub><mi>t</mi><mrow><mi>n</mi><mi>o</mi><mi>w</mi></mrow></msub><mo>)</mo><mo>=</mo><mn>1</mn><mn>0</mn><mi>m</mi><mi>V</mi></mrow><annotation encoding="application/x-tex">V(t_{now})=10mV</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.75em;"></span><span class="strut bottom" style="height:1em;vertical-align:-0.25em;"></span><span class="base"><span class="mord mathit" style="margin-right:0.22222em;">V</span><span class="mopen">(</span><span class="mord"><span class="mord mathit">t</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.151392em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathit mtight">n</span><span class="mord mathit mtight">o</span><span class="mord mathit mtight" style="margin-right:0.02691em;">w</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"></span></span></span></span></span><span class="mclose">)</span><span class="mrel">=</span><span class="mord mathrm">1</span><span class="mord mathrm">0</span><span class="mord mathit">m</span><span class="mord mathit" style="margin-right:0.22222em;">V</span></span></span></span></eq> at <eq><span class="katex"><span class="katex-mathml"><math><semantics><mrow><msub><mi>t</mi><mrow><mi>n</mi><mi>o</mi><mi>w</mi></mrow></msub><mo>=</mo><mn>3</mn><mn>0</mn><mi>m</mi><mi>s</mi></mrow><annotation encoding="application/x-tex">t_{now} = 30ms</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.64444em;"></span><span class="strut bottom" style="height:0.79444em;vertical-align:-0.15em;"></span><span class="base"><span class="mord"><span class="mord mathit">t</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.151392em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathit mtight">n</span><span class="mord mathit mtight">o</span><span class="mord mathit mtight" style="margin-right:0.02691em;">w</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"></span></span></span></span></span><span class="mrel">=</span><span class="mord mathrm">3</span><span class="mord mathrm">0</span><span class="mord mathit">m</span><span class="mord mathit">s</span></span></span></span></eq>.</p>
+<pre class="hljs"><code><div><span class="hljs-comment">%define input currents</span>
+I1=<span class="hljs-number">1.05157</span> * <span class="hljs-built_in">ones</span>(<span class="hljs-number">1</span>,<span class="hljs-built_in">length</span>(tlist));
+I2=<span class="hljs-number">-64.681</span>* <span class="hljs-built_in">sin</span>(tlist);
+
+<span class="hljs-comment">%caculate for V1 and V2 for every t</span>
+<span class="hljs-keyword">for</span> n=<span class="hljs-number">1</span>:<span class="hljs-built_in">length</span>(tlist)<span class="hljs-number">-1</span>
+    t=tlist(n);
+    V1(n+<span class="hljs-number">1</span>)=V1(n) + (-V1(n)/(R*C) + I1(n)/C )*deltat;
+    V2(n+<span class="hljs-number">1</span>)=V2(n) + (-V2(n)/(R*C) + I2(n)/C )*deltat;
+<span class="hljs-keyword">end</span>
+</div></code></pre>
+<p data-line="52" class="code-line">Then we would like to see the difference between <eq><span class="katex"><span class="katex-mathml"><math><semantics><mrow><msub><mi>I</mi><mn>1</mn></msub></mrow><annotation encoding="application/x-tex">I_1</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.68333em;"></span><span class="strut bottom" style="height:0.83333em;vertical-align:-0.15em;"></span><span class="base"><span class="mord"><span class="mord mathit" style="margin-right:0.07847em;">I</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-left:-0.07847em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathrm mtight">1</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"></span></span></span></span></span></span></span></span></eq> and <eq><span class="katex"><span class="katex-mathml"><math><semantics><mrow><msub><mi>I</mi><mn>2</mn></msub></mrow><annotation encoding="application/x-tex">I_2</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.68333em;"></span><span class="strut bottom" style="height:0.83333em;vertical-align:-0.15em;"></span><span class="base"><span class="mord"><span class="mord mathit" style="margin-right:0.07847em;">I</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-left:-0.07847em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathrm mtight">2</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"></span></span></span></span></span></span></span></span></eq>. So I plotted <eq><span class="katex"><span class="katex-mathml"><math><semantics><mrow><msub><mi>V</mi><mn>1</mn></msub></mrow><annotation encoding="application/x-tex">V_1</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.68333em;"></span><span class="strut bottom" style="height:0.83333em;vertical-align:-0.15em;"></span><span class="base"><span class="mord"><span class="mord mathit" style="margin-right:0.22222em;">V</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-left:-0.22222em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathrm mtight">1</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"></span></span></span></span></span></span></span></span></eq> and <eq><span class="katex"><span class="katex-mathml"><math><semantics><mrow><msub><mi>V</mi><mn>2</mn></msub></mrow><annotation encoding="application/x-tex">V_2</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.68333em;"></span><span class="strut bottom" style="height:0.83333em;vertical-align:-0.15em;"></span><span class="base"><span class="mord"><span class="mord mathit" style="margin-right:0.22222em;">V</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-left:-0.22222em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathrm mtight">2</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"></span></span></span></span></span></span></span></span></eq> in the time interval <eq><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mo>[</mo><mn>0</mn><mo separator="true">,</mo><mn>5</mn><mn>0</mn><mn>0</mn><mi>m</mi><mi>s</mi><mo>]</mo></mrow><annotation encoding="application/x-tex">[0, 500ms]</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.75em;"></span><span class="strut bottom" style="height:1em;vertical-align:-0.25em;"></span><span class="base"><span class="mopen">[</span><span class="mord mathrm">0</span><span class="mpunct">,</span><span class="mord mathrm">5</span><span class="mord mathrm">0</span><span class="mord mathrm">0</span><span class="mord mathit">m</span><span class="mord mathit">s</span><span class="mclose">]</span></span></span></span></eq>.</p>
+<pre class="hljs"><code><div>figure(<span class="hljs-number">1</span>)
+subplot(<span class="hljs-number">211</span>)
+plot(tlist,V1,<span class="hljs-string">'.-'</span>,<span class="hljs-string">'LineWidth'</span>,<span class="hljs-number">2</span>, <span class="hljs-string">'MarkerSize'</span>, <span class="hljs-number">10</span>); hold on
+xlabel(<span class="hljs-string">'t (ms)'</span>); ylabel(<span class="hljs-string">'V_1(t) (mV)'</span>);
+axis([<span class="hljs-number">0</span> <span class="hljs-number">50</span> <span class="hljs-number">0</span> <span class="hljs-number">20</span>])
+line([<span class="hljs-number">30</span> <span class="hljs-number">30</span>], [<span class="hljs-number">0</span> <span class="hljs-number">30</span>]);
+txt1 = <span class="hljs-string">'\leftarrow V_1(t=30ms) = 10mV'</span>;
+text(<span class="hljs-number">30</span>, V1(tlist==<span class="hljs-number">30</span>), txt1);
+
+subplot(<span class="hljs-number">212</span>)
+plot(tlist,V2,<span class="hljs-string">'-'</span>,<span class="hljs-string">'LineWidth'</span>,<span class="hljs-number">2</span>, <span class="hljs-string">'MarkerSize'</span>, <span class="hljs-number">10</span>); hold on
+xlabel(<span class="hljs-string">'t (ms)'</span>); ylabel(<span class="hljs-string">'V_2(t) (mV)'</span>);
+axis([<span class="hljs-number">0</span> <span class="hljs-number">50</span> <span class="hljs-number">0</span> <span class="hljs-number">20</span>])
+line([<span class="hljs-number">30</span> <span class="hljs-number">30</span>], [<span class="hljs-number">0</span> <span class="hljs-number">30</span>]);
+txt2 = <span class="hljs-string">'\leftarrow V_2(t=30ms) = 10mV'</span>;
+text(<span class="hljs-number">30</span>, V1(tlist==<span class="hljs-number">30</span>), txt2);
+</div></code></pre>
+<img src="1.jpg" width="500">
+<p data-line="75" class="code-line">It can be seen that they have completely different plots of relavant voltage during this time interval. And the current traces are much more different.</p>
+<img src="2.jpg" width="500">
+<p data-line="79" class="code-line">The second current curve is sine curve but the first curve is just a constant.</p>
+<ul>
+<li data-line="81" class="code-line">What is it about the explicit solution for <eq><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>V</mi><mo>(</mo><mi>t</mi><mo>)</mo></mrow><annotation encoding="application/x-tex">V(t)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.75em;"></span><span class="strut bottom" style="height:1em;vertical-align:-0.25em;"></span><span class="base"><span class="mord mathit" style="margin-right:0.22222em;">V</span><span class="mopen">(</span><span class="mord mathit">t</span><span class="mclose">)</span></span></span></span></eq>?</li>
+</ul>
+<p data-line="83" class="code-line">From class, we have learned that the explicit form of <eq><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>V</mi><mo>(</mo><mi>t</mi><mo>)</mo></mrow><annotation encoding="application/x-tex">V(t)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.75em;"></span><span class="strut bottom" style="height:1em;vertical-align:-0.25em;"></span><span class="base"><span class="mord mathit" style="margin-right:0.22222em;">V</span><span class="mopen">(</span><span class="mord mathit">t</span><span class="mclose">)</span></span></span></span></eq> is</p>
+<section><eqn><span class="katex-display"><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>V</mi><mo>(</mo><mi>t</mi><mo>)</mo><mo>=</mo><msub><mi>V</mi><mn>0</mn></msub><msup><mi>e</mi><mrow><mo>−</mo><mi>t</mi><mi mathvariant="normal">/</mi><mi>R</mi><mi>C</mi></mrow></msup><mo>+</mo><msubsup><mo>∫</mo><mn>0</mn><mi>t</mi></msubsup><mi>k</mi><mo>(</mo><msup><mi>t</mi><mo mathvariant="normal">′</mo></msup><mo>)</mo><msub><mi>I</mi><mi>A</mi></msub><mo>(</mo><mi>t</mi><mo>−</mo><msup><mi>t</mi><mo mathvariant="normal">′</mo></msup><mo>)</mo><mi>d</mi><msup><mi>t</mi><mo mathvariant="normal">′</mo></msup></mrow><annotation encoding="application/x-tex">V(t) = V_0e^{-t/RC} + \int_0^t k(t&#x27;)I_A(t-t&#x27;)dt&#x27;</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:1.5434560000000002em;"></span><span class="strut bottom" style="height:2.455406em;vertical-align:-0.9119499999999999em;"></span><span class="base"><span class="mord mathit" style="margin-right:0.22222em;">V</span><span class="mopen">(</span><span class="mord mathit">t</span><span class="mclose">)</span><span class="mrel">=</span><span class="mord"><span class="mord mathit" style="margin-right:0.22222em;">V</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-left:-0.22222em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathrm mtight">0</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"></span></span></span></span></span><span class="mord"><span class="mord mathit">e</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.938em;"><span style="top:-3.113em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">−</span><span class="mord mathit mtight">t</span><span class="mord mathrm mtight">/</span><span class="mord mathit mtight" style="margin-right:0.00773em;">R</span><span class="mord mathit mtight" style="margin-right:0.07153em;">C</span></span></span></span></span></span></span></span></span><span class="mbin">+</span><span class="mop"><span class="mop op-symbol large-op" style="margin-right:0.44445em;position:relative;top:-0.0011249999999999316em;">∫</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.5434560000000002em;"><span style="top:-1.7880500000000001em;margin-left:-0.44445em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathrm mtight">0</span></span></span><span style="top:-3.8129000000000004em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathit mtight">t</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.9119499999999999em;"></span></span></span></span></span><span class="mord mathit" style="margin-right:0.03148em;">k</span><span class="mopen">(</span><span class="mord"><span class="mord mathit">t</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.801892em;"><span style="top:-3.113em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathrm mtight">′</span></span></span></span></span></span></span></span></span><span class="mclose">)</span><span class="mord"><span class="mord mathit" style="margin-right:0.07847em;">I</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.32833099999999993em;"><span style="top:-2.5500000000000003em;margin-left:-0.07847em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathit mtight">A</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"></span></span></span></span></span><span class="mopen">(</span><span class="mord mathit">t</span><span class="mbin">−</span><span class="mord"><span class="mord mathit">t</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.801892em;"><span style="top:-3.113em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathrm mtight">′</span></span></span></span></span></span></span></span></span><span class="mclose">)</span><span class="mord mathit">d</span><span class="mord"><span class="mord mathit">t</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.801892em;"><span style="top:-3.113em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathrm mtight">′</span></span></span></span></span></span></span></span></span></span></span></span></span></eqn></section><section><eqn><span class="katex-display"><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>k</mi><mo>(</mo><msup><mi>t</mi><mo mathvariant="normal">′</mo></msup><mo>)</mo><mo>=</mo><mfrac><mrow><msup><mi>e</mi><mrow><mo>−</mo><msup><mi>t</mi><mo mathvariant="normal">′</mo></msup><mi mathvariant="normal">/</mi><mi>R</mi><mi>C</mi></mrow></msup></mrow><mrow><mi>c</mi></mrow></mfrac></mrow><annotation encoding="application/x-tex">k(t&#x27;) = \frac{e^{-t&#x27;/RC}}{c}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:1.61948em;"></span><span class="strut bottom" style="height:2.30548em;vertical-align:-0.686em;"></span><span class="base"><span class="mord mathit" style="margin-right:0.03148em;">k</span><span class="mopen">(</span><span class="mord"><span class="mord mathit">t</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.801892em;"><span style="top:-3.113em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathrm mtight">′</span></span></span></span></span></span></span></span></span><span class="mclose">)</span><span class="mrel">=</span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.61948em;"><span style="top:-2.314em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord mathit">c</span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.677em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord"><span class="mord mathit">e</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.94248em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">−</span><span class="mord mtight"><span class="mord mathit mtight">t</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8278285714285715em;"><span style="top:-2.931em;margin-right:0.07142857142857144em;"><span class="pstrut" style="height:2.5em;"></span><span class="sizing reset-size3 size1 mtight"><span class="mord mtight"><span class="mord mathrm mtight">′</span></span></span></span></span></span></span></span></span><span class="mord mathrm mtight">/</span><span class="mord mathit mtight" style="margin-right:0.00773em;">R</span><span class="mord mathit mtight" style="margin-right:0.07153em;">C</span></span></span></span></span></span></span></span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.686em;"></span></span></span></span><span class="mclose nulldelimiter"></span></span></span></span></span></span></eqn></section><p data-line="88" class="code-line">Therefore, <eq><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>k</mi><mo>(</mo><msup><mi>t</mi><mo mathvariant="normal">′</mo></msup><mo>)</mo></mrow><annotation encoding="application/x-tex">k(t&#x27;)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.751892em;"></span><span class="strut bottom" style="height:1.001892em;vertical-align:-0.25em;"></span><span class="base"><span class="mord mathit" style="margin-right:0.03148em;">k</span><span class="mopen">(</span><span class="mord"><span class="mord mathit">t</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.751892em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathrm mtight">′</span></span></span></span></span></span></span></span></span><span class="mclose">)</span></span></span></span></eq> indicates that it is possible to have more than one current trace. And due to the principal of superposition, different current inputs will have same <eq><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>V</mi><mo>(</mo><msub><mi>t</mi><mrow><mi>n</mi><mi>o</mi><mi>w</mi></mrow></msub><mo>)</mo></mrow><annotation encoding="application/x-tex">V(t_{now})</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.75em;"></span><span class="strut bottom" style="height:1em;vertical-align:-0.25em;"></span><span class="base"><span class="mord mathit" style="margin-right:0.22222em;">V</span><span class="mopen">(</span><span class="mord"><span class="mord mathit">t</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.151392em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathit mtight">n</span><span class="mord mathit mtight">o</span><span class="mord mathit mtight" style="margin-right:0.02691em;">w</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"></span></span></span></span></span><span class="mclose">)</span></span></span></span></eq>.</p>
+<h2 data-line="90" class="code-line" id="ii-summation-of-simultaneous-impulses">II. Summation of simultaneous impulses</h2>
+<ul>
+<li data-line="91" class="code-line">
+<p data-line="91" class="code-line">Consider an incoming current impulse. What is the peak voltage achieved over time in response to this impulse?</p>
+<p data-line="93" class="code-line">I chose <eq><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mover accent="true"><mrow><mi>I</mi></mrow><mo stretchy="true">‾</mo></mover><mo>=</mo><mn>0</mn><mi mathvariant="normal">.</mi><mn>5</mn><mi>μ</mi><mi>A</mi></mrow><annotation encoding="application/x-tex">\overline{I} = 0.5 \mu A</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.8833300000000001em;"></span><span class="strut bottom" style="height:1.0777700000000001em;vertical-align:-0.19444em;"></span><span class="base"><span class="mord overline"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8833300000000001em;"><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord mathit" style="margin-right:0.07847em;">I</span></span></span><span style="top:-3.80333em;"><span class="pstrut" style="height:3em;"></span><span class="overline-line" style="border-bottom-width:0.04em;"></span></span></span></span></span></span><span class="mrel">=</span><span class="mord mathrm">0</span><span class="mord mathrm">.</span><span class="mord mathrm">5</span><span class="mord mathit">μ</span><span class="mord mathit">A</span></span></span></span></eq>, <eq><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi mathvariant="normal">Δ</mi><mi>t</mi><mo>=</mo><mn>0</mn><mi mathvariant="normal">.</mi><mn>1</mn><mi>m</mi><mi>s</mi></mrow><annotation encoding="application/x-tex">\Delta t =0.1ms</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.68333em;"></span><span class="strut bottom" style="height:0.68333em;vertical-align:0em;"></span><span class="base"><span class="mord mathrm">Δ</span><span class="mord mathit">t</span><span class="mrel">=</span><span class="mord mathrm">0</span><span class="mord mathrm">.</span><span class="mord mathrm">1</span><span class="mord mathit">m</span><span class="mord mathit">s</span></span></span></span></eq>.</p>
+</li>
+</ul>
+<pre class="hljs"><code><div>deltat=<span class="hljs-number">0.1</span> ; <span class="hljs-comment">%timestep</span>
+Tmax=<span class="hljs-number">100</span>;
+
+tlist=<span class="hljs-built_in">linspace</span>(<span class="hljs-number">0</span>,Tmax,Tmax/deltat +<span class="hljs-number">1</span>) ;
+Vlist=<span class="hljs-built_in">zeros</span>(<span class="hljs-number">1</span>,<span class="hljs-built_in">length</span>(tlist));
+
+Ialist=<span class="hljs-built_in">zeros</span>(<span class="hljs-number">1</span>,<span class="hljs-built_in">length</span>(tlist));
+width=<span class="hljs-number">30</span>; t1=<span class="hljs-number">30</span>; t2=t1+width;
+Ialist(tlist&gt;=t1&amp;tlist&lt;t2) = <span class="hljs-number">0.5</span>;
+
+
+<span class="hljs-comment">%initialize</span>
+V0=<span class="hljs-number">0</span>;
+Vlist(<span class="hljs-number">1</span>)=V0;
+
+<span class="hljs-comment">%circuit parameters</span>
+R=<span class="hljs-number">10</span>;
+C=<span class="hljs-number">1</span>;
+</div></code></pre>
+<p data-line="115" class="code-line">Then I tried to find the voltage <eq><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>V</mi><mo>(</mo><mi>t</mi><mo>)</mo></mrow><annotation encoding="application/x-tex">V(t)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.75em;"></span><span class="strut bottom" style="height:1em;vertical-align:-0.25em;"></span><span class="base"><span class="mord mathit" style="margin-right:0.22222em;">V</span><span class="mopen">(</span><span class="mord mathit">t</span><span class="mclose">)</span></span></span></span></eq></p>
+<pre class="hljs"><code><div><span class="hljs-keyword">for</span> n=<span class="hljs-number">1</span>:<span class="hljs-built_in">length</span>(tlist)<span class="hljs-number">-1</span>
+    t=tlist(n);
+    Vlist(n+<span class="hljs-number">1</span>)=Vlist(n) + ( -Vlist(n)/(R*C) +Ialist(n)/C)*deltat;
+<span class="hljs-keyword">end</span>
+</div></code></pre>
+<p data-line="124" class="code-line">And the peak voltage I found is</p>
+<pre class="hljs"><code><div>&gt;&gt; max(Vlist)
+
+<span class="hljs-built_in">ans</span> =
+
+    <span class="hljs-number">4.7548</span>
+</div></code></pre>
+<ul>
+<li data-line="134" class="code-line">If the threshold for spike generation is 10 mV, what fraction of the way to threshold does this impulse drive the voltage response?</li>
+</ul>
+<pre class="hljs"><code><div>&gt;&gt; <span class="hljs-number">1</span> - max(Vlist) / <span class="hljs-number">10</span>
+
+<span class="hljs-built_in">ans</span> =
+
+    <span class="hljs-number">0.5245</span>
+</div></code></pre>
+<p data-line="144" class="code-line">So, <eq><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>f</mi><mo>≈</mo><mn>0</mn><mi mathvariant="normal">.</mi><mn>5</mn><mn>2</mn><mn>4</mn><mn>5</mn></mrow><annotation encoding="application/x-tex">f\approx 0.5245</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.69444em;"></span><span class="strut bottom" style="height:0.8888799999999999em;vertical-align:-0.19444em;"></span><span class="base"><span class="mord mathit" style="margin-right:0.10764em;">f</span><span class="mrel">≈</span><span class="mord mathrm">0</span><span class="mord mathrm">.</span><span class="mord mathrm">5</span><span class="mord mathrm">2</span><span class="mord mathrm">4</span><span class="mord mathrm">5</span></span></span></span></eq>.</p>
+<ul>
+<li data-line="146" class="code-line">Next consider the case in which N such impulses arrive simultaneously. What is the lowest value N that will drive the voltage over threshold?</li>
+</ul>
+<pre class="hljs"><code><div>deltat=<span class="hljs-number">0.1</span> ; <span class="hljs-comment">%timestep</span>
+Tmax=<span class="hljs-number">100</span>;
+
+tlist=<span class="hljs-built_in">linspace</span>(<span class="hljs-number">0</span>,Tmax,Tmax/deltat +<span class="hljs-number">1</span>) ;
+Vlist=<span class="hljs-built_in">zeros</span>(<span class="hljs-number">1</span>,<span class="hljs-built_in">length</span>(tlist));
+Ialist=<span class="hljs-built_in">zeros</span>(<span class="hljs-number">1</span>,<span class="hljs-built_in">length</span>(tlist));
+width=<span class="hljs-number">30</span>; t1=<span class="hljs-number">30</span>; t2=t1+width;
+Ialist(tlist&gt;=t1&amp;tlist&lt;t2) = <span class="hljs-number">0.5</span>;
+
+<span class="hljs-comment">%initialize</span>
+V0=<span class="hljs-number">0</span>;
+Vlist(<span class="hljs-number">1</span>)=V0;
+threshold = <span class="hljs-number">10</span>;
+N = <span class="hljs-number">1</span>;
+
+<span class="hljs-comment">%circuit parameters</span>
+R=<span class="hljs-number">10</span>;
+C=<span class="hljs-number">1</span>;
+
+<span class="hljs-keyword">while</span> max(Vlist) &lt; threshold
+    <span class="hljs-keyword">for</span> n=<span class="hljs-number">1</span>:<span class="hljs-built_in">length</span>(tlist)<span class="hljs-number">-1</span>
+        t=tlist(n);
+        Vlist(n+<span class="hljs-number">1</span>)=Vlist(n) + ( -Vlist(n)/(R*C) +Ialist(n)/C)*deltat;
+    <span class="hljs-keyword">end</span>
+    N = N + <span class="hljs-number">0.00001</span>;
+    Ialist(tlist&gt;=t1&amp;tlist&lt;t2) = N * <span class="hljs-number">0.5</span>;
+<span class="hljs-keyword">end</span>
+figure
+plot(tlist,Vlist,<span class="hljs-string">'.-'</span>,<span class="hljs-string">'LineWidth'</span>,<span class="hljs-number">2</span>); hold on; grid on;
+xlabel(<span class="hljs-string">'t'</span>); ylabel(<span class="hljs-string">'V(t)'</span>); 
+</div></code></pre>
+<p data-line="181" class="code-line">The lowest value N I found is</p>
+<pre class="hljs"><code><div>&gt;&gt; N
+
+N =
+
+    <span class="hljs-number">2.1032</span>
+</div></code></pre>
+<p data-line="191" class="code-line">This implies that <eq><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>f</mi><mo>∗</mo><mi>N</mi><mo>=</mo><mn>1</mn><mi mathvariant="normal">.</mi><mn>0</mn></mrow><annotation encoding="application/x-tex">f * N = 1.0</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.69444em;"></span><span class="strut bottom" style="height:0.8888799999999999em;vertical-align:-0.19444em;"></span><span class="base"><span class="mord mathit" style="margin-right:0.10764em;">f</span><span class="mbin">∗</span><span class="mord mathit" style="margin-right:0.10903em;">N</span><span class="mrel">=</span><span class="mord mathrm">1</span><span class="mord mathrm">.</span><span class="mord mathrm">0</span></span></span></span></eq>, which is the same result as I got from solving the explicit solution of integral form. And for RC circuit, impulses summate linearly.</p>
+<ul>
+<li data-line="193" class="code-line">Now study for a conductance-based input model.</li>
+</ul>
+<p data-line="195" class="code-line">First, I tried <eq><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mover accent="true"><mrow><mi>g</mi></mrow><mo stretchy="true">‾</mo></mover><mo>=</mo><mn>0</mn><mi mathvariant="normal">.</mi><mn>5</mn></mrow><annotation encoding="application/x-tex">\overline{g} = 0.5</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.64444em;"></span><span class="strut bottom" style="height:0.8388800000000001em;vertical-align:-0.19444em;"></span><span class="base"><span class="mord overline"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.63056em;"><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord mathit" style="margin-right:0.03588em;">g</span></span></span><span style="top:-3.55056em;"><span class="pstrut" style="height:3em;"></span><span class="overline-line" style="border-bottom-width:0.04em;"></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.19444em;"></span></span></span></span><span class="mrel">=</span><span class="mord mathrm">0</span><span class="mord mathrm">.</span><span class="mord mathrm">5</span></span></span></span></eq> as I tried with <eq><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mover accent="true"><mrow><mi>I</mi></mrow><mo stretchy="true">‾</mo></mover></mrow><annotation encoding="application/x-tex">\overline{I}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.8833300000000001em;"></span><span class="strut bottom" style="height:0.8833300000000001em;vertical-align:0em;"></span><span class="base"><span class="mord overline"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8833300000000001em;"><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord mathit" style="margin-right:0.07847em;">I</span></span></span><span style="top:-3.80333em;"><span class="pstrut" style="height:3em;"></span><span class="overline-line" style="border-bottom-width:0.04em;"></span></span></span></span></span></span></span></span></span></eq> in the previous part.</p>
+<pre class="hljs"><code><div>deltat=<span class="hljs-number">0.1</span> ; <span class="hljs-comment">%timestep</span>
+Tmax=<span class="hljs-number">100</span>;
+
+tlist=<span class="hljs-built_in">linspace</span>(<span class="hljs-number">0</span>,Tmax,Tmax/deltat +<span class="hljs-number">1</span>) ;
+Vlist=<span class="hljs-built_in">zeros</span>(<span class="hljs-number">1</span>,<span class="hljs-built_in">length</span>(tlist));
+
+<span class="hljs-comment">%initialize</span>
+V0=<span class="hljs-number">0</span>;
+Vlist(<span class="hljs-number">1</span>)=V0;
+
+<span class="hljs-comment">%define input conductance</span>
+gapplist=<span class="hljs-built_in">zeros</span>(<span class="hljs-number">1</span>,<span class="hljs-built_in">length</span>(tlist));
+t1 = <span class="hljs-number">10</span>; t2 = t1 + <span class="hljs-number">20</span>;
+gapplist(tlist&gt;=t1&amp;tlist&lt;t2) = <span class="hljs-number">0.5</span>;
+
+
+<span class="hljs-comment">%circuit parameters</span>
+R=<span class="hljs-number">10</span>;
+C=<span class="hljs-number">1</span>;
+E=<span class="hljs-number">11</span>;
+
+<span class="hljs-keyword">for</span> n=<span class="hljs-number">1</span>:<span class="hljs-built_in">length</span>(tlist)<span class="hljs-number">-1</span>
+    t=tlist(n);
+    Vlist(n+<span class="hljs-number">1</span>)=Vlist(n) + ( -Vlist(n)/(R*C) + gapplist(n)*(E-Vlist(n)) )*deltat;
+<span class="hljs-keyword">end</span>
+
+figure
+plot(tlist,Vlist,<span class="hljs-string">'.-'</span>,<span class="hljs-string">'LineWidth'</span>,<span class="hljs-number">2</span>); hold on
+xlabel(<span class="hljs-string">'t'</span>); ylabel(<span class="hljs-string">'V(t)'</span>);
+</div></code></pre>
+<img src="4.jpg" width="500">
+<p data-line="231" class="code-line">And then I tried <eq><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mover accent="true"><mrow><mi>g</mi></mrow><mo stretchy="true">‾</mo></mover><mo>=</mo><mn>0</mn><mi mathvariant="normal">.</mi><mn>1</mn><mo separator="true">,</mo><mn>0</mn><mi mathvariant="normal">.</mi><mn>3</mn><mo separator="true">,</mo><mn>0</mn><mi mathvariant="normal">.</mi><mn>4</mn></mrow><annotation encoding="application/x-tex">\overline{g} = 0.1,0.3,0.4</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.64444em;"></span><span class="strut bottom" style="height:0.8388800000000001em;vertical-align:-0.19444em;"></span><span class="base"><span class="mord overline"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.63056em;"><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord mathit" style="margin-right:0.03588em;">g</span></span></span><span style="top:-3.55056em;"><span class="pstrut" style="height:3em;"></span><span class="overline-line" style="border-bottom-width:0.04em;"></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.19444em;"></span></span></span></span><span class="mrel">=</span><span class="mord mathrm">0</span><span class="mord mathrm">.</span><span class="mord mathrm">1</span><span class="mpunct">,</span><span class="mord mathrm">0</span><span class="mord mathrm">.</span><span class="mord mathrm">3</span><span class="mpunct">,</span><span class="mord mathrm">0</span><span class="mord mathrm">.</span><span class="mord mathrm">4</span></span></span></span></eq> to test the linearity.</p>
+<pre class="hljs"><code><div>deltat=<span class="hljs-number">0.1</span> ; <span class="hljs-comment">%timestep</span>
+Tmax=<span class="hljs-number">100</span>;
+width = <span class="hljs-number">20</span>;
+
+tlist=<span class="hljs-built_in">linspace</span>(<span class="hljs-number">0</span>,Tmax,Tmax/deltat +<span class="hljs-number">1</span>) ;
+V1=<span class="hljs-built_in">zeros</span>(<span class="hljs-number">1</span>,<span class="hljs-built_in">length</span>(tlist));
+V2=<span class="hljs-built_in">zeros</span>(<span class="hljs-number">1</span>,<span class="hljs-built_in">length</span>(tlist));
+V3=<span class="hljs-built_in">zeros</span>(<span class="hljs-number">1</span>,<span class="hljs-built_in">length</span>(tlist));
+V4=<span class="hljs-built_in">zeros</span>(<span class="hljs-number">1</span>,<span class="hljs-built_in">length</span>(tlist));
+
+<span class="hljs-comment">%initialize</span>
+V0=<span class="hljs-number">0</span>;
+V1(<span class="hljs-number">1</span>)=V0;
+V2(<span class="hljs-number">1</span>)=V0;
+V3(<span class="hljs-number">1</span>)=V0;
+V4(<span class="hljs-number">1</span>)=V0;
+
+<span class="hljs-comment">%define input conductance</span>
+g1=<span class="hljs-built_in">zeros</span>(<span class="hljs-number">1</span>,<span class="hljs-built_in">length</span>(tlist));
+t1 = <span class="hljs-number">10</span>; t2 = t1 + width;
+g1(tlist&gt;=t1&amp;tlist&lt;t2) = <span class="hljs-number">0.1</span>;
+
+g2=<span class="hljs-built_in">zeros</span>(<span class="hljs-number">1</span>,<span class="hljs-built_in">length</span>(tlist));
+t1 = <span class="hljs-number">40</span>; t2 = t1 + width;
+g2(tlist&gt;=t1&amp;tlist&lt;t2) = <span class="hljs-number">0.3</span>;
+
+g3=g1+g2;
+
+
+<span class="hljs-comment">%circuit parameters</span>
+R=<span class="hljs-number">10</span>;
+C=<span class="hljs-number">1</span>;
+E=<span class="hljs-number">11</span>;
+<span class="hljs-keyword">for</span> n=<span class="hljs-number">1</span>:<span class="hljs-built_in">length</span>(tlist)<span class="hljs-number">-1</span>
+    t=tlist(n);
+    V1(n+<span class="hljs-number">1</span>)=V1(n) + ( -V1(n)/(R*C) + g1(n)*(E-V1(n)) )*deltat;
+    V2(n+<span class="hljs-number">1</span>)=V2(n) + ( -V2(n)/(R*C) + g2(n)*(E-V2(n)) )*deltat;
+    V3(n+<span class="hljs-number">1</span>)=V3(n) + ( -V3(n)/(R*C) + g3(n)*(E-V3(n)) )*deltat;
+<span class="hljs-keyword">end</span>
+
+figure(<span class="hljs-number">3</span>);
+plot(tlist,V1,<span class="hljs-string">'.-'</span>,<span class="hljs-string">'LineWidth'</span>,<span class="hljs-number">2</span>, <span class="hljs-string">'MarkerSize'</span>, <span class="hljs-number">26</span>); hold on
+xlabel(<span class="hljs-string">'t'</span>); ylabel(<span class="hljs-string">'V(t)'</span>);
+plot(tlist,V2,<span class="hljs-string">'.-'</span>,<span class="hljs-string">'LineWidth'</span>,<span class="hljs-number">2</span>, <span class="hljs-string">'MarkerSize'</span>, <span class="hljs-number">26</span>);
+plot(tlist,V3,<span class="hljs-string">'.-'</span>,<span class="hljs-string">'LineWidth'</span>,<span class="hljs-number">2</span>, <span class="hljs-string">'MarkerSize'</span>, <span class="hljs-number">26</span>);
+plot(tlist,V1+V2,<span class="hljs-string">'.-'</span>,<span class="hljs-string">'LineWidth'</span>,<span class="hljs-number">2</span>, <span class="hljs-string">'MarkerSize'</span>, <span class="hljs-number">26</span>);
+legend(<span class="hljs-string">'V1'</span>,<span class="hljs-string">'V2'</span>,<span class="hljs-string">'V3'</span>,<span class="hljs-string">'V1+V2'</span>)
+</div></code></pre>
+<p data-line="282" class="code-line">And the plot I got is</p>
+<img src="5.jpg" width="500">
+<p data-line="286" class="code-line">It can be seen that the pulses summate sublinearly <eq><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>f</mi><mo>(</mo><mi>I</mi><mn>1</mn><mo>+</mo><mi>I</mi><mn>2</mn><mo>)</mo><mo>&lt;</mo><mi>f</mi><mo>(</mo><mi>I</mi><mn>1</mn><mo>)</mo><mo>+</mo><mi>f</mi><mo>(</mo><mi>I</mi><mn>2</mn><mo>)</mo></mrow><annotation encoding="application/x-tex">f(I1 + I2) &lt; f(I1) + f(I2)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.75em;"></span><span class="strut bottom" style="height:1em;vertical-align:-0.25em;"></span><span class="base"><span class="mord mathit" style="margin-right:0.10764em;">f</span><span class="mopen">(</span><span class="mord mathit" style="margin-right:0.07847em;">I</span><span class="mord mathrm">1</span><span class="mbin">+</span><span class="mord mathit" style="margin-right:0.07847em;">I</span><span class="mord mathrm">2</span><span class="mclose">)</span><span class="mrel">&lt;</span><span class="mord mathit" style="margin-right:0.10764em;">f</span><span class="mopen">(</span><span class="mord mathit" style="margin-right:0.07847em;">I</span><span class="mord mathrm">1</span><span class="mclose">)</span><span class="mbin">+</span><span class="mord mathit" style="margin-right:0.10764em;">f</span><span class="mopen">(</span><span class="mord mathit" style="margin-right:0.07847em;">I</span><span class="mord mathrm">2</span><span class="mclose">)</span></span></span></span></eq>. From class notes, the reason why is that <eq><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>g</mi><mo>(</mo><mi>t</mi><mo>)</mo></mrow><annotation encoding="application/x-tex">g(t)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.75em;"></span><span class="strut bottom" style="height:1em;vertical-align:-0.25em;"></span><span class="base"><span class="mord mathit" style="margin-right:0.03588em;">g</span><span class="mopen">(</span><span class="mord mathit">t</span><span class="mclose">)</span></span></span></span></eq> is a nonlinear function that <eq><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>g</mi><mo>(</mo><mi>t</mi><mn>1</mn><mo>+</mo><mi>t</mi><mn>2</mn><mo>)</mo><mo>=</mo><mi>g</mi><mo>(</mo><mi>t</mi><mn>1</mn><mo>)</mo><mo>+</mo><mi>g</mi><mo>(</mo><mi>t</mi><mn>2</mn><mo>)</mo></mrow><annotation encoding="application/x-tex">g(t1 + t2) = g(t1) + g(t2)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.75em;"></span><span class="strut bottom" style="height:1em;vertical-align:-0.25em;"></span><span class="base"><span class="mord mathit" style="margin-right:0.03588em;">g</span><span class="mopen">(</span><span class="mord mathit">t</span><span class="mord mathrm">1</span><span class="mbin">+</span><span class="mord mathit">t</span><span class="mord mathrm">2</span><span class="mclose">)</span><span class="mrel">=</span><span class="mord mathit" style="margin-right:0.03588em;">g</span><span class="mopen">(</span><span class="mord mathit">t</span><span class="mord mathrm">1</span><span class="mclose">)</span><span class="mbin">+</span><span class="mord mathit" style="margin-right:0.03588em;">g</span><span class="mopen">(</span><span class="mord mathit">t</span><span class="mord mathrm">2</span><span class="mclose">)</span></span></span></span></eq> but <eq><span class="katex"><span class="katex-mathml"><math><semantics><mrow><msup><mi>e</mi><mrow><mi>g</mi><mo>(</mo><mi>t</mi><mn>1</mn><mo>+</mo><mi>t</mi><mn>2</mn><mo>)</mo></mrow></msup><mo>≠</mo><msup><mi>e</mi><mrow><mi>g</mi><mo>(</mo><mi>t</mi><mn>1</mn><mo>)</mo></mrow></msup><mo>+</mo><msup><mi>e</mi><mrow><mi>g</mi><mo>(</mo><mi>t</mi><mn>2</mn><mo>)</mo></mrow></msup></mrow><annotation encoding="application/x-tex">e^{g(t1+t2)} \neq e^{g(t1)} + e^{g(t2)}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.8879999999999999em;"></span><span class="strut bottom" style="height:1.103em;vertical-align:-0.215em;"></span><span class="base"><span class="mord"><span class="mord mathit">e</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8879999999999999em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathit mtight" style="margin-right:0.03588em;">g</span><span class="mopen mtight">(</span><span class="mord mathit mtight">t</span><span class="mord mathrm mtight">1</span><span class="mbin mtight">+</span><span class="mord mathit mtight">t</span><span class="mord mathrm mtight">2</span><span class="mclose mtight">)</span></span></span></span></span></span></span></span></span><span class="mrel">≠</span><span class="mord"><span class="mord mathit">e</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8879999999999999em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathit mtight" style="margin-right:0.03588em;">g</span><span class="mopen mtight">(</span><span class="mord mathit mtight">t</span><span class="mord mathrm mtight">1</span><span class="mclose mtight">)</span></span></span></span></span></span></span></span></span><span class="mbin">+</span><span class="mord"><span class="mord mathit">e</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8879999999999999em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathit mtight" style="margin-right:0.03588em;">g</span><span class="mopen mtight">(</span><span class="mord mathit mtight">t</span><span class="mord mathrm mtight">2</span><span class="mclose mtight">)</span></span></span></span></span></span></span></span></span></span></span></span></eq>.</p>
+<h2 data-line="288" class="code-line" id="iii-hh-model">III HH model</h2>
+<ul>
+<li data-line="290" class="code-line">Use appropriate codes provided in HH directory to plot the <eq><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>f</mi><mi>i</mi><mi>r</mi><mi>i</mi><mi>n</mi><mi>g</mi><mtext> </mtext><mi>r</mi><mi>a</mi><mi>t</mi><mi>e</mi><mo>−</mo><mi>c</mi><mi>u</mi><mi>r</mi><mi>r</mi><mi>e</mi><mi>n</mi><mi>t</mi></mrow><annotation encoding="application/x-tex">firing\ rate - current</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.69444em;"></span><span class="strut bottom" style="height:0.8888799999999999em;vertical-align:-0.19444em;"></span><span class="base"><span class="mord mathit" style="margin-right:0.10764em;">f</span><span class="mord mathit">i</span><span class="mord mathit" style="margin-right:0.02778em;">r</span><span class="mord mathit">i</span><span class="mord mathit">n</span><span class="mord mathit" style="margin-right:0.03588em;">g</span><span class="mord mathit"><span class="mspace"> </span><span class="mord mathit" style="margin-right:0.02778em;">r</span></span><span class="mord mathit">a</span><span class="mord mathit">t</span><span class="mord mathit">e</span><span class="mbin">−</span><span class="mord mathit">c</span><span class="mord mathit">u</span><span class="mord mathit" style="margin-right:0.02778em;">r</span><span class="mord mathit" style="margin-right:0.02778em;">r</span><span class="mord mathit">e</span><span class="mord mathit">n</span><span class="mord mathit">t</span></span></span></span></eq> tuning curve for HH model.</li>
+</ul>
+<p data-line="292" class="code-line">I used the code <code>HH.m</code> and modified it to count for spikes in order to calculate firing rate over time interval (500 ms). I assumed  that there will be a spike at the peak value that is greater than my threshold <eq><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mn>0</mn></mrow><annotation encoding="application/x-tex">0</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.64444em;"></span><span class="strut bottom" style="height:0.64444em;vertical-align:0em;"></span><span class="base"><span class="mord mathrm">0</span></span></span></span></eq>.</p>
+<pre class="hljs"><code><div><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">firingrate</span> = <span class="hljs-title">hhmodel</span><span class="hljs-params">(I)</span></span>
+    vna=<span class="hljs-number">50</span>;  <span class="hljs-comment">%set the constants</span>
+    vk=<span class="hljs-number">-77</span>;
+    vl=<span class="hljs-number">-54.4</span>;
+    gna=<span class="hljs-number">120</span>;
+    gk=<span class="hljs-number">36</span>;
+    gl=<span class="hljs-number">.3</span>;
+    c=<span class="hljs-number">1</span>;
+    
+    v_init=<span class="hljs-number">-65</span>;  <span class="hljs-comment">%the initial conditions</span>
+    m_init=<span class="hljs-number">.052</span>;
+    h_init=<span class="hljs-number">.596</span>;
+    n_init=<span class="hljs-number">.317</span>;
+
+    npoints=<span class="hljs-number">500000</span>;  <span class="hljs-comment">%number of timesteps to integrate</span>
+    dt=<span class="hljs-number">0.001</span>;        <span class="hljs-comment">%timestep</span>
+
+
+    m=<span class="hljs-built_in">zeros</span>(npoints,<span class="hljs-number">1</span>); <span class="hljs-comment">%initialize everything to zero</span>
+    n=<span class="hljs-built_in">zeros</span>(npoints,<span class="hljs-number">1</span>);
+    h=<span class="hljs-built_in">zeros</span>(npoints,<span class="hljs-number">1</span>);
+    v=<span class="hljs-built_in">zeros</span>(npoints,<span class="hljs-number">1</span>);
+    time=<span class="hljs-built_in">zeros</span>(npoints,<span class="hljs-number">1</span>);
+
+    m(<span class="hljs-number">1</span>)=m_init; <span class="hljs-comment">%set the initial conditions to be the first entry in the vectors</span>
+    n(<span class="hljs-number">1</span>)=n_init;
+    h(<span class="hljs-number">1</span>)=h_init;
+    v(<span class="hljs-number">1</span>)=v_init;
+    time(<span class="hljs-number">1</span>)=<span class="hljs-number">0.0</span>;
+    numpeak = <span class="hljs-number">0</span>;
+    thresh = <span class="hljs-number">0</span>;
+
+    tic
+    <span class="hljs-keyword">for</span> step=<span class="hljs-number">1</span>:npoints<span class="hljs-number">-1</span>
+        v(step+<span class="hljs-number">1</span>)=v(step)+((I - gna*h(step)*(v(step)-vna)*m(step)^<span class="hljs-number">3</span> ...
+                   -gk*(v(step)-vk)*n(step)^<span class="hljs-number">4</span>-gl*(v(step)-vl))/c)*dt;
+        m(step+<span class="hljs-number">1</span>)=m(step)+ (alpha_m(v(step))*(<span class="hljs-number">1</span>-m(step))-beta_m(v(step))*m(step))*dt;
+        h(step+<span class="hljs-number">1</span>)=h(step)+ (alpha_h(v(step))*(<span class="hljs-number">1</span>-h(step))-beta_h(v(step))*h(step))*dt;
+        n(step+<span class="hljs-number">1</span>)=n(step)+ (alpha_n(v(step))*(<span class="hljs-number">1</span>-n(step))-beta_n(v(step))*n(step))*dt;
+        time(step+<span class="hljs-number">1</span>)=time(step)+dt;
+
+        <span class="hljs-comment">% spike detection: decreasing now and increasing before</span>
+         <span class="hljs-keyword">if</span> ((step&gt;<span class="hljs-number">1</span>) &amp;&amp; (v(step+<span class="hljs-number">1</span>)&lt;v(step)) &amp;&amp; (v(step)&gt;v(step<span class="hljs-number">-1</span>))) &amp;&amp; (v(step) &gt; thresh)
+            numpeak = numpeak + <span class="hljs-number">1</span>;
+            peaktime(numpeak) = time(step+<span class="hljs-number">1</span>);
+         <span class="hljs-keyword">end</span>
+    <span class="hljs-keyword">end</span>
+    toc
+    
+    firingrate = numpeak / (npoints * dt);
+<span class="hljs-keyword">end</span>
+</div></code></pre>
+<p data-line="348" class="code-line">Then I tried <eq><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mover accent="true"><mrow><mi>I</mi></mrow><mo stretchy="true">‾</mo></mover></mrow><annotation encoding="application/x-tex">\overline{I}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.8833300000000001em;"></span><span class="strut bottom" style="height:0.8833300000000001em;vertical-align:0em;"></span><span class="base"><span class="mord overline"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8833300000000001em;"><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord mathit" style="margin-right:0.07847em;">I</span></span></span><span style="top:-3.80333em;"><span class="pstrut" style="height:3em;"></span><span class="overline-line" style="border-bottom-width:0.04em;"></span></span></span></span></span></span></span></span></span></eq> over the interval <eq><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mo>[</mo><mo>−</mo><mn>1</mn><mn>0</mn><mo separator="true">,</mo><mn>1</mn><mn>0</mn><mo>]</mo></mrow><annotation encoding="application/x-tex">[-10, 10]</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.75em;"></span><span class="strut bottom" style="height:1em;vertical-align:-0.25em;"></span><span class="base"><span class="mopen">[</span><span class="mord">−</span><span class="mord mathrm">1</span><span class="mord mathrm">0</span><span class="mpunct">,</span><span class="mord mathrm">1</span><span class="mord mathrm">0</span><span class="mclose">]</span></span></span></span></eq> to get a brief result.</p>
+<pre class="hljs"><code><div>rate = <span class="hljs-built_in">zeros</span>(<span class="hljs-number">20</span>, <span class="hljs-number">1</span>);
+I = <span class="hljs-built_in">zeros</span>(<span class="hljs-number">20</span>, <span class="hljs-number">1</span>);
+<span class="hljs-keyword">for</span> k=<span class="hljs-number">1</span>:<span class="hljs-number">20</span>
+    I(k) = <span class="hljs-number">-10</span> + k;
+    rate(k) = hhmodel(I(k));
+<span class="hljs-keyword">end</span>
+
+figure(<span class="hljs-number">4</span>);
+plot(I, rate, <span class="hljs-string">'.-'</span>,<span class="hljs-string">'LineWidth'</span>, <span class="hljs-number">2</span>, <span class="hljs-string">'MarkerSize'</span>, <span class="hljs-number">26</span>)
+grid on;
+xlabel(<span class="hljs-string">'Current I_A (\mu A)'</span>); ylabel(<span class="hljs-string">'Firing Rate (Hz)'</span>);
+</div></code></pre>
+<img src="6.jpg" width="500">
+<p data-line="367" class="code-line">And from the plot, we could see that the firing rate changes from <eq><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mo>&lt;</mo><mn>0</mn><mi mathvariant="normal">.</mi><mn>0</mn><mn>1</mn></mrow><annotation encoding="application/x-tex">&lt;0.01</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.64444em;"></span><span class="strut bottom" style="height:0.68354em;vertical-align:-0.0391em;"></span><span class="base"><span class="mrel">&lt;</span><span class="mord mathrm">0</span><span class="mord mathrm">.</span><span class="mord mathrm">0</span><span class="mord mathrm">1</span></span></span></span></eq> to <eq><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mo>≈</mo><mn>0</mn><mi mathvariant="normal">.</mi><mn>0</mn><mn>6</mn></mrow><annotation encoding="application/x-tex">\approx 0.06</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.64444em;"></span><span class="strut bottom" style="height:0.64444em;vertical-align:0em;"></span><span class="base"><span class="mrel">≈</span><span class="mord mathrm">0</span><span class="mord mathrm">.</span><span class="mord mathrm">0</span><span class="mord mathrm">6</span></span></span></span></eq> at <eq><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mover accent="true"><mrow><mi>I</mi></mrow><mo stretchy="true">‾</mo></mover><mo>=</mo><mn>7</mn><mi>μ</mi><mi>A</mi></mrow><annotation encoding="application/x-tex">\overline{I} = 7\mu A</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.8833300000000001em;"></span><span class="strut bottom" style="height:1.0777700000000001em;vertical-align:-0.19444em;"></span><span class="base"><span class="mord overline"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8833300000000001em;"><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord mathit" style="margin-right:0.07847em;">I</span></span></span><span style="top:-3.80333em;"><span class="pstrut" style="height:3em;"></span><span class="overline-line" style="border-bottom-width:0.04em;"></span></span></span></span></span></span><span class="mrel">=</span><span class="mord mathrm">7</span><span class="mord mathit">μ</span><span class="mord mathit">A</span></span></span></span></eq>.</p>
+<ul>
+<li data-line="369" class="code-line">Now repeat but with a sinusoidal background current of frequency <eq><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>ω</mi><mi>k</mi><mi>H</mi><mi>z</mi></mrow><annotation encoding="application/x-tex">\omega kHz</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.69444em;"></span><span class="strut bottom" style="height:0.69444em;vertical-align:0em;"></span><span class="base"><span class="mord mathit" style="margin-right:0.03588em;">ω</span><span class="mord mathit" style="margin-right:0.03148em;">k</span><span class="mord mathit" style="margin-right:0.08125em;">H</span><span class="mord mathit" style="margin-right:0.04398em;">z</span></span></span></span></eq>.</li>
+</ul>
+<p data-line="371" class="code-line">I modified the previous function code to change <eq><span class="katex"><span class="katex-mathml"><math><semantics><mrow><msub><mi>I</mi><mi>A</mi></msub><mo>(</mo><mi>t</mi><mo>)</mo></mrow><annotation encoding="application/x-tex">I_A(t)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.75em;"></span><span class="strut bottom" style="height:1em;vertical-align:-0.25em;"></span><span class="base"><span class="mord"><span class="mord mathit" style="margin-right:0.07847em;">I</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.32833099999999993em;"><span style="top:-2.5500000000000003em;margin-left:-0.07847em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathit mtight">A</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"></span></span></span></span></span><span class="mopen">(</span><span class="mord mathit">t</span><span class="mclose">)</span></span></span></span></eq>  to a sinusoidal current. I chose my <eq><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>ϵ</mi><mo>=</mo><mn>2</mn></mrow><annotation encoding="application/x-tex">\epsilon=2</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.64444em;"></span><span class="strut bottom" style="height:0.64444em;vertical-align:0em;"></span><span class="base"><span class="mord mathit">ϵ</span><span class="mrel">=</span><span class="mord mathrm">2</span></span></span></span></eq> and <eq><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>ω</mi><mo>=</mo><mn>4</mn></mrow><annotation encoding="application/x-tex">\omega=4</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.64444em;"></span><span class="strut bottom" style="height:0.64444em;vertical-align:0em;"></span><span class="base"><span class="mord mathit" style="margin-right:0.03588em;">ω</span><span class="mrel">=</span><span class="mord mathrm">4</span></span></span></span></eq>. So <eq><span class="katex"><span class="katex-mathml"><math><semantics><mrow><msub><mi>I</mi><mi>A</mi></msub><mo>(</mo><mi>t</mi><mo>)</mo><mo>=</mo><mover accent="true"><mrow><mi>I</mi></mrow><mo stretchy="true">‾</mo></mover><mo>+</mo><mn>2</mn><mi>s</mi><mi>i</mi><mi>n</mi><mo>(</mo><mn>8</mn><mi>π</mi><mi>t</mi><mo>)</mo></mrow><annotation encoding="application/x-tex">I_A(t) = \overline{I} + 2sin(8\pi t)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.8833300000000001em;"></span><span class="strut bottom" style="height:1.13333em;vertical-align:-0.25em;"></span><span class="base"><span class="mord"><span class="mord mathit" style="margin-right:0.07847em;">I</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.32833099999999993em;"><span style="top:-2.5500000000000003em;margin-left:-0.07847em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathit mtight">A</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"></span></span></span></span></span><span class="mopen">(</span><span class="mord mathit">t</span><span class="mclose">)</span><span class="mrel">=</span><span class="mord overline"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8833300000000001em;"><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord mathit" style="margin-right:0.07847em;">I</span></span></span><span style="top:-3.80333em;"><span class="pstrut" style="height:3em;"></span><span class="overline-line" style="border-bottom-width:0.04em;"></span></span></span></span></span></span><span class="mbin">+</span><span class="mord mathrm">2</span><span class="mord mathit">s</span><span class="mord mathit">i</span><span class="mord mathit">n</span><span class="mopen">(</span><span class="mord mathrm">8</span><span class="mord mathit" style="margin-right:0.03588em;">π</span><span class="mord mathit">t</span><span class="mclose">)</span></span></span></span></eq></p>
+<pre class="hljs"><code><div>    epsilon = <span class="hljs-number">2</span>;
+    omega = <span class="hljs-number">4</span>;
+    
+    
+    tic
+    <span class="hljs-keyword">for</span> step=<span class="hljs-number">1</span>:npoints<span class="hljs-number">-1</span>
+        I = I + epsilon * <span class="hljs-built_in">sin</span>(<span class="hljs-number">2</span>*<span class="hljs-built_in">pi</span>*time(step)*omega);
+        v(step+<span class="hljs-number">1</span>)=v(step)+((I - gna*h(step)*(v(step)-vna)*m(step)^<span class="hljs-number">3</span> ...
+                   -gk*(v(step)-vk)*n(step)^<span class="hljs-number">4</span>-gl*(v(step)-vl))/c)*dt;
+        m(step+<span class="hljs-number">1</span>)=m(step)+ (alpha_m(v(step))*(<span class="hljs-number">1</span>-m(step))-beta_m(v(step))*m(step))*dt;
+        h(step+<span class="hljs-number">1</span>)=h(step)+ (alpha_h(v(step))*(<span class="hljs-number">1</span>-h(step))-beta_h(v(step))*h(step))*dt;
+        n(step+<span class="hljs-number">1</span>)=n(step)+ (alpha_n(v(step))*(<span class="hljs-number">1</span>-n(step))-beta_n(v(step))*n(step))*dt;
+        time(step+<span class="hljs-number">1</span>)=time(step)+dt;
+
+        <span class="hljs-comment">% spike detection: decreasing now and increasing before</span>
+         <span class="hljs-keyword">if</span> ((step&gt;<span class="hljs-number">1</span>) &amp;&amp; (v(step+<span class="hljs-number">1</span>)&lt;v(step)) &amp;&amp; (v(step)&gt;v(step<span class="hljs-number">-1</span>))) &amp;&amp; (v(step) &gt; thresh)
+            numpeak = numpeak + <span class="hljs-number">1</span>;
+            peaktime(numpeak) = time(step+<span class="hljs-number">1</span>);
+         <span class="hljs-keyword">end</span>
+    <span class="hljs-keyword">end</span>
+    toc
+</div></code></pre>
+<p data-line="398" class="code-line">And then similarly, I plot the firing rate vs current amplitude curve.</p>
+<pre class="hljs"><code><div>rate = <span class="hljs-built_in">zeros</span>(<span class="hljs-number">20</span>, <span class="hljs-number">1</span>);
+I = <span class="hljs-built_in">zeros</span>(<span class="hljs-number">20</span>, <span class="hljs-number">1</span>);
+<span class="hljs-keyword">for</span> k=<span class="hljs-number">1</span>:<span class="hljs-number">20</span>
+    I(k) = <span class="hljs-number">-10</span> + k;
+    rate(k) = hhmodel(I(k));
+<span class="hljs-keyword">end</span>
+
+figure(<span class="hljs-number">4</span>);
+plot(I, rate, <span class="hljs-string">'.-'</span>,<span class="hljs-string">'LineWidth'</span>, <span class="hljs-number">2</span>, <span class="hljs-string">'MarkerSize'</span>, <span class="hljs-number">26</span>)
+grid on;
+symbol = <span class="hljs-string">'I'</span>;
+xlabel(<span class="hljs-string">'Current Amplitude Ibar (\mu A)'</span>); ylabel(<span class="hljs-string">'Firing Rate (Hz)'</span>);
+</div></code></pre>
+<img src="7.jpg" width="500">
+<p data-line="417" class="code-line">It can be seen that the &quot;responsive&quot; current dropped to <eq><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mo>−</mo><mn>1</mn><mtext> </mtext><mi>μ</mi><mi>A</mi></mrow><annotation encoding="application/x-tex">-1\ \mu A</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.68333em;"></span><span class="strut bottom" style="height:0.8777699999999999em;vertical-align:-0.19444em;"></span><span class="base"><span class="mord">−</span><span class="mord mathrm">1</span><span class="mord mathit"><span class="mspace"> </span><span class="mord mathit">μ</span></span><span class="mord mathit">A</span></span></span></span></eq>. The reason is that the peak value for <eq><span class="katex"><span class="katex-mathml"><math><semantics><mrow><msub><mi>I</mi><mi>A</mi></msub><mo>(</mo><mi>t</mi><mo>)</mo><mo>=</mo><mo>−</mo><mn>1</mn><mo>+</mo><mn>2</mn><mi>s</mi><mi>i</mi><mi>n</mi><mo>(</mo><mn>8</mn><mi>π</mi><mi>t</mi><mo>)</mo></mrow><annotation encoding="application/x-tex">I_A(t) = -1 + 2sin(8\pi t)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.75em;"></span><span class="strut bottom" style="height:1em;vertical-align:-0.25em;"></span><span class="base"><span class="mord"><span class="mord mathit" style="margin-right:0.07847em;">I</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.32833099999999993em;"><span style="top:-2.5500000000000003em;margin-left:-0.07847em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathit mtight">A</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"></span></span></span></span></span><span class="mopen">(</span><span class="mord mathit">t</span><span class="mclose">)</span><span class="mrel">=</span><span class="mord">−</span><span class="mord mathrm">1</span><span class="mbin">+</span><span class="mord mathrm">2</span><span class="mord mathit">s</span><span class="mord mathit">i</span><span class="mord mathit">n</span><span class="mopen">(</span><span class="mord mathrm">8</span><span class="mord mathit" style="margin-right:0.03588em;">π</span><span class="mord mathit">t</span><span class="mclose">)</span></span></span></span></eq> is greater or equal to the previous &quot;responsive&quot; current.</p>
+<ul>
+<li data-line="419" class="code-line">Finally, add noise to the applied current.</li>
+</ul>
+<p data-line="421" class="code-line">The noise I added is a uniformly distributed random number between <eq><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mo>[</mo><mo>−</mo><mn>0</mn><mi mathvariant="normal">.</mi><mn>0</mn><mn>5</mn><mo separator="true">,</mo><mn>0</mn><mi mathvariant="normal">.</mi><mn>0</mn><mn>5</mn><mo>]</mo><mtext> </mtext><mi>μ</mi><mi>A</mi></mrow><annotation encoding="application/x-tex">[-0.05, 0.05]\ \mu A</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.75em;"></span><span class="strut bottom" style="height:1em;vertical-align:-0.25em;"></span><span class="base"><span class="mopen">[</span><span class="mord">−</span><span class="mord mathrm">0</span><span class="mord mathrm">.</span><span class="mord mathrm">0</span><span class="mord mathrm">5</span><span class="mpunct">,</span><span class="mord mathrm">0</span><span class="mord mathrm">.</span><span class="mord mathrm">0</span><span class="mord mathrm">5</span><span class="mclose">]</span><span class="mord mathit"><span class="mspace"> </span><span class="mord mathit">μ</span></span><span class="mord mathit">A</span></span></span></span></eq></p>
+<pre class="hljs"><code><div><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">[firingrate, fano]</span> = <span class="hljs-title">hhmodel_with_noise</span><span class="hljs-params">(I)</span></span>
+    vna=<span class="hljs-number">50</span>;  <span class="hljs-comment">%set the constants</span>
+    vk=<span class="hljs-number">-77</span>;
+    vl=<span class="hljs-number">-54.4</span>;
+    gna=<span class="hljs-number">120</span>;
+    gk=<span class="hljs-number">36</span>;
+    gl=<span class="hljs-number">.3</span>;
+    c=<span class="hljs-number">1</span>;
+    
+    v_init=<span class="hljs-number">-65</span>;  <span class="hljs-comment">%the initial conditions</span>
+    m_init=<span class="hljs-number">.052</span>;
+    h_init=<span class="hljs-number">.596</span>;
+    n_init=<span class="hljs-number">.317</span>;
+
+    npoints=<span class="hljs-number">50000</span>;  <span class="hljs-comment">%number of timesteps to integrate</span>
+    dt=<span class="hljs-number">0.01</span>;        <span class="hljs-comment">%timestep</span>
+
+
+    m=<span class="hljs-built_in">zeros</span>(npoints,<span class="hljs-number">1</span>); <span class="hljs-comment">%initialize everything to zero</span>
+    n=<span class="hljs-built_in">zeros</span>(npoints,<span class="hljs-number">1</span>);
+    h=<span class="hljs-built_in">zeros</span>(npoints,<span class="hljs-number">1</span>);
+    v=<span class="hljs-built_in">zeros</span>(npoints,<span class="hljs-number">1</span>);
+    time=<span class="hljs-built_in">zeros</span>(npoints,<span class="hljs-number">1</span>);
+    noise = <span class="hljs-built_in">zeros</span>(npoints, <span class="hljs-number">1</span>);
+    
+    m(<span class="hljs-number">1</span>)=m_init; <span class="hljs-comment">%set the initial conditions to be the first entry in the vectors</span>
+    n(<span class="hljs-number">1</span>)=n_init;
+    h(<span class="hljs-number">1</span>)=h_init;
+    v(<span class="hljs-number">1</span>)=v_init;
+    time(<span class="hljs-number">1</span>)=<span class="hljs-number">0.0</span>;
+    numpeak = <span class="hljs-number">0</span>;
+    thresh = <span class="hljs-number">0</span>;
+    epsilon = <span class="hljs-number">2</span>;
+    omega = <span class="hljs-number">4</span>;
+    
+    tic
+    <span class="hljs-keyword">for</span> step=<span class="hljs-number">1</span>:npoints<span class="hljs-number">-1</span>
+        <span class="hljs-comment">% noise</span>
+        noise(step) = <span class="hljs-number">-0.05</span> * <span class="hljs-built_in">rand</span>() + <span class="hljs-number">0.05</span> * <span class="hljs-built_in">rand</span>();
+        <span class="hljs-comment">% current with noise</span>
+        I = I + epsilon * <span class="hljs-built_in">sin</span>(<span class="hljs-number">2</span>*<span class="hljs-built_in">pi</span>*time(step)*omega);
+        v(step+<span class="hljs-number">1</span>)=v(step)+((I - gna*h(step)*(v(step)-vna)*m(step)^<span class="hljs-number">3</span> ...
+                   -gk*(v(step)-vk)*n(step)^<span class="hljs-number">4</span>-gl*(v(step)-vl))/c)*dt;
+        m(step+<span class="hljs-number">1</span>)=m(step)+ (alpha_m(v(step))*(<span class="hljs-number">1</span>-m(step))-beta_m(v(step))*m(step))*dt;
+        h(step+<span class="hljs-number">1</span>)=h(step)+ (alpha_h(v(step))*(<span class="hljs-number">1</span>-h(step))-beta_h(v(step))*h(step))*dt;
+        n(step+<span class="hljs-number">1</span>)=n(step)+ (alpha_n(v(step))*(<span class="hljs-number">1</span>-n(step))-beta_n(v(step))*n(step))*dt;
+        time(step+<span class="hljs-number">1</span>)=time(step)+dt;
+
+        <span class="hljs-comment">% spike detection: decreasing now and increasing before</span>
+         <span class="hljs-keyword">if</span> ((step&gt;<span class="hljs-number">1</span>) &amp;&amp; (v(step+<span class="hljs-number">1</span>)&lt;v(step)) &amp;&amp; (v(step)&gt;v(step<span class="hljs-number">-1</span>))) &amp;&amp; (v(step) &gt; thresh)
+            numpeak = numpeak + <span class="hljs-number">1</span>;
+            peaktime(numpeak) = time(step+<span class="hljs-number">1</span>);
+         <span class="hljs-keyword">end</span>
+    <span class="hljs-keyword">end</span>
+    toc
+    
+    firingrate = numpeak / (npoints * dt);
+    fano = var(noise) / mean(noise);
+    
+<span class="hljs-keyword">end</span>
+</div></code></pre>
+<p data-line="486" class="code-line">And when I plot the firing rate vs current plot, the noise affects a lot.</p>
+<pre class="hljs"><code><div>rate = <span class="hljs-built_in">zeros</span>(<span class="hljs-number">20</span>, <span class="hljs-number">1</span>);
+I = <span class="hljs-built_in">zeros</span>(<span class="hljs-number">20</span>, <span class="hljs-number">1</span>);
+fano = <span class="hljs-built_in">zeros</span>(<span class="hljs-number">20</span>, <span class="hljs-number">1</span>);
+
+<span class="hljs-keyword">for</span> k=<span class="hljs-number">1</span>:<span class="hljs-number">20</span>
+    I(k) = <span class="hljs-number">-10</span> + k;
+    [rate(k), fano(k)] = hhmodel_with_noise(I(k));
+<span class="hljs-keyword">end</span>
+
+figure(<span class="hljs-number">4</span>);
+plot(I, rate, <span class="hljs-string">'.-'</span>,<span class="hljs-string">'LineWidth'</span>, <span class="hljs-number">2</span>, <span class="hljs-string">'MarkerSize'</span>, <span class="hljs-number">26</span>)
+grid on;
+symbol = <span class="hljs-string">'I'</span>;
+xlabel(<span class="hljs-string">'Current Amplitude Ibar (\mu A)'</span>); ylabel(<span class="hljs-string">'Firing Rate (Hz)'</span>);
+</div></code></pre>
+<img src="8.jpg" width="500">
+<p data-line="507" class="code-line">Then we would like to know that how is the fano factor related with the amplitude of the noise. I chose <eq><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mover accent="true"><mrow><mi>I</mi></mrow><mo stretchy="true">‾</mo></mover><mo>=</mo><mn>5</mn></mrow><annotation encoding="application/x-tex">\overline{I} = 5</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.8833300000000001em;"></span><span class="strut bottom" style="height:0.8833300000000001em;vertical-align:0em;"></span><span class="base"><span class="mord overline"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8833300000000001em;"><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord mathit" style="margin-right:0.07847em;">I</span></span></span><span style="top:-3.80333em;"><span class="pstrut" style="height:3em;"></span><span class="overline-line" style="border-bottom-width:0.04em;"></span></span></span></span></span></span><span class="mrel">=</span><span class="mord mathrm">5</span></span></span></span></eq>.</p>
+<pre class="hljs"><code><div>I = <span class="hljs-number">5</span>;
+fano = <span class="hljs-built_in">zeros</span>(<span class="hljs-number">10</span>, <span class="hljs-number">1</span>);
+a = <span class="hljs-built_in">zeros</span>(<span class="hljs-number">10</span>, <span class="hljs-number">1</span>);
+<span class="hljs-built_in">i</span> = <span class="hljs-number">1</span>;
+<span class="hljs-keyword">for</span> k = <span class="hljs-number">0.001</span>:<span class="hljs-number">0.001</span>:<span class="hljs-number">0.1</span>
+    noise = <span class="hljs-built_in">zeros</span>(<span class="hljs-number">500</span>, <span class="hljs-number">1</span>);
+    <span class="hljs-keyword">for</span> n = <span class="hljs-number">1</span>:<span class="hljs-number">500</span>
+        noise(n) = -k* <span class="hljs-built_in">rand</span>() + k * <span class="hljs-built_in">rand</span>();
+    <span class="hljs-keyword">end</span>
+    fano(<span class="hljs-built_in">i</span>) = var(noise) / mean(noise);
+    a(<span class="hljs-built_in">i</span>) = max(noise);
+    <span class="hljs-built_in">i</span> = <span class="hljs-built_in">i</span> + <span class="hljs-number">1</span>;
+<span class="hljs-keyword">end</span>
+
+plot(fano, a, <span class="hljs-string">'.-'</span>, <span class="hljs-string">'LineWidth'</span>, <span class="hljs-number">2</span>, <span class="hljs-string">'MarkerSize'</span>, <span class="hljs-number">16</span>);
+xlabel(<span class="hljs-string">'Amplitude of noise'</span>); ylabel(<span class="hljs-string">'Fano Factor'</span>);
+</div></code></pre>
+<img src="9.jpg" width="500">
+<p data-line="530" class="code-line">And it can be seen that as the amplitude of noise rises, the fano factor would varied more around 0 as it does for small amplitudes.</p>
+<h2 data-line="533" class="code-line" id="appendix">Appendix</h2>
+<pre class="hljs"><code><div><span class="hljs-comment">%% PART 1</span>
+<span class="hljs-comment">%euler method simulator</span>
+
+deltat=<span class="hljs-number">0.01</span> ; <span class="hljs-comment">%timestep</span>
+Tmax=<span class="hljs-number">50</span>;
+
+tlist=<span class="hljs-built_in">linspace</span>(<span class="hljs-number">0</span>,Tmax,Tmax/deltat +<span class="hljs-number">1</span>) ;
+V1=<span class="hljs-built_in">zeros</span>(<span class="hljs-number">1</span>,<span class="hljs-built_in">length</span>(tlist));
+V2=<span class="hljs-built_in">zeros</span>(<span class="hljs-number">1</span>,<span class="hljs-built_in">length</span>(tlist));
+
+<span class="hljs-comment">%initialize</span>
+V0=<span class="hljs-number">0</span>;
+V1(<span class="hljs-number">1</span>)=V0;
+V2(<span class="hljs-number">1</span>)=V0;
+
+<span class="hljs-comment">%circuit parameters</span>
+R=<span class="hljs-number">10</span>;
+C=<span class="hljs-number">1</span>;
+
+<span class="hljs-comment">%define input currents</span>
+I1=<span class="hljs-number">1.05157</span> * <span class="hljs-built_in">ones</span>(<span class="hljs-number">1</span>,<span class="hljs-built_in">length</span>(tlist));
+I2=<span class="hljs-number">-64.681</span>* <span class="hljs-built_in">sin</span>(tlist);
+
+
+<span class="hljs-keyword">for</span> n=<span class="hljs-number">1</span>:<span class="hljs-built_in">length</span>(tlist)<span class="hljs-number">-1</span>
+    t=tlist(n);
+    V1(n+<span class="hljs-number">1</span>)=V1(n) + (-V1(n)/(R*C) + I1(n)/C )*deltat;
+    V2(n+<span class="hljs-number">1</span>)=V2(n) + (-V2(n)/(R*C) + I2(n)/C )*deltat;
+<span class="hljs-keyword">end</span>
+<span class="hljs-comment">%% voltage</span>
+figure(<span class="hljs-number">1</span>)
+subplot(<span class="hljs-number">211</span>)
+plot(tlist,V1,<span class="hljs-string">'.-'</span>,<span class="hljs-string">'LineWidth'</span>,<span class="hljs-number">2</span>, <span class="hljs-string">'MarkerSize'</span>, <span class="hljs-number">10</span>); hold on
+xlabel(<span class="hljs-string">'t (ms)'</span>); ylabel(<span class="hljs-string">'V_1(t) (mV)'</span>);
+axis([<span class="hljs-number">0</span> <span class="hljs-number">50</span> <span class="hljs-number">0</span> <span class="hljs-number">20</span>])
+line([<span class="hljs-number">30</span> <span class="hljs-number">30</span>], [<span class="hljs-number">0</span> <span class="hljs-number">30</span>]);
+txt1 = <span class="hljs-string">'\leftarrow V_1(t=30ms) = 10mV'</span>;
+text(<span class="hljs-number">30</span>, V1(tlist==<span class="hljs-number">30</span>), txt1);
+
+subplot(<span class="hljs-number">212</span>)
+plot(tlist,V2,<span class="hljs-string">'-'</span>,<span class="hljs-string">'LineWidth'</span>,<span class="hljs-number">2</span>, <span class="hljs-string">'MarkerSize'</span>, <span class="hljs-number">10</span>); hold on
+xlabel(<span class="hljs-string">'t (ms)'</span>); ylabel(<span class="hljs-string">'V_2(t) (mV)'</span>);
+axis([<span class="hljs-number">0</span> <span class="hljs-number">50</span> <span class="hljs-number">0</span> <span class="hljs-number">20</span>])
+line([<span class="hljs-number">30</span> <span class="hljs-number">30</span>], [<span class="hljs-number">0</span> <span class="hljs-number">30</span>]);
+txt2 = <span class="hljs-string">'\leftarrow V_2(t=30ms) = 10mV'</span>;
+text(<span class="hljs-number">30</span>, V1(tlist==<span class="hljs-number">30</span>), txt2);
+<span class="hljs-comment">%% current</span>
+figure(<span class="hljs-number">1</span>)
+subplot(<span class="hljs-number">211</span>)
+plot(tlist,I1,<span class="hljs-string">'.-'</span>,<span class="hljs-string">'LineWidth'</span>,<span class="hljs-number">2</span>, <span class="hljs-string">'MarkerSize'</span>, <span class="hljs-number">10</span>); hold on
+xlabel(<span class="hljs-string">'t (s)'</span>); ylabel(<span class="hljs-string">'I_1(t)'</span>); 
+
+
+subplot(<span class="hljs-number">212</span>)
+plot(tlist,I2,<span class="hljs-string">'-'</span>,<span class="hljs-string">'LineWidth'</span>,<span class="hljs-number">2</span>, <span class="hljs-string">'MarkerSize'</span>, <span class="hljs-number">10</span>); hold on
+xlabel(<span class="hljs-string">'t (s)'</span>); ylabel(<span class="hljs-string">'I_2(t)'</span>);
+<span class="hljs-comment">%% ===============================================================</span>
+<span class="hljs-comment">%% PART 2</span>
+deltat=<span class="hljs-number">0.1</span> ; <span class="hljs-comment">%timestep</span>
+Tmax=<span class="hljs-number">100</span>;
+
+tlist=<span class="hljs-built_in">linspace</span>(<span class="hljs-number">0</span>,Tmax,Tmax/deltat +<span class="hljs-number">1</span>) ;
+Vlist=<span class="hljs-built_in">zeros</span>(<span class="hljs-number">1</span>,<span class="hljs-built_in">length</span>(tlist));
+Ialist=<span class="hljs-built_in">zeros</span>(<span class="hljs-number">1</span>,<span class="hljs-built_in">length</span>(tlist));
+width=<span class="hljs-number">30</span>; t1=<span class="hljs-number">30</span>; t2=t1+width;
+Ialist(tlist&gt;=t1&amp;tlist&lt;t2) = <span class="hljs-number">0.5</span>;
+
+<span class="hljs-comment">%initialize</span>
+V0=<span class="hljs-number">0</span>;
+Vlist(<span class="hljs-number">1</span>)=V0;
+
+<span class="hljs-comment">%circuit parameters</span>
+R=<span class="hljs-number">10</span>;
+C=<span class="hljs-number">1</span>;
+
+<span class="hljs-keyword">for</span> n=<span class="hljs-number">1</span>:<span class="hljs-built_in">length</span>(tlist)<span class="hljs-number">-1</span>
+    t=tlist(n);
+    Vlist(n+<span class="hljs-number">1</span>)=Vlist(n) + ( -Vlist(n)/(R*C) +Ialist(n)/C)*deltat;
+<span class="hljs-keyword">end</span>
+
+figure(<span class="hljs-number">2</span>);
+plot(tlist,Vlist,<span class="hljs-string">'.-'</span>,<span class="hljs-string">'LineWidth'</span>,<span class="hljs-number">2</span>,<span class="hljs-string">'MarkerSize'</span>,<span class="hljs-number">10</span>); hold on; grid on;
+axis([<span class="hljs-number">0</span> <span class="hljs-number">100</span> <span class="hljs-number">0</span> <span class="hljs-number">10</span>]);
+xlabel(<span class="hljs-string">'t (ms)'</span>); ylabel(<span class="hljs-string">'V(t) (mV)'</span>); 
+
+<span class="hljs-comment">%% PART 3</span>
+deltat=<span class="hljs-number">0.1</span> ; <span class="hljs-comment">%timestep</span>
+Tmax=<span class="hljs-number">100</span>;
+
+tlist=<span class="hljs-built_in">linspace</span>(<span class="hljs-number">0</span>,Tmax,Tmax/deltat +<span class="hljs-number">1</span>) ;
+Vlist=<span class="hljs-built_in">zeros</span>(<span class="hljs-number">1</span>,<span class="hljs-built_in">length</span>(tlist));
+Ialist=<span class="hljs-built_in">zeros</span>(<span class="hljs-number">1</span>,<span class="hljs-built_in">length</span>(tlist));
+width=<span class="hljs-number">30</span>; t1=<span class="hljs-number">30</span>; t2=t1+width;
+Ialist(tlist&gt;=t1&amp;tlist&lt;t2) = <span class="hljs-number">0.5</span>;
+
+<span class="hljs-comment">%initialize</span>
+V0=<span class="hljs-number">0</span>;
+Vlist(<span class="hljs-number">1</span>)=V0;
+threshold = <span class="hljs-number">10</span>;
+N = <span class="hljs-number">1</span>;
+
+<span class="hljs-comment">%circuit parameters</span>
+R=<span class="hljs-number">10</span>;
+C=<span class="hljs-number">1</span>;
+
+<span class="hljs-keyword">while</span> max(Vlist) &lt; threshold
+    <span class="hljs-keyword">for</span> n=<span class="hljs-number">1</span>:<span class="hljs-built_in">length</span>(tlist)<span class="hljs-number">-1</span>
+        t=tlist(n);
+        Vlist(n+<span class="hljs-number">1</span>)=Vlist(n) + ( -Vlist(n)/(R*C) +Ialist(n)/C)*deltat;
+    <span class="hljs-keyword">end</span>
+    N = N + <span class="hljs-number">0.00001</span>;
+    Ialist(tlist&gt;=t1&amp;tlist&lt;t2) = N * <span class="hljs-number">0.5</span>;
+<span class="hljs-keyword">end</span>
+figure
+plot(tlist,Vlist,<span class="hljs-string">'.-'</span>,<span class="hljs-string">'LineWidth'</span>,<span class="hljs-number">2</span>); hold on; grid on;
+xlabel(<span class="hljs-string">'t'</span>); ylabel(<span class="hljs-string">'V(t)'</span>); 
+<span class="hljs-comment">%% PART 4</span>
+deltat=<span class="hljs-number">0.1</span> ; <span class="hljs-comment">%timestep</span>
+Tmax=<span class="hljs-number">100</span>;
+
+tlist=<span class="hljs-built_in">linspace</span>(<span class="hljs-number">0</span>,Tmax,Tmax/deltat +<span class="hljs-number">1</span>) ;
+Vlist=<span class="hljs-built_in">zeros</span>(<span class="hljs-number">1</span>,<span class="hljs-built_in">length</span>(tlist));
+
+<span class="hljs-comment">%initialize</span>
+V0=<span class="hljs-number">0</span>;
+Vlist(<span class="hljs-number">1</span>)=V0;
+
+<span class="hljs-comment">%define input conductance</span>
+gapplist=<span class="hljs-built_in">zeros</span>(<span class="hljs-number">1</span>,<span class="hljs-built_in">length</span>(tlist));
+t1 = <span class="hljs-number">10</span>; t2 = t1 + <span class="hljs-number">20</span>;
+gapplist(tlist&gt;=t1&amp;tlist&lt;t2) = <span class="hljs-number">0.5</span>;
+
+<span class="hljs-comment">%circuit parameters</span>
+R=<span class="hljs-number">10</span>;
+C=<span class="hljs-number">1</span>;
+E=<span class="hljs-number">11</span>;
+<span class="hljs-keyword">for</span> n=<span class="hljs-number">1</span>:<span class="hljs-built_in">length</span>(tlist)<span class="hljs-number">-1</span>
+    t=tlist(n);
+    Vlist(n+<span class="hljs-number">1</span>)=Vlist(n) + ( -Vlist(n)/(R*C) + gapplist(n)*(E-Vlist(n)) )*deltat;
+<span class="hljs-keyword">end</span>
+
+figure
+plot(tlist,Vlist,<span class="hljs-string">'.-'</span>,<span class="hljs-string">'LineWidth'</span>,<span class="hljs-number">2</span>); hold on; grid on;
+xlabel(<span class="hljs-string">'t'</span>); ylabel(<span class="hljs-string">'V(t)'</span>); 
+<span class="hljs-comment">%%</span>
+deltat=<span class="hljs-number">0.1</span> ; <span class="hljs-comment">%timestep</span>
+Tmax=<span class="hljs-number">100</span>;
+width = <span class="hljs-number">20</span>;
+
+tlist=<span class="hljs-built_in">linspace</span>(<span class="hljs-number">0</span>,Tmax,Tmax/deltat +<span class="hljs-number">1</span>) ;
+V1=<span class="hljs-built_in">zeros</span>(<span class="hljs-number">1</span>,<span class="hljs-built_in">length</span>(tlist));
+V2=<span class="hljs-built_in">zeros</span>(<span class="hljs-number">1</span>,<span class="hljs-built_in">length</span>(tlist));
+V3=<span class="hljs-built_in">zeros</span>(<span class="hljs-number">1</span>,<span class="hljs-built_in">length</span>(tlist));
+V4=<span class="hljs-built_in">zeros</span>(<span class="hljs-number">1</span>,<span class="hljs-built_in">length</span>(tlist));
+
+<span class="hljs-comment">%initialize</span>
+V0=<span class="hljs-number">0</span>;
+V1(<span class="hljs-number">1</span>)=V0;
+V2(<span class="hljs-number">1</span>)=V0;
+V3(<span class="hljs-number">1</span>)=V0;
+V4(<span class="hljs-number">1</span>)=V0;
+
+<span class="hljs-comment">%define input conductance</span>
+g1=<span class="hljs-built_in">zeros</span>(<span class="hljs-number">1</span>,<span class="hljs-built_in">length</span>(tlist));
+t1 = <span class="hljs-number">10</span>; t2 = t1 + width;
+g1(tlist&gt;=t1&amp;tlist&lt;t2) = <span class="hljs-number">0.1</span>;
+
+g2=<span class="hljs-built_in">zeros</span>(<span class="hljs-number">1</span>,<span class="hljs-built_in">length</span>(tlist));
+t1 = <span class="hljs-number">40</span>; t2 = t1 + width;
+g2(tlist&gt;=t1&amp;tlist&lt;t2) = <span class="hljs-number">0.3</span>;
+
+g3=g1+g2;
+
+
+<span class="hljs-comment">%circuit parameters</span>
+R=<span class="hljs-number">10</span>;
+C=<span class="hljs-number">1</span>;
+E=<span class="hljs-number">11</span>;
+<span class="hljs-keyword">for</span> n=<span class="hljs-number">1</span>:<span class="hljs-built_in">length</span>(tlist)<span class="hljs-number">-1</span>
+    t=tlist(n);
+    V1(n+<span class="hljs-number">1</span>)=V1(n) + ( -V1(n)/(R*C) + g1(n)*(E-V1(n)) )*deltat;
+    V2(n+<span class="hljs-number">1</span>)=V2(n) + ( -V2(n)/(R*C) + g2(n)*(E-V2(n)) )*deltat;
+    V3(n+<span class="hljs-number">1</span>)=V3(n) + ( -V3(n)/(R*C) + g3(n)*(E-V3(n)) )*deltat;
+<span class="hljs-keyword">end</span>
+
+figure(<span class="hljs-number">3</span>);
+plot(tlist,V1,<span class="hljs-string">'.-'</span>,<span class="hljs-string">'LineWidth'</span>,<span class="hljs-number">2</span>, <span class="hljs-string">'MarkerSize'</span>, <span class="hljs-number">26</span>); hold on
+xlabel(<span class="hljs-string">'t'</span>); ylabel(<span class="hljs-string">'V(t)'</span>);
+plot(tlist,V2,<span class="hljs-string">'.-'</span>,<span class="hljs-string">'LineWidth'</span>,<span class="hljs-number">2</span>, <span class="hljs-string">'MarkerSize'</span>, <span class="hljs-number">26</span>);
+plot(tlist,V3,<span class="hljs-string">'.-'</span>,<span class="hljs-string">'LineWidth'</span>,<span class="hljs-number">2</span>, <span class="hljs-string">'MarkerSize'</span>, <span class="hljs-number">26</span>);
+plot(tlist,V1+V2,<span class="hljs-string">'.-'</span>,<span class="hljs-string">'LineWidth'</span>,<span class="hljs-number">2</span>, <span class="hljs-string">'MarkerSize'</span>, <span class="hljs-number">26</span>);
+legend(<span class="hljs-string">'V1'</span>,<span class="hljs-string">'V2'</span>,<span class="hljs-string">'V3'</span>,<span class="hljs-string">'V1+V2'</span>)
+<span class="hljs-comment">%%</span>
+rate = <span class="hljs-built_in">zeros</span>(<span class="hljs-number">20</span>, <span class="hljs-number">1</span>);
+I = <span class="hljs-built_in">zeros</span>(<span class="hljs-number">20</span>, <span class="hljs-number">1</span>);
+<span class="hljs-keyword">for</span> k=<span class="hljs-number">1</span>:<span class="hljs-number">20</span>
+    I(k) = <span class="hljs-number">-10</span> + k;
+    rate(k) = hhmodel(I(k));
+<span class="hljs-keyword">end</span>
+
+figure(<span class="hljs-number">4</span>);
+plot(I, rate, <span class="hljs-string">'.-'</span>,<span class="hljs-string">'LineWidth'</span>, <span class="hljs-number">2</span>, <span class="hljs-string">'MarkerSize'</span>, <span class="hljs-number">26</span>)
+grid on;
+xlabel(<span class="hljs-string">'Current I_A (\mu A)'</span>); ylabel(<span class="hljs-string">'Firing Rate (Hz)'</span>);
+
+<span class="hljs-comment">%%</span>
+rate = <span class="hljs-built_in">zeros</span>(<span class="hljs-number">20</span>, <span class="hljs-number">1</span>);
+I = <span class="hljs-built_in">zeros</span>(<span class="hljs-number">20</span>, <span class="hljs-number">1</span>);
+<span class="hljs-keyword">for</span> k=<span class="hljs-number">1</span>:<span class="hljs-number">20</span>
+    I(k) = <span class="hljs-number">-10</span> + k;
+    rate(k) = hhmodel(I(k));
+<span class="hljs-keyword">end</span>
+
+figure(<span class="hljs-number">4</span>);
+plot(I, rate, <span class="hljs-string">'.-'</span>,<span class="hljs-string">'LineWidth'</span>, <span class="hljs-number">2</span>, <span class="hljs-string">'MarkerSize'</span>, <span class="hljs-number">26</span>)
+grid on;
+symbol = <span class="hljs-string">'I'</span>;
+xlabel(<span class="hljs-string">'Current Amplitude Ibar (\mu A)'</span>); ylabel(<span class="hljs-string">'Firing Rate (Hz)'</span>);
+<span class="hljs-comment">%%</span>
+rate = <span class="hljs-built_in">zeros</span>(<span class="hljs-number">20</span>, <span class="hljs-number">1</span>);
+I = <span class="hljs-built_in">zeros</span>(<span class="hljs-number">20</span>, <span class="hljs-number">1</span>);
+fano = <span class="hljs-built_in">zeros</span>(<span class="hljs-number">20</span>, <span class="hljs-number">1</span>);
+
+<span class="hljs-keyword">for</span> k=<span class="hljs-number">1</span>:<span class="hljs-number">20</span>
+    I(k) = <span class="hljs-number">-10</span> + k;
+    [rate(k), fano(k)] = hhmodel_with_noise(I(k));
+<span class="hljs-keyword">end</span>
+
+figure(<span class="hljs-number">4</span>);
+plot(I, rate, <span class="hljs-string">'.-'</span>,<span class="hljs-string">'LineWidth'</span>, <span class="hljs-number">2</span>, <span class="hljs-string">'MarkerSize'</span>, <span class="hljs-number">26</span>)
+grid on;
+symbol = <span class="hljs-string">'I'</span>;
+xlabel(<span class="hljs-string">'Current Amplitude Ibar (\mu A)'</span>); ylabel(<span class="hljs-string">'Firing Rate (Hz)'</span>);
+
+<span class="hljs-comment">%%</span>
+I = <span class="hljs-number">5</span>;
+fano = <span class="hljs-built_in">zeros</span>(<span class="hljs-number">10</span>, <span class="hljs-number">1</span>);
+a = <span class="hljs-built_in">zeros</span>(<span class="hljs-number">10</span>, <span class="hljs-number">1</span>);
+<span class="hljs-built_in">i</span> = <span class="hljs-number">1</span>;
+<span class="hljs-keyword">for</span> k = <span class="hljs-number">0.001</span>:<span class="hljs-number">0.001</span>:<span class="hljs-number">0.1</span>
+    noise = <span class="hljs-built_in">zeros</span>(<span class="hljs-number">500</span>, <span class="hljs-number">1</span>);
+    <span class="hljs-keyword">for</span> n = <span class="hljs-number">1</span>:<span class="hljs-number">500</span>
+        noise(n) = -k* <span class="hljs-built_in">rand</span>() + k * <span class="hljs-built_in">rand</span>();
+    <span class="hljs-keyword">end</span>
+    fano(<span class="hljs-built_in">i</span>) = var(noise) / mean(noise);
+    a(<span class="hljs-built_in">i</span>) = max(noise);
+    <span class="hljs-built_in">i</span> = <span class="hljs-built_in">i</span> + <span class="hljs-number">1</span>;
+<span class="hljs-keyword">end</span>
+
+plot(fano, a, <span class="hljs-string">'.-'</span>, <span class="hljs-string">'LineWidth'</span>, <span class="hljs-number">2</span>, <span class="hljs-string">'MarkerSize'</span>, <span class="hljs-number">16</span>);
+xlabel(<span class="hljs-string">'Amplitude of noise'</span>); ylabel(<span class="hljs-string">'Fano Factor'</span>);
+
+
+<span class="hljs-comment">%%==================================================</span>
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">firingrate</span> = <span class="hljs-title">hhmodel</span><span class="hljs-params">(I)</span></span>
+    vna=<span class="hljs-number">50</span>;  <span class="hljs-comment">%set the constants</span>
+    vk=<span class="hljs-number">-77</span>;
+    vl=<span class="hljs-number">-54.4</span>;
+    gna=<span class="hljs-number">120</span>;
+    gk=<span class="hljs-number">36</span>;
+    gl=<span class="hljs-number">.3</span>;
+    c=<span class="hljs-number">1</span>;
+    
+    v_init=<span class="hljs-number">-65</span>;  <span class="hljs-comment">%the initial conditions</span>
+    m_init=<span class="hljs-number">.052</span>;
+    h_init=<span class="hljs-number">.596</span>;
+    n_init=<span class="hljs-number">.317</span>;
+
+    npoints=<span class="hljs-number">50000</span>;  <span class="hljs-comment">%number of timesteps to integrate</span>
+    dt=<span class="hljs-number">0.01</span>;        <span class="hljs-comment">%timestep</span>
+
+
+    m=<span class="hljs-built_in">zeros</span>(npoints,<span class="hljs-number">1</span>); <span class="hljs-comment">%initialize everything to zero</span>
+    n=<span class="hljs-built_in">zeros</span>(npoints,<span class="hljs-number">1</span>);
+    h=<span class="hljs-built_in">zeros</span>(npoints,<span class="hljs-number">1</span>);
+    v=<span class="hljs-built_in">zeros</span>(npoints,<span class="hljs-number">1</span>);
+    time=<span class="hljs-built_in">zeros</span>(npoints,<span class="hljs-number">1</span>);
+
+    m(<span class="hljs-number">1</span>)=m_init; <span class="hljs-comment">%set the initial conditions to be the first entry in the vectors</span>
+    n(<span class="hljs-number">1</span>)=n_init;
+    h(<span class="hljs-number">1</span>)=h_init;
+    v(<span class="hljs-number">1</span>)=v_init;
+    time(<span class="hljs-number">1</span>)=<span class="hljs-number">0.0</span>;
+    numpeak = <span class="hljs-number">0</span>;
+    thresh = <span class="hljs-number">0</span>;
+    epsilon = <span class="hljs-number">2</span>;
+    omega = <span class="hljs-number">4</span>;
+    
+    
+    tic
+    <span class="hljs-keyword">for</span> step=<span class="hljs-number">1</span>:npoints<span class="hljs-number">-1</span>
+        I = I + epsilon * <span class="hljs-built_in">sin</span>(<span class="hljs-number">2</span>*<span class="hljs-built_in">pi</span>*time(step)*omega);
+        v(step+<span class="hljs-number">1</span>)=v(step)+((I - gna*h(step)*(v(step)-vna)*m(step)^<span class="hljs-number">3</span> ...
+                   -gk*(v(step)-vk)*n(step)^<span class="hljs-number">4</span>-gl*(v(step)-vl))/c)*dt;
+        m(step+<span class="hljs-number">1</span>)=m(step)+ (alpha_m(v(step))*(<span class="hljs-number">1</span>-m(step))-beta_m(v(step))*m(step))*dt;
+        h(step+<span class="hljs-number">1</span>)=h(step)+ (alpha_h(v(step))*(<span class="hljs-number">1</span>-h(step))-beta_h(v(step))*h(step))*dt;
+        n(step+<span class="hljs-number">1</span>)=n(step)+ (alpha_n(v(step))*(<span class="hljs-number">1</span>-n(step))-beta_n(v(step))*n(step))*dt;
+        time(step+<span class="hljs-number">1</span>)=time(step)+dt;
+
+        <span class="hljs-comment">% spike detection: decreasing now and increasing before</span>
+         <span class="hljs-keyword">if</span> ((step&gt;<span class="hljs-number">1</span>) &amp;&amp; (v(step+<span class="hljs-number">1</span>)&lt;v(step)) &amp;&amp; (v(step)&gt;v(step<span class="hljs-number">-1</span>))) &amp;&amp; (v(step) &gt; thresh)
+            numpeak = numpeak + <span class="hljs-number">1</span>;
+            peaktime(numpeak) = time(step+<span class="hljs-number">1</span>);
+         <span class="hljs-keyword">end</span>
+    <span class="hljs-keyword">end</span>
+    toc
+    
+    firingrate = numpeak / (npoints * dt);
+<span class="hljs-keyword">end</span>
+
+<span class="hljs-comment">%% ========================================</span>
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">[firingrate, fano]</span> = <span class="hljs-title">hhmodel_with_noise</span><span class="hljs-params">(I)</span></span>
+    vna=<span class="hljs-number">50</span>;  <span class="hljs-comment">%set the constants</span>
+    vk=<span class="hljs-number">-77</span>;
+    vl=<span class="hljs-number">-54.4</span>;
+    gna=<span class="hljs-number">120</span>;
+    gk=<span class="hljs-number">36</span>;
+    gl=<span class="hljs-number">.3</span>;
+    c=<span class="hljs-number">1</span>;
+    
+    v_init=<span class="hljs-number">-65</span>;  <span class="hljs-comment">%the initial conditions</span>
+    m_init=<span class="hljs-number">.052</span>;
+    h_init=<span class="hljs-number">.596</span>;
+    n_init=<span class="hljs-number">.317</span>;
+
+    npoints=<span class="hljs-number">50000</span>;  <span class="hljs-comment">%number of timesteps to integrate</span>
+    dt=<span class="hljs-number">0.01</span>;        <span class="hljs-comment">%timestep</span>
+
+
+    m=<span class="hljs-built_in">zeros</span>(npoints,<span class="hljs-number">1</span>); <span class="hljs-comment">%initialize everything to zero</span>
+    n=<span class="hljs-built_in">zeros</span>(npoints,<span class="hljs-number">1</span>);
+    h=<span class="hljs-built_in">zeros</span>(npoints,<span class="hljs-number">1</span>);
+    v=<span class="hljs-built_in">zeros</span>(npoints,<span class="hljs-number">1</span>);
+    time=<span class="hljs-built_in">zeros</span>(npoints,<span class="hljs-number">1</span>);
+    noise = <span class="hljs-built_in">zeros</span>(npoints, <span class="hljs-number">1</span>);
+    
+    m(<span class="hljs-number">1</span>)=m_init; <span class="hljs-comment">%set the initial conditions to be the first entry in the vectors</span>
+    n(<span class="hljs-number">1</span>)=n_init;
+    h(<span class="hljs-number">1</span>)=h_init;
+    v(<span class="hljs-number">1</span>)=v_init;
+    time(<span class="hljs-number">1</span>)=<span class="hljs-number">0.0</span>;
+    numpeak = <span class="hljs-number">0</span>;
+    thresh = <span class="hljs-number">0</span>;
+    epsilon = <span class="hljs-number">2</span>;
+    omega = <span class="hljs-number">4</span>;
+    
+    tic
+    <span class="hljs-keyword">for</span> step=<span class="hljs-number">1</span>:npoints<span class="hljs-number">-1</span>
+        <span class="hljs-comment">% noise</span>
+        noise(step) = <span class="hljs-number">-0.05</span> * <span class="hljs-built_in">rand</span>() + <span class="hljs-number">0.05</span> * <span class="hljs-built_in">rand</span>();
+        <span class="hljs-comment">% current with noise</span>
+        I = I + epsilon * <span class="hljs-built_in">sin</span>(<span class="hljs-number">2</span>*<span class="hljs-built_in">pi</span>*time(step)*omega) + noise(step);
+        v(step+<span class="hljs-number">1</span>)=v(step)+((I - gna*h(step)*(v(step)-vna)*m(step)^<span class="hljs-number">3</span> ...
+                   -gk*(v(step)-vk)*n(step)^<span class="hljs-number">4</span>-gl*(v(step)-vl))/c)*dt;
+        m(step+<span class="hljs-number">1</span>)=m(step)+ (alpha_m(v(step))*(<span class="hljs-number">1</span>-m(step))-beta_m(v(step))*m(step))*dt;
+        h(step+<span class="hljs-number">1</span>)=h(step)+ (alpha_h(v(step))*(<span class="hljs-number">1</span>-h(step))-beta_h(v(step))*h(step))*dt;
+        n(step+<span class="hljs-number">1</span>)=n(step)+ (alpha_n(v(step))*(<span class="hljs-number">1</span>-n(step))-beta_n(v(step))*n(step))*dt;
+        time(step+<span class="hljs-number">1</span>)=time(step)+dt;
+
+        <span class="hljs-comment">% spike detection: decreasing now and increasing before</span>
+         <span class="hljs-keyword">if</span> ((step&gt;<span class="hljs-number">1</span>) &amp;&amp; (v(step+<span class="hljs-number">1</span>)&lt;v(step)) &amp;&amp; (v(step)&gt;v(step<span class="hljs-number">-1</span>))) &amp;&amp; (v(step) &gt; thresh)
+            numpeak = numpeak + <span class="hljs-number">1</span>;
+            peaktime(numpeak) = time(step+<span class="hljs-number">1</span>);
+         <span class="hljs-keyword">end</span>
+    <span class="hljs-keyword">end</span>
+    toc
+    
+    firingrate = numpeak / (npoints * dt);
+    fano = var(noise) / mean(noise);
+    
+<span class="hljs-keyword">end</span>
+</div></code></pre>
+
+</body></html>

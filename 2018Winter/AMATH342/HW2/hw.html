@@ -1,0 +1,238 @@
+<!doctype html><html><head><meta charset='utf-8'>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/github-markdown-css/2.4.1/github-markdown.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.11.0/styles/default.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.8.3/katex.min.css">
+    <link rel="stylesheet" href="https://gitcdn.xyz/repo/goessner/mdmath/master/css/texmath.css">
+    <link rel="stylesheet" href="https://gitcdn.xyz/repo/goessner/mdmath/master/css/vscode-texmath.css">
+    
+    </head><body class="markdown-body">
+    <h1 data-line="0" class="code-line" id="amath-342-hw-2">AMATH 342 HW 2</h1>
+    <h2 data-line="1" class="code-line" id="due-monday-feb-12">Due Monday, Feb 12</h2>
+    <h3 data-line="2" class="code-line" id="chongyi-xu-univeristy-of-washington">Chongyi Xu, Univeristy of Washington</h3>
+    <h2 data-line="4" class="code-line" id="part-1">PART 1</h2>
+    <ol>
+    <li data-line="5" class="code-line">
+    <p data-line="5" class="code-line">Plot average image and describe.</p>
+    <p data-line="7" class="code-line">The first step is to generate spike train and stimuli with white noise experiment.</p>
+    </li>
+    </ol>
+    <pre class="hljs"><code><div>&gt;&gt; v1_white_noise_exp
+    How many seconds to run the white noise experiment? 
+      Enter a number, at least 10: 1000
+    </div></code></pre>
+    <p data-line="15" class="code-line">Generally, with 1000 seconds noise experiment, it could have a convincing result.</p>
+    <p data-line="17" class="code-line">And then I tried to get a reasonable delay between the image and the spike to get a relatively clear image for the average image. After several tries, I decided to take <eq><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>d</mi><mi>e</mi><mi>l</mi><mi>a</mi><mi>y</mi><mo>=</mo><mn>0</mn><mi mathvariant="normal">.</mi><mn>3</mn></mrow><annotation encoding="application/x-tex">delay=0.3</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.69444em;"></span><span class="strut bottom" style="height:0.8888799999999999em;vertical-align:-0.19444em;"></span><span class="base"><span class="mord mathit">d</span><span class="mord mathit">e</span><span class="mord mathit" style="margin-right:0.01968em;">l</span><span class="mord mathit">a</span><span class="mord mathit" style="margin-right:0.03588em;">y</span><span class="mrel">=</span><span class="mord mathrm">0</span><span class="mord mathrm">.</span><span class="mord mathrm">3</span></span></span></span></eq> since it produces the clearest image I could get.</p>
+    <pre class="hljs"><code><div>delay = <span class="hljs-number">0.3</span>;
+    <span class="hljs-built_in">i</span> = <span class="hljs-built_in">find</span>(spikeTrain == <span class="hljs-number">1</span>);
+    ii = <span class="hljs-built_in">i</span> + <span class="hljs-built_in">round</span>(time_between_samples * delay);
+    [m, n, L] = <span class="hljs-built_in">size</span>(stim);
+    img = <span class="hljs-built_in">zeros</span>(<span class="hljs-built_in">length</span>(ii), m * n);
+    <span class="hljs-keyword">for</span> k = <span class="hljs-number">1</span>:<span class="hljs-built_in">length</span>(ii)
+        <span class="hljs-keyword">if</span> k &gt; L
+            img(k, :) = <span class="hljs-built_in">reshape</span>(stim(:, :, L), m * n, <span class="hljs-number">1</span>);
+        <span class="hljs-keyword">else</span>
+            img(k, :) = <span class="hljs-built_in">reshape</span>(stim(:, :, k), m * n, <span class="hljs-number">1</span>);
+        <span class="hljs-keyword">end</span>
+    <span class="hljs-keyword">end</span>
+    ave = mean(img);
+    ave = <span class="hljs-built_in">reshape</span>(ave, m, n);
+    ave = imresize(ave, <span class="hljs-number">100</span>);
+    figure(<span class="hljs-number">1</span>);
+    imshow(ave);
+    title(<span class="hljs-string">'Average Image with 0.3 sec delay'</span>);
+    set(gca,<span class="hljs-string">'Fontsize'</span>,<span class="hljs-number">14</span>,<span class="hljs-string">'fontweight'</span>,<span class="hljs-string">'bold'</span>);
+    </div></code></pre>
+    <p data-line="41" class="code-line">And the average image I found is</p>
+    <img src="1.jpg" width="500">
+    <p data-line="45" class="code-line">From the image, we could say that this certain neuron prefers two pixels at top left and two pixels at bottom left. Also several pixels in the middle and right that are connected with others. The features I could considere about is circles in the middle since the connections of the averaged pixels are forming a shape in the middle side.</p>
+    <ol start="2">
+    <li data-line="47" class="code-line">Decribe in three sentences or so a hypothetical neuron for which this average would be misleading, and why.</li>
+    </ol>
+    <p data-line="49" class="code-line">Since from the previous procesees, we only got an averaged image from <eq><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mn>1</mn><mn>0</mn><mn>0</mn><mn>0</mn><mo>∗</mo><mn>6</mn><mn>0</mn><mo>=</mo><mn>6</mn><mn>0</mn><mn>0</mn><mn>0</mn><mn>0</mn></mrow><annotation encoding="application/x-tex">1000 * 60 = 60000</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.64444em;"></span><span class="strut bottom" style="height:0.64444em;vertical-align:0em;"></span><span class="base"><span class="mord mathrm">1</span><span class="mord mathrm">0</span><span class="mord mathrm">0</span><span class="mord mathrm">0</span><span class="mbin">∗</span><span class="mord mathrm">6</span><span class="mord mathrm">0</span><span class="mrel">=</span><span class="mord mathrm">6</span><span class="mord mathrm">0</span><span class="mord mathrm">0</span><span class="mord mathrm">0</span><span class="mord mathrm">0</span></span></span></span></eq> frames, which is relativly a large number but not enough. We need much more information (or say, pixels and frames) to decide the feature of image but not only with these number of frames. I concluded that the neuron might respond to circle features in the middle in the previous problem. However, it could not misleading since it could be the feature only due to averaged images but not orignal images. The certain neuron might fire spikes when it receives pixel at A, B, C but if images are averaged, it might be misleading that they formed a circle.</p>
+    <img src="2.jpg" width="500">
+    <h2 data-line="53" class="code-line" id="part-2">PART 2</h2>
+    <ol>
+    <li data-line="54" class="code-line">Take one of your inputs to be 50 (<eq><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>s</mi><mi>t</mi><mi>i</mi><mi>m</mi><mi>u</mi><mi>l</mi><mi>i</mi><mo>=</mo><mn>5</mn><mn>0</mn></mrow><annotation encoding="application/x-tex">stimuli = 50</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.69444em;"></span><span class="strut bottom" style="height:0.69444em;vertical-align:0em;"></span><span class="base"><span class="mord mathit">s</span><span class="mord mathit">t</span><span class="mord mathit">i</span><span class="mord mathit">m</span><span class="mord mathit">u</span><span class="mord mathit" style="margin-right:0.01968em;">l</span><span class="mord mathit">i</span><span class="mrel">=</span><span class="mord mathrm">5</span><span class="mord mathrm">0</span></span></span></span></eq>), and study cell number 1. Explore how discrinable responses to stimuli close to 50 are, given the spiking output.</li>
+    </ol>
+    <p data-line="56" class="code-line">First of all, construct a function to compute the spike count.</p>
+    <pre class="hljs"><code><div><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">c</span> = <span class="hljs-title">count_spike</span><span class="hljs-params">(spiketrain)</span></span>
+        c = <span class="hljs-built_in">length</span>(<span class="hljs-built_in">find</span>(spiketrain == <span class="hljs-number">1</span>));
+    <span class="hljs-keyword">end</span>
+    </div></code></pre>
+    <p data-line="64" class="code-line">Then generate the spike train using <code>generate_noisy_data_cockroach.m</code></p>
+    <pre class="hljs"><code><div>&gt;&gt; generate_noisy_data_cockroach
+    Input the direction of your stimulus in degrees 45
+    Which cell do you want to record from (1,2,3) 1
+    How many repeated trials would you like to perform? 100000
+    </div></code></pre>
+    <p data-line="73" class="code-line">Then,construct a vector that stores all spike counts from every trail.</p>
+    <pre class="hljs"><code><div>trails = <span class="hljs-number">100000</span>;
+    sum = <span class="hljs-built_in">zeros</span>(trails, <span class="hljs-number">1</span>);
+    <span class="hljs-keyword">for</span> k = <span class="hljs-number">1</span>:trails
+        sum(k) = count_spike(spiketrain(k, :));
+    <span class="hljs-keyword">end</span>
+    </div></code></pre>
+    <p data-line="83" class="code-line">And then we would like to know about the distribution of the data. Simply have a histogram with normal distribution plot for the spike train.</p>
+    <pre class="hljs"><code><div><span class="hljs-comment">%% Plot the spikes</span>
+    histfit(sum);
+    title(<span class="hljs-string">'Histogram of spike count'</span>);
+    xlabel(<span class="hljs-string">'Number of spikes'</span>);
+    </div></code></pre>
+    <p data-line="92" class="code-line">Then we can see from the figure</p>
+    <img src="3.jpg" width="500">
+    <p data-line="96" class="code-line">It can be seen that the distribution is varied around 25 ~ 30. To be more specific, we find its mean and variance.</p>
+    <pre class="hljs"><code><div>&gt;&gt; mean(sum)
+    
+    <span class="hljs-built_in">ans</span> =
+    
+       <span class="hljs-number">28.2994</span>
+    
+    &gt;&gt; var(sum)
+    
+    <span class="hljs-built_in">ans</span> =
+    
+       <span class="hljs-number">24.1250</span>
+    </div></code></pre>
+    <p data-line="112" class="code-line">We can see that it has a high variance which might be not so good for analyzing.</p>
+    <p data-line="114" class="code-line">(a) What is the resulting error probability?</p>
+    <p data-line="116" class="code-line">To find the error probability, we just need to find the percentage of response to stimulus <eq><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>i</mi><mi>n</mi><mi>p</mi><mi>u</mi><mi>t</mi><mo>=</mo><mn>5</mn><mn>0</mn></mrow><annotation encoding="application/x-tex">input = 50</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.65952em;"></span><span class="strut bottom" style="height:0.85396em;vertical-align:-0.19444em;"></span><span class="base"><span class="mord mathit">i</span><span class="mord mathit">n</span><span class="mord mathit">p</span><span class="mord mathit">u</span><span class="mord mathit">t</span><span class="mrel">=</span><span class="mord mathrm">5</span><span class="mord mathrm">0</span></span></span></span></eq> and a stimulus close to 50 (<eq><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi mathvariant="normal">∣</mi><mi>C</mi><mi>o</mi><mi>u</mi><mi>n</mi><msub><mi>t</mi><mrow><mi>s</mi><mi>p</mi><mi>i</mi><mi>k</mi><mi>e</mi></mrow></msub><mo>−</mo><mi>i</mi><mi>n</mi><mi>p</mi><mi>u</mi><mi>t</mi><mi mathvariant="normal">∣</mi><mo>&lt;</mo><mo>=</mo><mi>x</mi></mrow><annotation encoding="application/x-tex">|Count_{spike} - input| &lt;= x</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.75em;"></span><span class="strut bottom" style="height:1.036108em;vertical-align:-0.286108em;"></span><span class="base"><span class="mord mathrm">∣</span><span class="mord mathit" style="margin-right:0.07153em;">C</span><span class="mord mathit">o</span><span class="mord mathit">u</span><span class="mord mathit">n</span><span class="mord"><span class="mord mathit">t</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3361079999999999em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathit mtight">s</span><span class="mord mathit mtight">p</span><span class="mord mathit mtight">i</span><span class="mord mathit mtight" style="margin-right:0.03148em;">k</span><span class="mord mathit mtight">e</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.286108em;"></span></span></span></span></span><span class="mbin">−</span><span class="mord mathit">i</span><span class="mord mathit">n</span><span class="mord mathit">p</span><span class="mord mathit">u</span><span class="mord mathit">t</span><span class="mord mathrm">∣</span><span class="mrel">&lt;</span><span class="mrel">=</span><span class="mord mathit">x</span></span></span></span></eq>), <eq><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>x</mi><mo>=</mo><mn>1</mn><mo separator="true">,</mo><mn>2</mn><mo separator="true">,</mo><mn>3</mn><mi mathvariant="normal">.</mi><mi mathvariant="normal">.</mi><mi mathvariant="normal">.</mi></mrow><annotation encoding="application/x-tex">x = 1, 2, 3...</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.64444em;"></span><span class="strut bottom" style="height:0.8388800000000001em;vertical-align:-0.19444em;"></span><span class="base"><span class="mord mathit">x</span><span class="mrel">=</span><span class="mord mathrm">1</span><span class="mpunct">,</span><span class="mord mathrm">2</span><span class="mpunct">,</span><span class="mord mathrm">3</span><span class="mord mathrm">.</span><span class="mord mathrm">.</span><span class="mord mathrm">.</span></span></span></span></eq></p>
+    <pre class="hljs"><code><div>input = <span class="hljs-number">50</span>;
+    x = <span class="hljs-number">1</span>;
+    <span class="hljs-comment">% error probability</span>
+    err = <span class="hljs-number">1</span> - <span class="hljs-built_in">length</span>(<span class="hljs-built_in">find</span>(<span class="hljs-built_in">abs</span>(sum - input) &lt;= x)) / ntrials;
+    </div></code></pre>
+    <p data-line="125" class="code-line">And the error percentage I got is</p>
+    <pre class="hljs"><code><div>&gt;&gt; err
+    
+    err =
+    
+        0.9999
+    </div></code></pre>
+    <p data-line="135" class="code-line">which is about to <eq><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mn>1</mn></mrow><annotation encoding="application/x-tex">1</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.64444em;"></span><span class="strut bottom" style="height:0.64444em;vertical-align:0em;"></span><span class="base"><span class="mord mathrm">1</span></span></span></span></eq>. So it means that for cell number 1 at <eq><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mn>4</mn><mn>5</mn><mi mathvariant="normal">°</mi></mrow><annotation encoding="application/x-tex">45\degree</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.69444em;"></span><span class="strut bottom" style="height:0.69444em;vertical-align:0em;"></span><span class="base"><span class="mord mathrm">4</span><span class="mord mathrm">5</span><span class="mord mathrm">°</span></span></span></span></eq>, there is <eq><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mn>9</mn><mn>9</mn><mi mathvariant="normal">.</mi><mn>9</mn><mn>9</mn><mi mathvariant="normal">%</mi></mrow><annotation encoding="application/x-tex">99.99\%</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.75em;"></span><span class="strut bottom" style="height:0.80556em;vertical-align:-0.05556em;"></span><span class="base"><span class="mord mathrm">9</span><span class="mord mathrm">9</span><span class="mord mathrm">.</span><span class="mord mathrm">9</span><span class="mord mathrm">9</span><span class="mord mathrm">%</span></span></span></span></eq> probability that the stimulus respond to <eq><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mn>5</mn><mn>0</mn></mrow><annotation encoding="application/x-tex">50</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.64444em;"></span><span class="strut bottom" style="height:0.64444em;vertical-align:0em;"></span><span class="base"><span class="mord mathrm">5</span><span class="mord mathrm">0</span></span></span></span></eq> or close to <eq><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mn>5</mn><mn>0</mn></mrow><annotation encoding="application/x-tex">50</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.64444em;"></span><span class="strut bottom" style="height:0.64444em;vertical-align:0em;"></span><span class="base"><span class="mord mathrm">5</span><span class="mord mathrm">0</span></span></span></span></eq>.</p>
+    <p data-line="137" class="code-line">(b) How much higher or lower does the closeby stimulus need to be to get an error probability of <eq><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mn>1</mn><mn>0</mn><mi mathvariant="normal">%</mi></mrow><annotation encoding="application/x-tex">10\%</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.75em;"></span><span class="strut bottom" style="height:0.80556em;vertical-align:-0.05556em;"></span><span class="base"><span class="mord mathrm">1</span><span class="mord mathrm">0</span><span class="mord mathrm">%</span></span></span></span></eq>?</p>
+    <p data-line="139" class="code-line">Take the tolerence to be <eq><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mn>0</mn><mi mathvariant="normal">.</mi><mn>1</mn></mrow><annotation encoding="application/x-tex">0.1</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.64444em;"></span><span class="strut bottom" style="height:0.64444em;vertical-align:0em;"></span><span class="base"><span class="mord mathrm">0</span><span class="mord mathrm">.</span><span class="mord mathrm">1</span></span></span></span></eq>. Find the corresponding <eq><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>x</mi></mrow><annotation encoding="application/x-tex">x</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.43056em;"></span><span class="strut bottom" style="height:0.43056em;vertical-align:0em;"></span><span class="base"><span class="mord mathit">x</span></span></span></span></eq> value such that <eq><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>P</mi><mo>(</mo><mi mathvariant="normal">∣</mi><mi>C</mi><mi>o</mi><mi>u</mi><mi>n</mi><msub><mi>t</mi><mrow><mi>s</mi><mi>p</mi><mi>i</mi><mi>k</mi><mi>e</mi></mrow></msub><mo>−</mo><mi>i</mi><mi>n</mi><mi>p</mi><mi>u</mi><mi>t</mi><mi mathvariant="normal">∣</mi><mo>&lt;</mo><mo>=</mo><mi>x</mi><mo>)</mo><mo>&lt;</mo><mo>=</mo><mn>1</mn><mn>0</mn><mi mathvariant="normal">%</mi></mrow><annotation encoding="application/x-tex">P(|Count_{spike} - input| &lt;= x) &lt;= 10\%</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.75em;"></span><span class="strut bottom" style="height:1.036108em;vertical-align:-0.286108em;"></span><span class="base"><span class="mord mathit" style="margin-right:0.13889em;">P</span><span class="mopen">(</span><span class="mord mathrm">∣</span><span class="mord mathit" style="margin-right:0.07153em;">C</span><span class="mord mathit">o</span><span class="mord mathit">u</span><span class="mord mathit">n</span><span class="mord"><span class="mord mathit">t</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3361079999999999em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathit mtight">s</span><span class="mord mathit mtight">p</span><span class="mord mathit mtight">i</span><span class="mord mathit mtight" style="margin-right:0.03148em;">k</span><span class="mord mathit mtight">e</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.286108em;"></span></span></span></span></span><span class="mbin">−</span><span class="mord mathit">i</span><span class="mord mathit">n</span><span class="mord mathit">p</span><span class="mord mathit">u</span><span class="mord mathit">t</span><span class="mord mathrm">∣</span><span class="mrel">&lt;</span><span class="mrel">=</span><span class="mord mathit">x</span><span class="mclose">)</span><span class="mrel">&lt;</span><span class="mrel">=</span><span class="mord mathrm">1</span><span class="mord mathrm">0</span><span class="mord mathrm">%</span></span></span></span></eq>.</p>
+    <pre class="hljs"><code><div><span class="hljs-comment">%% tol</span>
+    tol = <span class="hljs-number">0.1</span>;
+    <span class="hljs-keyword">while</span> err &gt; tol
+        x = x + <span class="hljs-number">1</span>;
+        err = <span class="hljs-number">1</span> - <span class="hljs-built_in">length</span>(<span class="hljs-built_in">find</span>(<span class="hljs-built_in">abs</span>(sum - input) &lt;= x)) / ntrials;
+    <span class="hljs-keyword">end</span>
+    </div></code></pre>
+    <p data-line="150" class="code-line">The <eq><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>x</mi></mrow><annotation encoding="application/x-tex">x</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.43056em;"></span><span class="strut bottom" style="height:0.43056em;vertical-align:0em;"></span><span class="base"><span class="mord mathit">x</span></span></span></span></eq> value I found is</p>
+    <pre class="hljs"><code><div>&gt;&gt; x
+    
+    x =
+    
+        28
+    </div></code></pre>
+    <p data-line="160" class="code-line">So the closeby stimulus need to get 28 higher to get an error probability of <eq><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mn>1</mn><mn>0</mn><mi mathvariant="normal">%</mi></mrow><annotation encoding="application/x-tex">10\%</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.75em;"></span><span class="strut bottom" style="height:0.80556em;vertical-align:-0.05556em;"></span><span class="base"><span class="mord mathrm">1</span><span class="mord mathrm">0</span><span class="mord mathrm">%</span></span></span></span></eq>.</p>
+    <p data-line="162" class="code-line">(c) How does that compare with the case when the &quot;starting&quot; input is 20 rather than 50.</p>
+    <p data-line="164" class="code-line">Starting with <eq><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>x</mi><mo>=</mo><mn>2</mn><mn>0</mn></mrow><annotation encoding="application/x-tex">x = 20</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.64444em;"></span><span class="strut bottom" style="height:0.64444em;vertical-align:0em;"></span><span class="base"><span class="mord mathit">x</span><span class="mrel">=</span><span class="mord mathrm">2</span><span class="mord mathrm">0</span></span></span></span></eq>, the error probability is much lower than the starting point with <eq><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mn>5</mn><mn>0</mn></mrow><annotation encoding="application/x-tex">50</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.64444em;"></span><span class="strut bottom" style="height:0.64444em;vertical-align:0em;"></span><span class="base"><span class="mord mathrm">5</span><span class="mord mathrm">0</span></span></span></span></eq>.</p>
+    <pre class="hljs"><code><div>input = <span class="hljs-number">20</span>;
+    x = <span class="hljs-number">1</span>;
+    <span class="hljs-comment">% error probability</span>
+    err = <span class="hljs-number">1</span> - <span class="hljs-built_in">length</span>(<span class="hljs-built_in">find</span>(<span class="hljs-built_in">abs</span>(sum - input) &lt;= x)) / ntrials;
+    </div></code></pre>
+    <p data-line="173" class="code-line">The error probability I got is</p>
+    <pre class="hljs"><code><div>&gt;&gt; err
+    
+    err =
+    
+        0.9421
+    </div></code></pre>
+    <p data-line="183" class="code-line">With same process, I got the result <eq><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>x</mi></mrow><annotation encoding="application/x-tex">x</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.43056em;"></span><span class="strut bottom" style="height:0.43056em;vertical-align:0em;"></span><span class="base"><span class="mord mathit">x</span></span></span></span></eq> to be</p>
+    <pre class="hljs"><code><div>&gt;&gt; x
+    
+    x =
+    
+        <span class="hljs-number">15</span>
+    </div></code></pre>
+    <p data-line="193" class="code-line">So the closeby stimulus need to get 15s more to get an error probability of <eq><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mn>1</mn><mn>0</mn><mi mathvariant="normal">%</mi></mrow><annotation encoding="application/x-tex">10\%</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.75em;"></span><span class="strut bottom" style="height:0.80556em;vertical-align:-0.05556em;"></span><span class="base"><span class="mord mathrm">1</span><span class="mord mathrm">0</span><span class="mord mathrm">%</span></span></span></span></eq> with a starting point at <eq><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mn>2</mn><mn>0</mn></mrow><annotation encoding="application/x-tex">20</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.64444em;"></span><span class="strut bottom" style="height:0.64444em;vertical-align:0em;"></span><span class="base"><span class="mord mathrm">2</span><span class="mord mathrm">0</span></span></span></span></eq>.</p>
+    <ol start="2">
+    <li data-line="195" class="code-line">Can you change the tuning curve for cell number 1 so that the neural system gives a more discriminable response near the input value 20?</li>
+    </ol>
+    <p data-line="197" class="code-line">In order to make the response more discriminable near the input value 20, I modified the <code>cockroach_tuning.m</code> for cell number 1</p>
+    <pre class="hljs"><code><div><span class="hljs-keyword">if</span> cell_num == <span class="hljs-number">1</span>
+        mu = <span class="hljs-number">60</span>;
+        sigma = <span class="hljs-number">20</span>;
+        f = gaussian(mu, sigma, stim_dir);
+    </div></code></pre>
+    <p data-line="206" class="code-line">And with this pair of <eq><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>σ</mi></mrow><annotation encoding="application/x-tex">\sigma</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.43056em;"></span><span class="strut bottom" style="height:0.43056em;vertical-align:0em;"></span><span class="base"><span class="mord mathit" style="margin-right:0.03588em;">σ</span></span></span></span></eq> and <eq><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>μ</mi></mrow><annotation encoding="application/x-tex">\mu</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.43056em;"></span><span class="strut bottom" style="height:0.625em;vertical-align:-0.19444em;"></span><span class="base"><span class="mord mathit">μ</span></span></span></span></eq> value, I got the histogram like the following</p>
+    <img src="4.jpg" width="500">
+    <p data-line="210" class="code-line">This spike train gives a distribution that has</p>
+    <pre class="hljs"><code><div>&gt;&gt; mean(sum)
+    
+    ans =
+    
+       21.4050
+    </div></code></pre>
+    <p data-line="220" class="code-line">which could give a error percentage of</p>
+    <pre class="hljs"><code><div>&gt;&gt; err
+    
+    err =
+    
+        0.7379
+    </div></code></pre>
+    <p data-line="230" class="code-line">And the corresponding <eq><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>x</mi></mrow><annotation encoding="application/x-tex">x</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.43056em;"></span><span class="strut bottom" style="height:0.43056em;vertical-align:0em;"></span><span class="base"><span class="mord mathit">x</span></span></span></span></eq> I found is</p>
+    <pre class="hljs"><code><div>&gt;&gt; x
+    
+    x =
+    
+         7
+    </div></code></pre>
+    <h2 data-line="240" class="code-line" id="appendix">Appendix</h2>
+    <pre class="hljs"><code><div><span class="hljs-comment">%% Find the image matrix</span>
+    delay = <span class="hljs-number">1</span>;
+    <span class="hljs-built_in">i</span> = <span class="hljs-built_in">find</span>(spikeTrain == <span class="hljs-number">1</span>);
+    ii = <span class="hljs-built_in">i</span> + <span class="hljs-built_in">round</span>(time_between_samples * delay);
+    [m, n, L] = <span class="hljs-built_in">size</span>(stim);
+    img = <span class="hljs-built_in">zeros</span>(<span class="hljs-built_in">length</span>(ii), m * n);
+    <span class="hljs-keyword">for</span> k = <span class="hljs-number">1</span>:<span class="hljs-built_in">length</span>(ii)
+        <span class="hljs-keyword">if</span> k &gt; L
+            img(k, :) = <span class="hljs-built_in">reshape</span>(stim(:, :, L), m * n, <span class="hljs-number">1</span>);
+        <span class="hljs-keyword">else</span>
+            img(k, :) = <span class="hljs-built_in">reshape</span>(stim(:, :, k), m * n, <span class="hljs-number">1</span>);
+        <span class="hljs-keyword">end</span>
+    <span class="hljs-keyword">end</span>
+    ave = mean(img);
+    ave = <span class="hljs-built_in">reshape</span>(ave, m, n);
+    ave = imresize(ave, <span class="hljs-number">100</span>);
+    figure(<span class="hljs-number">1</span>);
+    imshow(ave);
+    title(<span class="hljs-string">'Average Image with 0.3 sec delay'</span>);
+    set(gca,<span class="hljs-string">'Fontsize'</span>,<span class="hljs-number">14</span>,<span class="hljs-string">'fontweight'</span>,<span class="hljs-string">'bold'</span>);
+    
+    <span class="hljs-comment">%% generate noisy data cockroach</span>
+    ntrials = <span class="hljs-number">100000</span>;
+    spiketrain = generate_noisy_data_cockroach(<span class="hljs-number">45</span>, <span class="hljs-number">1</span>, <span class="hljs-number">100000</span>);
+    <span class="hljs-comment">%%</span>
+    sum = <span class="hljs-built_in">zeros</span>(ntrials, <span class="hljs-number">1</span>);
+    <span class="hljs-keyword">for</span> k = <span class="hljs-number">1</span>:ntrials
+        sum(k) = count_spike(spiketrain(k, :));
+    <span class="hljs-keyword">end</span>
+    max(sum);
+    mean(sum);
+    <span class="hljs-comment">%% Plot the spikes</span>
+    histfit(sum);
+    title(<span class="hljs-string">'Histogram of spike count'</span>);
+    xlabel(<span class="hljs-string">'Number of spikes'</span>);
+    <span class="hljs-comment">%%</span>
+    input = <span class="hljs-number">20</span>;
+    x = <span class="hljs-number">1</span>;
+    <span class="hljs-comment">% error probability</span>
+    err = <span class="hljs-number">1</span> - <span class="hljs-built_in">length</span>(<span class="hljs-built_in">find</span>(<span class="hljs-built_in">abs</span>(sum - input) &lt;= x)) / ntrials;
+    
+    <span class="hljs-comment">%% tol</span>
+    tol = <span class="hljs-number">0.1</span>;
+    <span class="hljs-keyword">while</span> err &gt; tol
+        x = x + <span class="hljs-number">1</span>;
+        err = <span class="hljs-number">1</span> - <span class="hljs-built_in">length</span>(<span class="hljs-built_in">find</span>(<span class="hljs-built_in">abs</span>(sum - input) &lt;= x)) / ntrials;
+    <span class="hljs-keyword">end</span>
+    
+    
+    <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">c</span> = <span class="hljs-title">count_spike</span><span class="hljs-params">(spiketrain)</span></span>
+        c = <span class="hljs-built_in">length</span>(<span class="hljs-built_in">find</span>(spiketrain == <span class="hljs-number">1</span>));
+    <span class="hljs-keyword">end</span>
+    </div></code></pre>
+    
+    </body></html>

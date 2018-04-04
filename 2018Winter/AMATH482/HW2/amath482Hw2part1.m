@@ -1,4 +1,3 @@
-cd('/Users/leoleung/Documents/MATLAB/Amath482/project 2/part 1');
 load('cam1_1.mat')
 load('cam2_1.mat')
 load('cam3_1.mat')
@@ -43,7 +42,7 @@ for j = 1:dimen2_1
     boxX = [round(x1(j) - 20), round(x1(j) + 20)];
     boxY = [round(y1(j) - 20), round(y1(j) + 20)];
 end
-
+%%
 x2 = zeros(1, dimen2_2);
 y2 = zeros(1, dimen2_2);
 boxX = [265 295];

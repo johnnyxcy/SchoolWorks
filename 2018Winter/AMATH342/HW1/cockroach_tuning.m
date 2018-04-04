@@ -1,8 +1,8 @@
 function [ f ] = cockroach_tuning(stim_dir, cell_num)
     
     if cell_num == 1
-        mu = 45;
-        sigma = 5;
+        mu = 60;
+        sigma = 20;
         f = gaussian(mu, sigma, stim_dir);
     elseif cell_num == 2
         mu = 45;

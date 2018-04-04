@@ -1,4 +1,5 @@
-cd('/Users/leoleung/Documents/MATLAB/Amath482/project 2/part 4');
+clc; clear all; close all;
+%%
 load('cam1_4.mat')
 load('cam2_4.mat')
 load('cam3_4.mat')
@@ -102,7 +103,6 @@ for j = 235:274
         boxX = [round(x2(j) - 15), round(x2(j) + 15)];
         boxY = [round(y2(j) - 15), round(y2(j) + 15)];
     else
-        break
         y2(j) = y2(j-1);
         x2(j) = x2(j-1);
         boxX = [round(x2(j) - 50), round(x2(j) + 50)];
@@ -142,35 +142,35 @@ for j = 120:170
 end
 
 %% showing case 1
-for i = 150:200
-   figure(1)
-   imshow(images_1{i}); hold on;
-   rectangle('position', [x1(i) - 15, y1(i) - 15, 30, 30], 'Edgecolor','r');
-   pause(0.0001)
-end
-%%
-for i = 152:200
-   figure(1)
-   imshow(images_2{i}); hold on;
-   rectangle('position', [x2(i) - 15, y2(i) - 15, 30, 30], 'Edgecolor','r');
-   pause(0.0001)
-end
-%%
-for i = 120:250
-   figure(1)
-   imshow(images_3{i}); hold on;
-   rectangle('position', [x3(i) - 15, y3(i) - 15, 30, 30], 'Edgecolor','r');
-   pause(0.0001)
-end
-%% showing rect
-subplot(1,2,1), imshow(images_1{71});
-title('Light rotating away from camera from frame 71');
-set(gca,'fontsize',24);
-subplot(1,2,2), imshow(images_1{149});
-set(gca,'fontsize',24);
-title('Light rotating towards from camera from frame 149');
-set(gcf,'units','points','position',[0,0,1500,1500]);
-% rectangle('position', [365, 220, 30, 30])
+% for i = 150:200
+%    figure(1)
+%    imshow(images_1{i}); hold on;
+%    rectangle('position', [x1(i) - 15, y1(i) - 15, 30, 30], 'Edgecolor','r');
+%    pause(0.0001)
+% end
+% %%
+% for i = 152:200
+%    figure(1)
+%    imshow(images_2{i}); hold on;
+%    rectangle('position', [x2(i) - 15, y2(i) - 15, 30, 30], 'Edgecolor','r');
+%    pause(0.0001)
+% end
+% %%
+% for i = 120:250
+%    figure(1)
+%    imshow(images_3{i}); hold on;
+%    rectangle('position', [x3(i) - 15, y3(i) - 15, 30, 30], 'Edgecolor','r');
+%    pause(0.0001)
+% end
+% %% showing rect
+% subplot(1,2,1), imshow(images_1{71});
+% title('Light rotating away from camera from frame 71');
+% set(gca,'fontsize',24);
+% subplot(1,2,2), imshow(images_1{149});
+% set(gca,'fontsize',24);
+% title('Light rotating towards from camera from frame 149');
+% set(gcf,'units','points','position',[0,0,1500,1500]);
+% % rectangle('position', [365, 220, 30, 30])
 %%
 y3 = y3(x3>0);
 x3 = x3(x3>0);

@@ -1,4 +1,3 @@
-cd('/Users/leoleung/Documents/MATLAB/Amath482/project 2/part 3');
 load('cam1_3.mat')
 load('cam2_3.mat')
 load('cam3_3.mat')
@@ -79,31 +78,31 @@ for j = 1:dimen2_3
     boxX = [round(x3(j) - 20), round(x3(j) + 20)];
     boxY = [round(y3(j) - 20), round(y3(j) + 20)];
 end
-%% showing case 1
-for i = 1:length(images_1)
-   figure(1)
-   imshow(images_1{i}); hold on;
-   rectangle('position', [x1(i) - 15, y1(i) - 15, 30, 30], 'Edgecolor','r');
-   pause(0.001)
-end
-%%
-for i = 1:length(images_2)
-   figure(1)
-   imshow(images_2{i}); hold on;
-   rectangle('position', [x2(i) - 15, y2(i) - 15, 30, 30], 'Edgecolor','r');
-   pause(0.001)
-end
-%%
-for i = 1:length(images_3)
-   figure(1)
-   imshow(images_3{i}); hold on;
-   rectangle('position', [x3(i) - 15, y3(i) - 15, 30, 30], 'Edgecolor','r');
-   pause(0.001)
-end
-%% showing rect
-imshow(images_1{1});
-hold on
-rectangle('position', [316, 283, 10, 10])
+% %% showing case 1
+% for i = 1:length(images_1)
+%    figure(1)
+%    imshow(images_1{i}); hold on;
+%    rectangle('position', [x1(i) - 15, y1(i) - 15, 30, 30], 'Edgecolor','r');
+%    pause(0.001)
+% end
+% %%
+% for i = 1:length(images_2)
+%    figure(1)
+%    imshow(images_2{i}); hold on;
+%    rectangle('position', [x2(i) - 15, y2(i) - 15, 30, 30], 'Edgecolor','r');
+%    pause(0.001)
+% end
+% %%
+% for i = 1:length(images_3)
+%    figure(1)
+%    imshow(images_3{i}); hold on;
+%    rectangle('position', [x3(i) - 15, y3(i) - 15, 30, 30], 'Edgecolor','r');
+%    pause(0.001)
+% end
+% %% showing rect
+% imshow(images_1{1});
+% hold on
+% rectangle('position', [316, 283, 10, 10])
 
 %%
 x1_shifted = x1(8:177 + 7);
@@ -135,7 +134,6 @@ xlabel('Timeframe');
 ylabel('Displacement');
 legend('cam1_3 (x1)','cam2_3 (x2)','cam3_3 x(3)');
 xlim([0 length(y1_shifted) + 50]);
-set(gcf,'units','points','position',[0,0,1400,1000]);
 %% SVD
 X = [x1_shifted- mean(x1_shifted); y1_shifted- mean(y1_shifted); x2_shifted- mean(x2_shifted); y2_shifted- mean(y2_shifted); y3_shifted- mean(y3_shifted); x3_shifted- mean(x3_shifted);];
 [u, s, v] = svd(X, 'econ');
@@ -144,7 +142,6 @@ figure(4)
 plot(diag(s)/sum(diag(s)), 'ro','Linewidth', 8);
 title('Energy of each sigularvalues from each direction of part 3 videos');
 set(gca,'Fontsize',24,'fontweight','bold');
-set(gcf,'units','points','position',[150,150,800,700]);
 xlabel('Singular values');
 ylabel('Energy');
 

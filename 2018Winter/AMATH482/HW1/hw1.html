@@ -1,0 +1,276 @@
+<!doctype html><html><head><meta charset='utf-8'>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/github-markdown-css/2.4.1/github-markdown.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.11.0/styles/default.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.8.3/katex.min.css">
+    <link rel="stylesheet" href="https://gitcdn.xyz/repo/goessner/mdmath/master/css/texmath.css">
+    <link rel="stylesheet" href="https://gitcdn.xyz/repo/goessner/mdmath/master/css/vscode-texmath.css">
+    
+    </head><body class="markdown-body">
+    <h1 data-line="0" class="code-line" id="homework-1-extended-yale-faces-b-database-%E2%80%93-eigenfaces">Homework 1: Extended Yale Faces B Database – Eigenfaces</h1>
+    <p data-line="2" class="code-line">AMATH 482/582 Winter Quarter 2018</p>
+    <p data-line="4" class="code-line">Chongyi Xu, <a href="mailto:chongyix@uw.edu">chongyix@uw.edu</a></p>
+    <h2 data-line="6" class="code-line" id="abstract"><strong>Abstract</strong></h2>
+    <p data-line="8" class="code-line">This homework tends to focus on performing Singular Value Decomposition (SVD) analysis of the given face data set. Our goal is to constract an eigenface which could give a good result of human face recognition by computer vision.</p>
+    <h2 data-line="10" class="code-line" id="section-i-introduction-and-overview"><strong>Section I.</strong> Introduction and Overview</h2>
+    <p data-line="12" class="code-line">It has been a task for many computer scientists since last century that how could we train computer to recognize different faces. We, as human, know to distinguish a peroson to another person since childhood. But how could we let computers to learn to do that? Computers are not like human, they read the images pixel by pixel and store the color in evey single pixel as a string of data. And what we are going to do is to train computers using our data such that they could build an eigenface (average face) and recognize different people by comparing the difference between the testing face and the eigenface.</p>
+    <h2 data-line="15" class="code-line" id="section-ii-theoretical-background"><strong>Section II.</strong> Theoretical Background</h2>
+    <p data-line="16" class="code-line">Singular Value Decomposition (SVD) performs a decomposition of <em>any</em> matrix to the form as the following</p>
+    <section><eqn><span class="katex-display"><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>A</mi><mo>=</mo><mi>U</mi><mi mathvariant="normal">Σ</mi><msup><mi>V</mi><mo>∗</mo></msup></mrow><annotation encoding="application/x-tex">A = U\Sigma V^*</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.738696em;"></span><span class="strut bottom" style="height:0.738696em;vertical-align:0em;"></span><span class="base"><span class="mord mathit">A</span><span class="mrel">=</span><span class="mord mathit" style="margin-right:0.10903em;">U</span><span class="mord mathrm">Σ</span><span class="mord"><span class="mord mathit" style="margin-right:0.22222em;">V</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.738696em;"><span style="top:-3.113em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mbin mtight">∗</span></span></span></span></span></span></span></span></span></span></span></span></eqn></section><p data-line="20" class="code-line">where <eq><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>A</mi></mrow><annotation encoding="application/x-tex">A</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.68333em;"></span><span class="strut bottom" style="height:0.68333em;vertical-align:0em;"></span><span class="base"><span class="mord mathit">A</span></span></span></span></eq> is the matrix we are working with, <eq><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi mathvariant="normal">Σ</mi></mrow><annotation encoding="application/x-tex">\Sigma</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.68333em;"></span><span class="strut bottom" style="height:0.68333em;vertical-align:0em;"></span><span class="base"><span class="mord mathrm">Σ</span></span></span></span></eq> is a diagonal matrix and <eq><span class="katex"><span class="katex-mathml"><math><semantics><mrow><msup><mi>V</mi><mo>∗</mo></msup></mrow><annotation encoding="application/x-tex">V^*</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.688696em;"></span><span class="strut bottom" style="height:0.688696em;vertical-align:0em;"></span><span class="base"><span class="mord"><span class="mord mathit" style="margin-right:0.22222em;">V</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.688696em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mbin mtight">∗</span></span></span></span></span></span></span></span></span></span></span></eq> is a unitary matrix. In general, this decomposition can be interpreted as rotations and rescalings for a base matrix. <eq><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi mathvariant="normal">Σ</mi></mrow><annotation encoding="application/x-tex">\Sigma</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.68333em;"></span><span class="strut bottom" style="height:0.68333em;vertical-align:0em;"></span><span class="base"><span class="mord mathrm">Σ</span></span></span></span></eq>, as a diagonal matrix with singular values, is ordered from biggest to smallest (top-left to bottom-right), telling the importance of principal directions. Columns of matrix <eq><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>U</mi></mrow><annotation encoding="application/x-tex">U</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.68333em;"></span><span class="strut bottom" style="height:0.68333em;vertical-align:0em;"></span><span class="base"><span class="mord mathit" style="margin-right:0.10903em;">U</span></span></span></span></eq> is the principal directions. And <eq><span class="katex"><span class="katex-mathml"><math><semantics><mrow><msup><mi>V</mi><mo>∗</mo></msup></mrow><annotation encoding="application/x-tex">V^*</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.688696em;"></span><span class="strut bottom" style="height:0.688696em;vertical-align:0em;"></span><span class="base"><span class="mord"><span class="mord mathit" style="margin-right:0.22222em;">V</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.688696em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mbin mtight">∗</span></span></span></span></span></span></span></span></span></span></span></eq> tells that for the data, how each piece of the data projects on the direction.</p>
+    <p data-line="22" class="code-line">Considering the eigenfaces situation, <eq><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>U</mi></mrow><annotation encoding="application/x-tex">U</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.68333em;"></span><span class="strut bottom" style="height:0.68333em;vertical-align:0em;"></span><span class="base"><span class="mord mathit" style="margin-right:0.10903em;">U</span></span></span></span></eq> tells the dominant average faces. <eq><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi mathvariant="normal">Σ</mi></mrow><annotation encoding="application/x-tex">\Sigma</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.68333em;"></span><span class="strut bottom" style="height:0.68333em;vertical-align:0em;"></span><span class="base"><span class="mord mathrm">Σ</span></span></span></span></eq> indicates the features to identify different individuals and <eq><span class="katex"><span class="katex-mathml"><math><semantics><mrow><msup><mi>V</mi><mo>∗</mo></msup></mrow><annotation encoding="application/x-tex">V^*</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.688696em;"></span><span class="strut bottom" style="height:0.688696em;vertical-align:0em;"></span><span class="base"><span class="mord"><span class="mord mathit" style="margin-right:0.22222em;">V</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.688696em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mbin mtight">∗</span></span></span></span></span></span></span></span></span></span></span></eq> shows how each image/modes projects on the eigenfaces.</p>
+    <p data-line="24" class="code-line">And in this homework, we are also trying to find the correlation matrix <eq><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>C</mi></mrow><annotation encoding="application/x-tex">C</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.68333em;"></span><span class="strut bottom" style="height:0.68333em;vertical-align:0em;"></span><span class="base"><span class="mord mathit" style="margin-right:0.07153em;">C</span></span></span></span></eq>, which can be computed by <eq><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>C</mi><mo>=</mo><mi>A</mi><msup><mi>A</mi><mo>∗</mo></msup></mrow><annotation encoding="application/x-tex">C = A A^*</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.688696em;"></span><span class="strut bottom" style="height:0.688696em;vertical-align:0em;"></span><span class="base"><span class="mord mathit" style="margin-right:0.07153em;">C</span><span class="mrel">=</span><span class="mord mathit">A</span><span class="mord"><span class="mord mathit">A</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.688696em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mbin mtight">∗</span></span></span></span></span></span></span></span></span></span></span></eq>. This matrix tells that how much is each column depended on other columns. With calculating <eq><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>C</mi></mrow><annotation encoding="application/x-tex">C</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.68333em;"></span><span class="strut bottom" style="height:0.68333em;vertical-align:0em;"></span><span class="base"><span class="mord mathit" style="margin-right:0.07153em;">C</span></span></span></span></eq>, we are able to remove some &quot;noisy&quot; data and also redundancy.</p>
+    <h2 data-line="26" class="code-line" id="section-iii-algorithm-implementation-and-development"><strong>Section III.</strong> Algorithm Implementation and Development</h2>
+    <p data-line="28" class="code-line">In this section, I will explain my algorithm and <em>MATLAB</em> code.</p>
+    <h3 data-line="30" class="code-line" id="1-read-in-data-faces">1. Read in data (faces)</h3>
+    <p data-line="32" class="code-line">I started with cropped images first.</p>
+    <pre class="hljs"><code><div><span class="hljs-comment">%% Import Data-------------------------------------------------------------</span>
+    <span class="hljs-comment">%% cropped images</span>
+    path = <span class="hljs-string">'data\CroppedYale'</span>;
+    Files_in_main = dir(path);
+    Files_in_sub = dir([path, <span class="hljs-string">'\ '</span>, Files_in_main(<span class="hljs-number">3</span>).name]);
+    index = <span class="hljs-number">1</span>;
+    <span class="hljs-comment">% The "real" folder starts with index of 3</span>
+    <span class="hljs-keyword">for</span> <span class="hljs-built_in">i</span> = <span class="hljs-number">3</span>:<span class="hljs-built_in">length</span>(Files_in_main)
+        subpath = [path, <span class="hljs-string">'\ '</span>, Files_in_main(i).name];
+        Files_in_sub = dir(subpath);
+        <span class="hljs-keyword">for</span> <span class="hljs-built_in">j</span> = <span class="hljs-number">3</span>:<span class="hljs-built_in">length</span>(Files_in_sub)
+            img_src = [subpath, <span class="hljs-string">'\ '</span>, Files_in_sub(j).name];
+            img = imread(img_src);
+            img = double(img);
+            s = <span class="hljs-built_in">size</span>(img);
+            data_cropped(:, index) = <span class="hljs-built_in">reshape</span>(img, s(<span class="hljs-number">1</span>) * s(<span class="hljs-number">2</span>), <span class="hljs-number">1</span>);
+            index = index + <span class="hljs-number">1</span>;
+        <span class="hljs-keyword">end</span>
+    <span class="hljs-keyword">end</span>
+    </div></code></pre>
+    <p data-line="56" class="code-line">I used an outer for loop to get in every subdirectory inside of <code>data\CroppedYale</code> folder. And an inner for loop to find every image. In order to store the image data inside a single matrices for further computation, I reshape the matrix to column vectors and store in one matrices called <code>images</code>.</p>
+    <p data-line="58" class="code-line">To get a breif understanding of the given images data, I picked first 16 images to compare.</p>
+    <pre class="hljs"><code><div><span class="hljs-keyword">if</span> index &lt;= <span class="hljs-number">16</span>
+        subplot(<span class="hljs-number">4</span>, <span class="hljs-number">4</span>, index), pcolor(<span class="hljs-built_in">flipud</span>(img)), shading interp,...
+         colormap(gray), set(gca, <span class="hljs-string">'Xtick'</span>,[],<span class="hljs-string">'Ytick'</span>,[])
+    <span class="hljs-keyword">end</span>
+    </div></code></pre>
+    <p data-line="67" class="code-line">And the plot I got is the following</p>
+    <img src="16faces.png" alt="16faces.png" width="80%">
+    <p data-line="71" class="code-line">We can see that those are the same face but just some differences on modes.</p>
+    <p data-line="73" class="code-line">Similarly, I imported the uncropped images.</p>
+    <pre class="hljs"><code><div><span class="hljs-comment">%% uncropped images</span>
+    path = <span class="hljs-string">'data\yalefaces'</span>;
+    Files = dir(path);
+    <span class="hljs-keyword">for</span> <span class="hljs-built_in">i</span> = <span class="hljs-number">3</span>:<span class="hljs-built_in">length</span>(Files)
+        img_src = [path, <span class="hljs-string">'\ '</span>, Files(i).name];
+        img = imread(img_src);
+        img = double(img);
+        s = <span class="hljs-built_in">size</span>(img);
+        data_uncropped(:, <span class="hljs-built_in">i</span>) = <span class="hljs-built_in">reshape</span>(img, s(<span class="hljs-number">1</span>) * s(<span class="hljs-number">2</span>), <span class="hljs-number">1</span>);
+    <span class="hljs-keyword">end</span>
+    </div></code></pre>
+    <h3 data-line="88" class="code-line" id="perform-svd">Perform SVD</h3>
+    <p data-line="89" class="code-line">Then I performed the SVD to both of my data.</p>
+    <pre class="hljs"><code><div><span class="hljs-comment">%% svd analysis------------------------------------------------------------</span>
+    <span class="hljs-comment">% substract mean</span>
+    data_cropped = <span class="hljs-built_in">bsxfun</span>(@minus, data_cropped, mean(data_cropped, <span class="hljs-number">2</span>));
+    data_uncropped = <span class="hljs-built_in">bsxfun</span>(@minus, data_uncropped, mean(data_uncropped, <span class="hljs-number">2</span>));
+    <span class="hljs-comment">% SVD</span>
+    [u_cropped, s_cropped, v_cropped] = svd(data_cropped, <span class="hljs-string">'econ'</span>);
+    [u_uncropped, s_uncropped, v_uncropped] = svd(data_uncropped, <span class="hljs-string">'econ'</span>);
+    </div></code></pre>
+    <h2 data-line="101" class="code-line" id="section-iv-computational-results"><strong>Section IV.</strong> Computational Results</h2>
+    <p data-line="103" class="code-line">After the SVD process, I got <eq><span class="katex"><span class="katex-mathml"><math><semantics><mrow><msub><mi>u</mi><mrow><mi>c</mi><mi>r</mi><mi>o</mi><mi>p</mi><mi>p</mi><mi>e</mi><mi>d</mi></mrow></msub></mrow><annotation encoding="application/x-tex">u_{cropped}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.43056em;"></span><span class="strut bottom" style="height:0.716668em;vertical-align:-0.286108em;"></span><span class="base"><span class="mord"><span class="mord mathit">u</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3361079999999999em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathit mtight">c</span><span class="mord mathit mtight" style="margin-right:0.02778em;">r</span><span class="mord mathit mtight">o</span><span class="mord mathit mtight">p</span><span class="mord mathit mtight">p</span><span class="mord mathit mtight">e</span><span class="mord mathit mtight">d</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.286108em;"></span></span></span></span></span></span></span></span></eq> with a <eq><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mn>3</mn><mn>2</mn><mn>2</mn><mn>5</mn><mn>6</mn><mo>∗</mo><mn>2</mn><mn>4</mn><mn>3</mn><mn>2</mn></mrow><annotation encoding="application/x-tex">32256*2432</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.64444em;"></span><span class="strut bottom" style="height:0.64444em;vertical-align:0em;"></span><span class="base"><span class="mord mathrm">3</span><span class="mord mathrm">2</span><span class="mord mathrm">2</span><span class="mord mathrm">5</span><span class="mord mathrm">6</span><span class="mbin">∗</span><span class="mord mathrm">2</span><span class="mord mathrm">4</span><span class="mord mathrm">3</span><span class="mord mathrm">2</span></span></span></span></eq> matrix and <eq><span class="katex"><span class="katex-mathml"><math><semantics><mrow><msub><mi>s</mi><mrow><mi>c</mi><mi>r</mi><mi>o</mi><mi>p</mi><mi>p</mi><mi>e</mi><mi>d</mi></mrow></msub></mrow><annotation encoding="application/x-tex">s_{cropped}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.43056em;"></span><span class="strut bottom" style="height:0.716668em;vertical-align:-0.286108em;"></span><span class="base"><span class="mord"><span class="mord mathit">s</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3361079999999999em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathit mtight">c</span><span class="mord mathit mtight" style="margin-right:0.02778em;">r</span><span class="mord mathit mtight">o</span><span class="mord mathit mtight">p</span><span class="mord mathit mtight">p</span><span class="mord mathit mtight">e</span><span class="mord mathit mtight">d</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.286108em;"></span></span></span></span></span></span></span></span></eq>, <eq><span class="katex"><span class="katex-mathml"><math><semantics><mrow><msub><mi>v</mi><mrow><mi>c</mi><mi>r</mi><mi>o</mi><mi>p</mi><mi>p</mi><mi>e</mi><mi>d</mi></mrow></msub></mrow><annotation encoding="application/x-tex">v_{cropped}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.43056em;"></span><span class="strut bottom" style="height:0.716668em;vertical-align:-0.286108em;"></span><span class="base"><span class="mord"><span class="mord mathit" style="margin-right:0.03588em;">v</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3361079999999999em;"><span style="top:-2.5500000000000003em;margin-left:-0.03588em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathit mtight">c</span><span class="mord mathit mtight" style="margin-right:0.02778em;">r</span><span class="mord mathit mtight">o</span><span class="mord mathit mtight">p</span><span class="mord mathit mtight">p</span><span class="mord mathit mtight">e</span><span class="mord mathit mtight">d</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.286108em;"></span></span></span></span></span></span></span></span></eq> with size <eq><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mn>2</mn><mn>4</mn><mn>3</mn><mn>2</mn><mo>∗</mo><mn>2</mn><mn>4</mn><mn>3</mn><mn>2</mn></mrow><annotation encoding="application/x-tex">2432*2432</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.64444em;"></span><span class="strut bottom" style="height:0.64444em;vertical-align:0em;"></span><span class="base"><span class="mord mathrm">2</span><span class="mord mathrm">4</span><span class="mord mathrm">3</span><span class="mord mathrm">2</span><span class="mbin">∗</span><span class="mord mathrm">2</span><span class="mord mathrm">4</span><span class="mord mathrm">3</span><span class="mord mathrm">2</span></span></span></span></eq>. As for the uncropped images, I got <eq><span class="katex"><span class="katex-mathml"><math><semantics><mrow><msub><mi>u</mi><mrow><mi>u</mi><mi>n</mi><mi>c</mi><mi>r</mi><mi>o</mi><mi>p</mi><mi>p</mi><mi>e</mi><mi>d</mi></mrow></msub></mrow><annotation encoding="application/x-tex">u_{uncropped}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.43056em;"></span><span class="strut bottom" style="height:0.716668em;vertical-align:-0.286108em;"></span><span class="base"><span class="mord"><span class="mord mathit">u</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3361079999999999em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathit mtight">u</span><span class="mord mathit mtight">n</span><span class="mord mathit mtight">c</span><span class="mord mathit mtight" style="margin-right:0.02778em;">r</span><span class="mord mathit mtight">o</span><span class="mord mathit mtight">p</span><span class="mord mathit mtight">p</span><span class="mord mathit mtight">e</span><span class="mord mathit mtight">d</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.286108em;"></span></span></span></span></span></span></span></span></eq> with size of <eq><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mn>7</mn><mn>7</mn><mn>7</mn><mn>6</mn><mn>0</mn><mo>∗</mo><mn>1</mn><mn>6</mn><mn>7</mn></mrow><annotation encoding="application/x-tex">77760*167</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.64444em;"></span><span class="strut bottom" style="height:0.64444em;vertical-align:0em;"></span><span class="base"><span class="mord mathrm">7</span><span class="mord mathrm">7</span><span class="mord mathrm">7</span><span class="mord mathrm">6</span><span class="mord mathrm">0</span><span class="mbin">∗</span><span class="mord mathrm">1</span><span class="mord mathrm">6</span><span class="mord mathrm">7</span></span></span></span></eq> and <eq><span class="katex"><span class="katex-mathml"><math><semantics><mrow><msub><mi>s</mi><mrow><mi>u</mi><mi>n</mi><mi>c</mi><mi>r</mi><mi>o</mi><mi>p</mi><mi>p</mi><mi>e</mi><mi>d</mi></mrow></msub></mrow><annotation encoding="application/x-tex">s_{uncropped}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.43056em;"></span><span class="strut bottom" style="height:0.716668em;vertical-align:-0.286108em;"></span><span class="base"><span class="mord"><span class="mord mathit">s</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3361079999999999em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathit mtight">u</span><span class="mord mathit mtight">n</span><span class="mord mathit mtight">c</span><span class="mord mathit mtight" style="margin-right:0.02778em;">r</span><span class="mord mathit mtight">o</span><span class="mord mathit mtight">p</span><span class="mord mathit mtight">p</span><span class="mord mathit mtight">e</span><span class="mord mathit mtight">d</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.286108em;"></span></span></span></span></span></span></span></span></eq>, <eq><span class="katex"><span class="katex-mathml"><math><semantics><mrow><msub><mi>v</mi><mrow><mi>u</mi><mi>n</mi><mi>c</mi><mi>r</mi><mi>o</mi><mi>p</mi><mi>p</mi><mi>e</mi><mi>d</mi></mrow></msub></mrow><annotation encoding="application/x-tex">v_{uncropped}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.43056em;"></span><span class="strut bottom" style="height:0.716668em;vertical-align:-0.286108em;"></span><span class="base"><span class="mord"><span class="mord mathit" style="margin-right:0.03588em;">v</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3361079999999999em;"><span style="top:-2.5500000000000003em;margin-left:-0.03588em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathit mtight">u</span><span class="mord mathit mtight">n</span><span class="mord mathit mtight">c</span><span class="mord mathit mtight" style="margin-right:0.02778em;">r</span><span class="mord mathit mtight">o</span><span class="mord mathit mtight">p</span><span class="mord mathit mtight">p</span><span class="mord mathit mtight">e</span><span class="mord mathit mtight">d</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.286108em;"></span></span></span></span></span></span></span></span></eq> with size of <eq><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mn>1</mn><mn>6</mn><mn>7</mn><mo>∗</mo><mn>1</mn><mn>6</mn><mn>7</mn></mrow><annotation encoding="application/x-tex">167*167</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.64444em;"></span><span class="strut bottom" style="height:0.64444em;vertical-align:0em;"></span><span class="base"><span class="mord mathrm">1</span><span class="mord mathrm">6</span><span class="mord mathrm">7</span><span class="mbin">∗</span><span class="mord mathrm">1</span><span class="mord mathrm">6</span><span class="mord mathrm">7</span></span></span></span></eq>.</p>
+    <p data-line="105" class="code-line">In order to find out the eignface, I focued on the diagonal matrix <eq><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>S</mi></mrow><annotation encoding="application/x-tex">S</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.68333em;"></span><span class="strut bottom" style="height:0.68333em;vertical-align:0em;"></span><span class="base"><span class="mord mathit" style="margin-right:0.05764em;">S</span></span></span></span></eq>. Consider the cropped images first.</p>
+    <pre class="hljs"><code><div>figure(<span class="hljs-number">2</span>), plot(<span class="hljs-built_in">diag</span>(s_cropped)/sum(<span class="hljs-built_in">diag</span>(s_cropped)), <span class="hljs-string">'ro'</span>, <span class="hljs-string">'MarkerSize'</span>, <span class="hljs-number">4</span>);
+    </div></code></pre>
+    <p data-line="111" class="code-line">And the plot I got is like the following</p>
+    <img src="s_cropped.png" alt="s_cropped" width="80%">
+    <p data-line="115" class="code-line">we can see that the first two singular values should play more important roles in constructing eigenfaces. And after zoom in,</p>
+    <img src="s_cropped_zoomed.png" alt = "s_cropped_zoomed" width="80%">
+    <p data-line="119" class="code-line">it can be seen that in fact, the first two are the &quot;more&quot; important ones, and the rest of first 50 has some importance.</p>
+    <p data-line="121" class="code-line">To prove the conclusion, I reconstruct at <eq><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>r</mi><mo>=</mo><mrow><mn>2</mn><mo separator="true">,</mo><mn>4</mn><mo separator="true">,</mo><mn>2</mn><mn>0</mn><mo separator="true">,</mo><mn>1</mn><mn>0</mn><mn>0</mn><mo separator="true">,</mo><mn>5</mn><mn>0</mn><mn>0</mn></mrow></mrow><annotation encoding="application/x-tex">r={2, 4, 20, 100, 500}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.64444em;"></span><span class="strut bottom" style="height:0.8388800000000001em;vertical-align:-0.19444em;"></span><span class="base"><span class="mord mathit" style="margin-right:0.02778em;">r</span><span class="mrel">=</span><span class="mord"><span class="mord mathrm">2</span><span class="mpunct">,</span><span class="mord mathrm">4</span><span class="mpunct">,</span><span class="mord mathrm">2</span><span class="mord mathrm">0</span><span class="mpunct">,</span><span class="mord mathrm">1</span><span class="mord mathrm">0</span><span class="mord mathrm">0</span><span class="mpunct">,</span><span class="mord mathrm">5</span><span class="mord mathrm">0</span><span class="mord mathrm">0</span></span></span></span></span></eq></p>
+    <p data-line="123" class="code-line">First, I wrote a function to help reconstruct the image</p>
+    <pre class="hljs"><code><div><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">img</span> = <span class="hljs-title">recons</span><span class="hljs-params">(rank, data, u, s, v, siz, num)</span></span>
+        mean_value = mean(data, <span class="hljs-number">2</span>);
+        r = u(:, <span class="hljs-number">1</span>:rank) * s(<span class="hljs-number">1</span>:rank, <span class="hljs-number">1</span>:rank) * v(:, <span class="hljs-number">1</span>:rank).<span class="hljs-string">';
+        r = r + mean_value;
+        img = r(:, num);
+        img = reshape(uint8(img), siz(1), siz(2));
+    end
+    </span></div></code></pre>
+    <p data-line="134" class="code-line">Then I first tried using cropped image</p>
+    <pre class="hljs"><code><div><span class="hljs-comment">%% Reconstruction----------------------------------------------------------</span>
+    number = <span class="hljs-number">50</span>; <span class="hljs-comment">% choose of image</span>
+    
+    <span class="hljs-comment">% cropped images</span>
+    r2 = recons(<span class="hljs-number">2</span>, data_cropped, u_cropped, s_cropped, v_cropped, ...
+    size_cropped, number);
+    r4 = recons(<span class="hljs-number">4</span>, data_cropped, u_cropped, s_cropped, v_cropped, ...
+    size_cropped, number);
+    r10 = recons(<span class="hljs-number">10</span>, data_cropped, u_cropped, s_cropped, v_cropped, ...
+    size_cropped, number);
+    r50 = recons(<span class="hljs-number">50</span>, data_cropped, u_cropped, s_cropped, v_cropped, ...
+    size_cropped, number);
+    r100 = recons(<span class="hljs-number">100</span>, data_cropped, u_cropped, s_cropped, v_cropped, ...
+    size_cropped, number);
+    
+    <span class="hljs-comment">% plot</span>
+    figure(<span class="hljs-number">3</span>);
+    subplot(<span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">1</span>), imshow(r2), title(<span class="hljs-string">'r = 2'</span>);
+    subplot(<span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">2</span>), imshow(r4), title(<span class="hljs-string">'r = 4'</span>);
+    subplot(<span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">3</span>), imshow(r10), title(<span class="hljs-string">'r = 10'</span>);
+    subplot(<span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">4</span>), imshow(r50), title(<span class="hljs-string">'r = 50'</span>);
+    subplot(<span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">5</span>), imshow(r100), title(<span class="hljs-string">'r = 100'</span>);
+    subplot(<span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">6</span>), imshow(<span class="hljs-built_in">reshape</span>(uint8(data_cropped(:, number)), ...
+        size_cropped(<span class="hljs-number">1</span>), size_cropped(<span class="hljs-number">2</span>))), title(<span class="hljs-string">'Original'</span>);
+    </div></code></pre>
+    <p data-line="163" class="code-line">And the plot I got is</p>
+    <img src="reconstruction2_1.png" alt="recons" width="80%">
+    <p data-line="167" class="code-line">It can be seen that after 50 modes, the reconstruction is good enough. It does not improve too much for <eq><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>r</mi><mo>&gt;</mo><mn>5</mn><mn>0</mn></mrow><annotation encoding="application/x-tex">r &gt; 50</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.64444em;"></span><span class="strut bottom" style="height:0.68354em;vertical-align:-0.0391em;"></span><span class="base"><span class="mord mathit" style="margin-right:0.02778em;">r</span><span class="mrel">&gt;</span><span class="mord mathrm">5</span><span class="mord mathrm">0</span></span></span></span></eq>.</p>
+    <h3 data-line="171" class="code-line" id="comparison-between-cropped-versus-uncropped">Comparison between cropped versus uncropped</h3>
+    <p data-line="173" class="code-line">Simiarly, I reconstruct images using uncropped data.</p>
+    <pre class="hljs"><code><div><span class="hljs-comment">% uncropped images</span>
+    r2 = recons(<span class="hljs-number">2</span>, data_uncropped, u_uncropped, s_uncropped, ...
+    v_uncropped, size_uncropped, number);
+    r4 = recons(<span class="hljs-number">4</span>, data_uncropped, u_uncropped, s_uncropped, ...
+    v_uncropped, size_uncropped, number);
+    r10 = recons(<span class="hljs-number">10</span>, data_uncropped, u_uncropped, s_uncropped, ...
+    v_uncropped, size_uncropped, number);
+    r50 = recons(<span class="hljs-number">50</span>, data_uncropped, u_uncropped, s_uncropped, ...
+    v_uncropped, size_uncropped, number);
+    r100 = recons(<span class="hljs-number">100</span>, data_uncropped, u_uncropped, s_uncropped, ...
+    v_uncropped, size_uncropped, number);
+    
+    <span class="hljs-comment">% plot</span>
+    figure(<span class="hljs-number">4</span>);
+    subplot(<span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">1</span>), imagesc(r2), title(<span class="hljs-string">'r = 2'</span>), colormap(gray);
+    set(gca, <span class="hljs-string">'Xtick'</span>, [], <span class="hljs-string">'Ytick'</span>, []);
+    subplot(<span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">2</span>), imagesc(r4), title(<span class="hljs-string">'r = 4'</span>), colormap(gray);
+    set(gca, <span class="hljs-string">'Xtick'</span>, [], <span class="hljs-string">'Ytick'</span>, []);
+    subplot(<span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">3</span>), imagesc(r10), title(<span class="hljs-string">'r = 10'</span>), colormap(gray);
+    set(gca, <span class="hljs-string">'Xtick'</span>, [], <span class="hljs-string">'Ytick'</span>, []);
+    subplot(<span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">4</span>), imagesc(r50), title(<span class="hljs-string">'r = 50'</span>), colormap(gray);
+    set(gca, <span class="hljs-string">'Xtick'</span>, [], <span class="hljs-string">'Ytick'</span>, []);
+    subplot(<span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">5</span>), imagesc(r100), title(<span class="hljs-string">'r = 100'</span>), colormap(gray);
+    set(gca, <span class="hljs-string">'Xtick'</span>, [], <span class="hljs-string">'Ytick'</span>, []);
+    subplot(<span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">6</span>), imagesc(<span class="hljs-built_in">reshape</span>(uint8(data_uncropped(:, number)), ...
+        size_uncropped(<span class="hljs-number">1</span>), size_uncropped(<span class="hljs-number">2</span>))), ...
+        title(<span class="hljs-string">'Original'</span>), colormap(gray);
+    set(gca, <span class="hljs-string">'Xtick'</span>, [], <span class="hljs-string">'Ytick'</span>, []);
+    </div></code></pre>
+    <p data-line="206" class="code-line">And the plot I got is</p>
+    <img src="reconstruction2_2.png" alt="recons2" width="80%">
+    <p data-line="210" class="code-line">By comparing the results, it can be concluded that for low ranks, cropped images have better performances rather than uncropped images.</p>
+    <h2 data-line="212" class="code-line" id="section-v-summary-and-conclusions"><strong>Section V.</strong> Summary and Conclusions</h2>
+    <p data-line="214" class="code-line">From the previous work, we could make our conclusion that cropped images could build a better eigenface and could be eaiser to recognize different human faces. Cropped images are more efficient and costless.</p>
+    <h2 data-line="216" class="code-line" id="appendix-matlab-code"><strong>Appendix</strong> MATLAB Code</h2>
+    <pre class="hljs"><code><div><span class="hljs-comment">%% Import Data-------------------------------------------------------------</span>
+    <span class="hljs-comment">%% uncropped images</span>
+    path = <span class="hljs-string">'data\yalefaces'</span>;
+    Files = dir(path);
+    <span class="hljs-keyword">for</span> <span class="hljs-built_in">i</span> = <span class="hljs-number">3</span>:<span class="hljs-built_in">length</span>(Files)
+        img_src = [path, <span class="hljs-string">'\ '</span>, Files(i).name];
+        img = imread(img_src);
+        img = double(img);
+        size_uncropped = <span class="hljs-built_in">size</span>(img);
+        data_uncropped(:, <span class="hljs-built_in">i</span>) = <span class="hljs-built_in">reshape</span>(img, size_uncropped(<span class="hljs-number">1</span>) * size_uncropped(<span class="hljs-number">2</span>), <span class="hljs-number">1</span>);
+    <span class="hljs-keyword">end</span>
+    
+    <span class="hljs-comment">%% cropped images</span>
+    path = <span class="hljs-string">'data\CroppedYale'</span>;
+    Files_in_main = dir(path);
+    Files_in_sub = dir([path, <span class="hljs-string">'\ '</span>, Files_in_main(<span class="hljs-number">3</span>).name]);
+    index = <span class="hljs-number">1</span>;
+    <span class="hljs-comment">% The "real" folder starts with index of 3</span>
+    <span class="hljs-keyword">for</span> <span class="hljs-built_in">i</span> = <span class="hljs-number">3</span>:<span class="hljs-built_in">length</span>(Files_in_main)
+        subpath = [path, <span class="hljs-string">'\ '</span>, Files_in_main(i).name];
+        Files_in_sub = dir(subpath);
+        <span class="hljs-keyword">for</span> <span class="hljs-built_in">j</span> = <span class="hljs-number">3</span>:<span class="hljs-built_in">length</span>(Files_in_sub)
+            img_src = [subpath, <span class="hljs-string">'\ '</span>, Files_in_sub(j).name];
+            img = imread(img_src);
+            img = double(img);
+            size_cropped = <span class="hljs-built_in">size</span>(img);
+            data_cropped(:, index) = <span class="hljs-built_in">reshape</span>(img, size_cropped(<span class="hljs-number">1</span>) * size_cropped(<span class="hljs-number">2</span>), <span class="hljs-number">1</span>);
+            index = index + <span class="hljs-number">1</span>;
+        <span class="hljs-keyword">end</span>
+    <span class="hljs-keyword">end</span>
+    
+    <span class="hljs-comment">%% svd analysis------------------------------------------------------------</span>
+    <span class="hljs-comment">% substract mean</span>
+    data_cropped = <span class="hljs-built_in">bsxfun</span>(@minus, data_cropped, mean(data_cropped, <span class="hljs-number">2</span>));
+    data_uncropped = <span class="hljs-built_in">bsxfun</span>(@minus, data_uncropped, mean(data_uncropped, <span class="hljs-number">2</span>));
+    <span class="hljs-comment">% SVD</span>
+    [u_cropped, s_cropped, v_cropped] = svd(data_cropped, <span class="hljs-string">'econ'</span>);
+    [u_uncropped, s_uncropped, v_uncropped] = svd(data_uncropped, <span class="hljs-string">'econ'</span>);
+    
+    <span class="hljs-comment">%% Diagonalstic------------------------------------------------------------</span>
+    figure(<span class="hljs-number">2</span>), plot(<span class="hljs-built_in">diag</span>(s_cropped)/sum(<span class="hljs-built_in">diag</span>(s_cropped)), <span class="hljs-string">'ro'</span>, <span class="hljs-string">'MarkerSize'</span>, <span class="hljs-number">4</span>)
+    
+    <span class="hljs-comment">%% Reconstruction----------------------------------------------------------</span>
+    number = <span class="hljs-number">50</span>; <span class="hljs-comment">% choose of image</span>
+    <span class="hljs-comment">% cropped images</span>
+    r2 = recons(<span class="hljs-number">2</span>, data_cropped, u_cropped, s_cropped, v_cropped, ...
+    size_cropped, number);
+    r4 = recons(<span class="hljs-number">4</span>, data_cropped, u_cropped, s_cropped, v_cropped, ...
+    size_cropped, number);
+    r10 = recons(<span class="hljs-number">10</span>, data_cropped, u_cropped, s_cropped, v_cropped, ...
+    size_cropped, number);
+    r50 = recons(<span class="hljs-number">50</span>, data_cropped, u_cropped, s_cropped, v_cropped, ...
+    size_cropped, number);
+    r100 = recons(<span class="hljs-number">100</span>, data_cropped, u_cropped, s_cropped, v_cropped, ...
+    size_cropped, number);
+    
+    <span class="hljs-comment">% plot</span>
+    figure(<span class="hljs-number">3</span>);
+    subplot(<span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">1</span>), imshow(r2), title(<span class="hljs-string">'r = 2'</span>);
+    subplot(<span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">2</span>), imshow(r4), title(<span class="hljs-string">'r = 4'</span>);
+    subplot(<span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">3</span>), imshow(r10), title(<span class="hljs-string">'r = 10'</span>);
+    subplot(<span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">4</span>), imshow(r50), title(<span class="hljs-string">'r = 50'</span>);
+    subplot(<span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">5</span>), imshow(r100), title(<span class="hljs-string">'r = 100'</span>);
+    subplot(<span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">6</span>), imshow(<span class="hljs-built_in">reshape</span>(uint8(data_cropped(:, number)), ...
+        size_cropped(<span class="hljs-number">1</span>), size_cropped(<span class="hljs-number">2</span>))), title(<span class="hljs-string">'Original'</span>);
+    
+    <span class="hljs-comment">% uncropped images</span>
+    r2 = recons(<span class="hljs-number">2</span>, data_uncropped, u_uncropped, s_uncropped, ...
+    v_uncropped, size_uncropped, number);
+    r4 = recons(<span class="hljs-number">4</span>, data_uncropped, u_uncropped, s_uncropped, ...
+    v_uncropped, size_uncropped, number);
+    r10 = recons(<span class="hljs-number">10</span>, data_uncropped, u_uncropped, s_uncropped, ...
+    v_uncropped, size_uncropped, number);
+    r50 = recons(<span class="hljs-number">50</span>, data_uncropped, u_uncropped, s_uncropped, ...
+    v_uncropped, size_uncropped, number);
+    r100 = recons(<span class="hljs-number">100</span>, data_uncropped, u_uncropped, s_uncropped, ...
+    v_uncropped, size_uncropped, number);
+    
+    <span class="hljs-comment">% plot</span>
+    figure(<span class="hljs-number">4</span>);
+    subplot(<span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">1</span>), imagesc(r2), title(<span class="hljs-string">'r = 2'</span>), colormap(gray);
+    set(gca, <span class="hljs-string">'Xtick'</span>, [], <span class="hljs-string">'Ytick'</span>, []);
+    subplot(<span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">2</span>), imagesc(r4), title(<span class="hljs-string">'r = 4'</span>), colormap(gray);
+    set(gca, <span class="hljs-string">'Xtick'</span>, [], <span class="hljs-string">'Ytick'</span>, []);
+    subplot(<span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">3</span>), imagesc(r10), title(<span class="hljs-string">'r = 10'</span>), colormap(gray);
+    set(gca, <span class="hljs-string">'Xtick'</span>, [], <span class="hljs-string">'Ytick'</span>, []);
+    subplot(<span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">4</span>), imagesc(r50), title(<span class="hljs-string">'r = 50'</span>), colormap(gray);
+    set(gca, <span class="hljs-string">'Xtick'</span>, [], <span class="hljs-string">'Ytick'</span>, []);
+    subplot(<span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">5</span>), imagesc(r100), title(<span class="hljs-string">'r = 100'</span>), colormap(gray);
+    set(gca, <span class="hljs-string">'Xtick'</span>, [], <span class="hljs-string">'Ytick'</span>, []);
+    subplot(<span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">6</span>), imagesc(<span class="hljs-built_in">reshape</span>(uint8(data_uncropped(:, number)), ...
+        size_uncropped(<span class="hljs-number">1</span>), size_uncropped(<span class="hljs-number">2</span>))), ...
+        title(<span class="hljs-string">'Original'</span>), colormap(gray);
+    set(gca, <span class="hljs-string">'Xtick'</span>, [], <span class="hljs-string">'Ytick'</span>, []);
+    
+    <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">img</span> = <span class="hljs-title">recons</span><span class="hljs-params">(rank, data, u, s, v, siz, num)</span></span>
+        mean_value = mean(data, <span class="hljs-number">2</span>);
+        r = u(:, <span class="hljs-number">1</span>:rank) * s(<span class="hljs-number">1</span>:rank, <span class="hljs-number">1</span>:rank) * v(:, <span class="hljs-number">1</span>:rank).<span class="hljs-string">';
+        r = r + mean_value;
+        img = r(:, num);
+        img = reshape(uint8(img), siz(1), siz(2));
+    end
+    </span></div></code></pre>
+    <style>
+        body {
+        font-family: Helvetica, arial, sans-serif;
+        font-size: 18px;
+        line-height: 1.6;
+        padding-top: 10px;
+        padding-bottom: 10px;
+        padding: 30px;
+        }
+    </style>
+    </body></html>
