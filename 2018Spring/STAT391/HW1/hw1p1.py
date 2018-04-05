@@ -1,6 +1,6 @@
 # STAT 391 HW1
 # Chongyi Xu, 1531273
-# This file is the Python script for hw1
+# This file is the Python script for hw1 Problem 1
 
 # Problem 1 – Practice with probability (Little Amazon)
 # 0 – “War and Peace”, 1 – “Harry Potter & the Deathly Hallows, 2 – “Winnie the Pooh”, 3 – “Get

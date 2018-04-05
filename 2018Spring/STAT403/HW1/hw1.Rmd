@@ -1,0 +1,27 @@
+---
+title: "STAT 403 HW1"
+author: "Chongyi Xu"
+date: "April 4, 2018"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Question 1
+  * Let $X_1 ,\cdots, X_n$ be IID random points from Exp(1/$\beta$)
+
+```{r cars}
+summary(cars)
+```
+
+## Including Plots
+
+You can also embed plots, for example:
+
+```{r pressure, echo=FALSE}
+plot(pressure)
+```
+
+Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.

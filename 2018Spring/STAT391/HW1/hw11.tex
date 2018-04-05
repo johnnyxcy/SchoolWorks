@@ -16,6 +16,7 @@
     \usepackage{esvect}
     \usepackage{listings}
     \usepackage{color}
+    \usepackage{spverbatim}
     \usepackage[title]{appendix}
     \hypersetup{
         colorlinks=true,
@@ -116,12 +117,14 @@ print(theta)
         P(E) = (P(E_3) + P(E_4))^4 = (0.255 + 0.151)^4 \approx 0.02717
     \end{equation*}
 
-    \item A customer buys 2 "Probability" books and 3 fiction (i.e 0 or 1 or 2) books. What is the probability
+    \item A customer buys 2 "Probability" books and 3 fiction (i.e 0 or 1 or 2) books. What is the probability
     of this event?
-    Denote the event that the customer buys 2 "Probability" books and 3 fiction (i.e 0 or 1 or 2) books as $E$. Then
-    \begin{equation*}
-        P(E) = P(E_4)^2 * (P(E_0) + P(E_1) + P(E_2))^3 = 0.151^2 * (0.149 + 0.396 + 0.049)^3 \approx 0.004779
-    \end{equation*}
+    Denote the event that the customer buys 2 "Probability" books and 3 fiction (i.e 0 or 1 or 2) books as $E$. Then
+    \begin{align*}
+        P(E)    &= P(E_4)^2 * (P(E_0) + P(E_1) + P(E_2))^3 \\
+                &= 0.151^2 * (0.149 + 0.396 + 0.049)^3 \\ 
+                &\approx 0.004779
+    \end{align*}
 
     \item A customer buys n books. What is the probability that he buys at least one "Probability"?
     Denote the event that the customer buys at least one "Probability" among n books he bought
@@ -131,7 +134,7 @@ print(theta)
     \end{enumerate} 
 
     \section{Problem 2 Practice with probability}
-    A man claims to have extrasensory perception. As a test, a fair coin is fipped 10 times, and the man is
+    A man claims to have extrasensory perception. As a test, a fair coin is flipped 10 times, and the man is
     asked to predict the outcome in advance. He gets 7 out of 10 correct.
     \begin{table}[]
         \centering
@@ -149,7 +152,7 @@ print(theta)
     \item Let $Y$ refer to the number of correct tests, and denote the outcomes of the 10 individual tests
     with the random variables $X_1,X_2, \cdots X_10$.What are the distributions of each $X_i$? What is the 
     relationship between $X_{1:10}$ and $Y$?
-    For each random varibale $X_i$, it has a Bernoulli distribution to be either 1 (for correct test) or 0
+    For each random variable $X_i$, it has a Bernoulli distribution to be either 1 (for correct test) or 0
     (for incorrect test). The relationship between $X_i,\ 1\leq i\leq 10$ and $Y$ is 
     \begin{equation*}
         Y = \sum_{i=1}^{10} X_i
@@ -162,13 +165,13 @@ print(theta)
     From the result table above, we can conclude that the probability to get a head in a single trial is $p = 0.5$.
     \begin{align*}
         P(Y \geq 7)     &= P(Y=7) + P(Y=8) + P(Y=9) + P(Y=10) \\
-                        &= \binom{10}{7}p^7(1-p)^3 + \binom{10}{8}p^8(1-p)^2
-                           + \binom{10}{9}p^9(1-p)^1 + \binom{10}{10}p^10(1-p)^0 \\
+                        &= \binom{10}{7}p^7(1-p)^3 + \binom{10}{8}p^8(1-p)^2 \\
+                        &   + \binom{10}{9}p^9(1-p)^1 + \binom{10}{10}p^10(1-p)^0 \\
                         &\approx 0.1719
     \end{align*}
 
     \item Suppose the test is changed - now, the coin is flipped until the man makes an incorrect guess.
-    He guesses the first two correctly, but guesses the third wrong. What is the probability of this
+    He guesses the first two correctly, but guesses the third wrong. What is the probability of this
     experimental outcome (again, assuming no ESP)?
     Denote the event that guessing first 2 correct and the third wrong to be $E$. Then,
     \begin{equation*}
@@ -176,7 +179,7 @@ print(theta)
     \end{equation*}
 
     \item Assume both tests were planned beforehand. What is the probability that both of these tests turned
-    out the way they did? In other words, the plan was to first flip the coin 10 times and count how many times 
+    out the way they did? In other words, the plan was to first flip the coin 10 times and count how many times 
     the man is correct (Y ) then to continue flipping until the man makes the next mistake, at flip 10 + Z. 
     You are asked the probability that Y = 7 and Z = 3.
     \begin{align*}
@@ -187,10 +190,241 @@ print(theta)
     \end{enumerate}
 
     \section{Problem 3}
-    \
-        %----------------------------------------------------------------------------------------
-        %	APPENDIX
-        %----------------------------------------------------------------------------------------
+    The basic procedure that I will do to the data and test sentences is the following.
+    \begin{itemize}
+        \item Use the given .dat files to get the probability of each letter for every languages.
+        \item Eliminate all spaces and punctuation and turn all letters to lower case.
+        \item Get the sufficient statistics for each test case.
+        \item Compute the log-likelihood of each sentence in every language and print it out.
+        \item Output the best guess.
+    \end{itemize}
+    
+    According to the steps above, I have my code setup like the following.
+    \begin{lstlisting}
+import math
 
-    \end{document}
+def langReader(file):
+    '''
+    langReader is used to read in files and compute for the probability
+    for each letter
+
+    Args:
+        file: The name of the file containing the letter and probability.
+    Returns:
+        A dictionary containing letters as keys and probability as values
+    '''
+    pLang = {}
+    for line in open(file):
+        el = line.split(' ')
+        letter = el[1].lower()
+        pLang[letter] = float(el[2])/1000
+    return pLang
+
+def LetterCounter(testString):
+    '''
+    Counts for the number of each letter in the test string (sufficient statistics)
+
+    Args:
+        testString: The string to count
+    Returns:
+        A dictionary containing letters as keys and count number as values
+    '''
+    counter = {}
+    for char in testString:
+        try:
+            counter[char] = counter[char] + 1
+        except KeyError:
+            counter[char] = 1
+    return counter
+
+def computeP(counter, probMap):
+    '''
+    Compute for the probability of with given letter counter and language probability map
+
+    Args:
+        counter: The letter counter of the test string.
+        probMap: The probability map of the test language.
+    Returns:
+        A integer telling P(sentence)
+    '''
+    p = 1
+    for letter in counter:
+        try:
+            p = p * probMap[letter]**counter[letter]
+        except KeyError:
+            print("The letter ", letter, " is not in this language")
+    return p
+
+def MaxLoglikelihood(testStr, langDict):
+    '''
+    Find the maximum log-likelihood according to the testStr and output the guess.
+
+    Args:
+        testStr: The string to test
+        langDict: The dictionary for all languages.
+    Output:
+        The log-likelihood for each language and the best guess.
+    '''
+    print("Considering the sentence: ", testStr)
+    testStr = ''.join(e for e in testStr if e.isalnum()).lower()
+    counter = LetterCounter(testStr)
+    best = [-float('inf'), '']
+    for lang in langDict:
+        ll = math.log(computeP(counter, langDict[lang]), 2)
+        print("The log-likelihood for ", lang, " is ", ll)
+        if best[0] < ll:
+            best = [ll, lang]
+    print("And as the result, the best guess is ", best[1], " with likelihood ", best[0], "\n")
+
+
+# Initialize the probability map
+path = r'C:\Users\johnn\Documents\UW\SchoolWorks\2018Spring\STAT391\HW1'
+
+english = langReader(path + r'\english.dat')
+french = langReader(path + r'\french.dat')
+german = langReader(path + r'\german.dat')
+spanish = langReader(path + r'\spanish.dat')
+
+langs = {'English': english, 'French': french, 'German': german, 'Spanish': spanish}
+    \end{lstlisting}
+    
+    After finishing the setup, I put in the test sentences to test the maximum log likelihood.
+    \begin{lstlisting}
+# Case 1
+MaxLogLikelihood("La verite vaut bien qu'on passe quelques annees sans la trouver.", langs)
+
+# Case 2
+MaxLogLikelihood("Chi po, non vo; chi vo, non po; chi sa, non fa; chi fa, non sa; \
+e cosi, male il mondo va.", langs)
+
+# Case 3:
+MaxLogLikelihood("``Las cuentas, claras, y el chocolate, espeso''", langs)
+
+# Case 4:
+MaxLogLikelihood("`` Wir finden in den Buchern immer nur uns selbst. Komisch, \
+    dass dann allemal die Freude gross ist und wir den Autor zum Genie erklaren.''", langs)
+    \end{lstlisting}
+
+    And the result I got is
+
+    \begin{spverbatim}
+Considering the sentence:  La verite vaut bien qu'on passe quelques annees sans la trouver.
+The log-likelihood for  English  is  -230.52920056694558
+The log-likelihood for  French  is  -205.3554094970059
+The log-likelihood for  German  is  -231.9774010063021
+The log-likelihood for  Spanish  is  -213.83097995386774
+And as the result, the best guess is  French  with likelihood  
+-205.3554094970059 
+
+Considering the sentence:  Chi po, non vo; chi vo, non po; chi sa, non fa; chi fa, non sa; e cosi, male il mondo va.
+The log-likelihood for  English  is  -247.7703137809151
+The log-likelihood for  French  is  -258.7161923111603
+The log-likelihood for  German  is  -265.64806883676596
+The log-likelihood for  Spanish  is  -251.3309572579251
+And as the result, the best guess is  English  with likelihood  
+-247.7703137809151 
+Considering the sentence:  As far as the laws of mathematics refer to reality, they are not certain, as far as they are certain, they do not refer to reality.
+The log-likelihood for  English  is  -398.0524601017673
+The log-likelihood for  French  is  -445.8124955470158
+The log-likelihood for  German  is  -447.86996205679543
+The log-likelihood for  Spanish  is  -433.0763704179239
+And as the result, the best guess is  English  with likelihood  -398.0524601017673 
+
+Considering the sentence:  ``Las cuentas, claras, y el chocolate, espeso''
+The log-likelihood for  English  is  -139.21322419404666
+The log-likelihood for  French  is  -139.41869690833923
+The log-likelihood for  German  is  -152.31264967462116
+The log-likelihood for  Spanish  is  -133.70777498915248
+And as the result, the best guess is  Spanish  with likelihood  
+-133.70777498915248 
+
+Considering the sentence:  `` Wir finden in den Buchern immer nur uns selbst. Komisch,  dass dann allemal die Freude gross ist und wir den Autor zum Genie erklaren.''
+The log-likelihood for  English  is  -460.7764886241497
+The log-likelihood for  French  is  -469.229214130381
+The log-likelihood for  German  is  -437.88100125420345
+The log-likelihood for  Spanish  is  -476.175646501842
+And as the result, the best guess is  German  with likelihood  
+-437.88100125420345 
+    \end{spverbatim}
+
+    which is pretty impressive since for each sentence, it successfully detect the language correctly and even for 
+    the Italian one, it gives me a result that is best guess among the four languages. As we can see from the result
+    output, with longer sentence, the log-likelihood is more negative and generally, the difference of likelihood 
+    between the best guess and second best guess is larger.
+    The probability model being used in this task tells that the language is produced by combining differnet letters
+    and there are some letters that will be used much more often rather than some seldomly used ones.
+
+    \section{Problem 4 - ML Estimation}
+    \begin{enumerate}[label=\alph*]
+        \item Estimate $\theta_a,\cdots,\theta_z$ the parameters of the Lincoln-English language model from the above texts (available in the files lincoln\_text.txt).
+        
+        Basically same setup as Problem 3, but this time, we need to build our own model, "lincol\_English". And in the given lincoln\_text.txt, there might be some missing letters (not all 26 letters of alphabet are present),s o we need to compare the result letters from the txt file and the letters in english.dat to see if there is any letter missing. If so, make the count of the letter to be 0.1 and add it to the total. By doing this, we are assuming that the missing letter will appear once every 10 times the same length of text, which could be a reasonable solution to the missing letters.
+        \begin{lstlisting}
+# Read in lincoln_text.txt
+txt = ''
+for line in open(path + r'\lincoln_text.txt'):
+    txt = txt + line
+txt = ''.join(e for e in txt if e.isalnum()).lower()
+counter = LetterCounter(txt)
+length = len(txt)
+
+# Since there might be some missing letters
+lincolnEng = {}
+for letter in english:
+    if letter not in counter:
+        counter[letter] = 0.1
+        length = length + 0.1
+    lincolnEng[letter] = counter[letter] / length
+print(lincolnEng)
+langs['Lincoln-English'] = lincolnEng
+        \end{lstlisting}
+        And the $\theta$ found is the following
+        \begin{spverbatim}
+{'a': 0.07108239095315025, 'b': 0.015347334410339256, 
+'c': 0.020193861066235864, 'd': 0.029079159935379646, 
+'e': 0.11793214862681745, 'f': 0.02665589660743134, 
+'g': 0.021809369951534735, 'h': 0.05492730210016155, 
+'i': 0.07673667205169628, 'j': 0.0024232633279483036,
+'k': 0.004038772213247173, 'l': 0.045234248788368334, 
+'m': 0.024232633279483037, 'n': 0.06704361873990307, 
+'o': 0.08239095315024232, 'p': 0.01615508885298869,
+'q': 0.0008077544426494346, 'r': 0.08077544426494346, 
+'s': 0.05977382875605816, 't': 0.0888529886914378,
+'u': 0.03715670436187399, 'v': 0.01050080775444265, 
+'w': 0.018578352180936994, 'x': 8.076892011953801e-05, 
+'y': 0.027461432840642924, 'z': 0.0008076892011953801}
+        \end{spverbatim}
+    
+        \item  Decide if the text \\
+        \begin{verbatim}
+``Fourscore and seven years ago our fathers brought forth on 
+this continent a new nation,conceived in liberty and dedicated 
+to the proposition that all men are created equal.''
+        \end{verbatim}
+        - Lincoln's Gettysburg Address on November 19, 1863.\\
+        is written in English, Spanish, German, French or Lincoln-English by the Maximum Likelihood method
+        used in Problem 3.
+        
+        Doing the same procedure as I did in Problem 3
+        \begin{lstlisting}
+MaxLogLikelihood("Fourscore and seven years ago our fathers brought forth on this \
+continent a new nation, conceived in liberty and dedicated to the proposition that \
+all men are created equal.", langs)
+        \end{lstlisting}
+        And the result is 
+        \begin{spverbatim}
+Considering the sentence:  Fourscore and seven years ago our 
+fathers brought forth on this continent a new nation, conceived 
+in liberty and dedicated to the proposition that all men are 
+created equal.
+The log-likelihood for  English  is  -582.2285420232441
+The log-likelihood for  French  is  -610.0146289552811
+The log-likelihood for  German  is  -615.2114218430331
+The log-likelihood for  Spanish  is  -604.2956254104148
+The log-likelihood for  Lincoln-English  is  -587.2208264009482
+And as the result, the best guess is  English  with likelihood  
+-582.2285420232441 
+        \end{spverbatim}
+    \end{enumerate}
+\end{document}
     
