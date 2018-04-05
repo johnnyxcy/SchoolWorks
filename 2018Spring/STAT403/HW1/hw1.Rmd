@@ -9,19 +9,108 @@ output: pdf_document
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-## Question 1
-  * Let $X_1 ,\cdots, X_n$ be IID random points from Exp(1/$\beta$)
+## Questions
+1. Let $X_1 ,\cdots, X_n$ be IID random points from $Exp(1/\beta)$. The PDF of $Exp(1/\beta)$ is 
+  $$p(x) = \frac{1}{\beta}e^{-x/\beta}$$
+for $x \geq 0$. Let $\bar{X_n} = \frac{1}{n} \sum_{i=1}^n X_i$ be the sample average. Let $\beta$ be the parameter of interest that we want to estimate.
 
-```{r cars}
-summary(cars)
+(a) What is the bias and variance of using the sample average $\bar{X_n}$ as the estimator of $\beta$?
+
+The population mean will be $\mu=\mathbb{E}(X_n) = \beta$. Since we are using the sample average as the estimator, $\hat{\beta} = \bar{X_n}$, then
+  $$\textbf{bias}(\hat{\beta_n}) = \mu - \mu = 0,\ \textbf{Var}(\hat{\beta_n}) = \frac{\beta^2}{n}$$
+
+(b) What is the mean square error of using $\bar{X_n}$ as the estimator of $\beta$?
+
+$$\textbf{MSE}(\hat{\beta_n}) = \textbf{Var}(\hat{\beta_n}) + \textbf{bias}^2(\hat{\beta_n}) = \textbf{Var}(\hat{\beta_n}) = \frac{\beta^2}{n}$$
+
+(c) Does $\bar{X_n}$ converges to $\beta$? Why?
+
+  From the calculation above, we can see that $\textbf{bias}(\hat{\beta_n}) = 0$ for all $n$ and $\textbf{Var}(\hat{\beta_n}) = \frac{\beta^2}{n}$ converge to $0$ as $n\rightarrow \infty$. Therefore, the estimator $\hat{\beta_n} = \bar{X_n}$ converges to $\beta$.
+
+(d) Now consider a new estimator $\hat{\beta_n} = a * \bar{X_n}$, where $a\in \mathbb{R}$ is a real number. What is the mean square error of $\hat{\beta_n}$?
+
+  Similar to what we did in part(a), and the variance will not change since the estimator just gets scaled.
+
+  $$\textbf{bias}(\hat{\beta_n}) = a * \mu - \mu = (a-1)\mu,\ \textbf{Var}(\hat{\beta_n}) = \frac{\beta^2}{n}$$
+
+  Therefore, the mean square error will be
+
+$$\textbf{MSE}(\hat{\beta_n}) = \textbf{Var}(\hat{\beta_n}) + \textbf{bias}^2(\hat{\beta_n}) = \frac{\beta^2}{n} + (a-1)^2\mu^2$$
+
+(e) To mimimize the mean square error, which value of a should we take? Does this give us an estimator that has a lower mean square error than the sample mean $\bar{X_n}$?
+
+  From the equation of MSE above, we can see that the minimum value of MSE according to $a$ happens at 
+  $$\frac{d}{da} \textbf{MSE}(\hat{\beta_n}) = 2\mu^2(a-1) = 0 \\ \Rightarrow a = 1$$
+  
+  So the value of $a$ to minimize the mean square error is $1$, which is the same as the estimator using sample mean $\bar{X_n}$.
+
+2. Use R to plot the function $f(x) = e^{-sin(x)} * cos(\pi x)$ for $x\in [-10, 10]$
+
+```{r}
+library(ggplot2)
+x<- seq(from=-10, to=10, by=0.01)
+f <- exp(-sin(x)) * cos(pi * x)
+qplot(x, f, geom='line') +  
+     ggtitle(expression(f(x)==e^{-sinx}*cos(pi*x))) + 
+  theme(plot.title = element_text(hjust = 0.5))
 ```
 
-## Including Plots
 
-You can also embed plots, for example:
+3. Use R to generate 5000 data points from $N(2, 2^2)$. Plot the density histogram with 50 bins. Attach a density curve of $N(2, 2^2)$ to the histogram.
 
-```{r pressure, echo=FALSE}
-plot(pressure)
+```{r}
+dat <- data.frame(x=rnorm(n=5000, mean=2, sd=4))
+
+ggplot(dat, aes(x=x)) + geom_histogram(aes(y=..density..),
+                            bins=50,
+                            color="black",
+                            fill="grey") + 
+  geom_density(alpha=.2, fill="#FF6666") + 
+  ggtitle(expression(paste("Density Plot of ", N(2, 2^2)))) + 
+  theme(plot.title = element_text(hjust = 0.5))
 ```
 
-Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
+
+4. Let $X_1, X_2 ~ Uni[2, 4]$. Let $\bar{X_2}$ be the sample mean.
+
+(a) Use the for loop to generate at least 100000 realizations of $\bar{X_2}$ and plot the corresponding histogram.
+
+```{r}
+xbar <- vector(length=100000)
+for (n in 1:100000) {
+  x1 <- runif(n=1, min=2, max=4)
+  x2 <- runif(n=1, min=2, max=4)
+  xbar[n] <- mean(c(x1, x2))
+}
+
+dat <- data.frame(xbar=xbar)
+
+p <- ggplot(dat, aes(x=xbar)) + 
+  geom_histogram(aes(y=..density..), colour="black", fill="grey", bins=50) + 
+  ggtitle(expression(paste("Density Histogram of ", bar(X[2])))) + 
+  theme(plot.title = element_text(hjust = 0.5))
+p
+```
+
+(b) The density curve of $\bar{X_2}$ is 
+  $$p(x) = \begin{cases}
+            x-2, \text{when 2$\leq$ x$\leq$ 3}\\
+            4-x, \text{when 3$\leq$ x$\leq$ 4}\\
+            0, \text{otherwise}
+            \end{cases}$$
+            
+  Attach the corresponding density curve of $\bar{X_2}$ to the histogram.
+```{r}
+size=nrow(dat)
+px <- vector(length=size)
+x <- seq(from=2, to=4, by=(4-2)/size)
+for (i in 1:length(x)) {
+  if (x[i] <= 3) {
+    px[i] <- x[i] - 2
+  } else {
+    px[i] <- 4 - x[i]
+  }
+}
+p + geom_line(aes(x=x[1:length(x)-1],y=px[1:length(px)-1]), color="red")
+```
+  
