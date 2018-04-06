@@ -1,0 +1,1124 @@
+\documentclass[]{article}
+\usepackage{lmodern}
+\usepackage{amssymb,amsmath}
+\usepackage{ifxetex,ifluatex}
+\usepackage{fixltx2e} % provides \textsubscript
+\ifnum 0\ifxetex 1\fi\ifluatex 1\fi=0 % if pdftex
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+\else % if luatex or xelatex
+  \ifxetex
+    \usepackage{mathspec}
+  \else
+    \usepackage{fontspec}
+  \fi
+  \defaultfontfeatures{Ligatures=TeX,Scale=MatchLowercase}
+\fi
+% use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+% use microtype if available
+\IfFileExists{microtype.sty}{%
+\usepackage{microtype}
+\UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\usepackage[margin=1in]{geometry}
+\usepackage{hyperref}
+\hypersetup{unicode=true,
+            pdftitle={STAT 435 HW1},
+            pdfauthor={Chongyi Xu},
+            pdfborder={0 0 0},
+            breaklinks=true}
+\urlstyle{same}  % don't use monospace font for urls
+\usepackage{color}
+\usepackage{fancyvrb}
+\newcommand{\VerbBar}{|}
+\newcommand{\VERB}{\Verb[commandchars=\\\{\}]}
+\DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+% Add ',fontsize=\small' for more characters per line
+\usepackage{framed}
+\definecolor{shadecolor}{RGB}{248,248,248}
+\newenvironment{Shaded}{\begin{snugshade}}{\end{snugshade}}
+\newcommand{\AlertTok}[1]{\textcolor[rgb]{0.94,0.16,0.16}{#1}}
+\newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.77,0.63,0.00}{#1}}
+\newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\BuiltInTok}[1]{#1}
+\newcommand{\CharTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\CommentTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{#1}}
+\newcommand{\DecValTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ErrorTok}[1]{\textcolor[rgb]{0.64,0.00,0.00}{\textbf{#1}}}
+\newcommand{\ExtensionTok}[1]{#1}
+\newcommand{\FloatTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\ImportTok}[1]{#1}
+\newcommand{\InformationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\NormalTok}[1]{#1}
+\newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.81,0.36,0.00}{\textbf{#1}}}
+\newcommand{\OtherTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{#1}}
+\newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\RegionMarkerTok}[1]{#1}
+\newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\StringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\VariableTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\WarningTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\usepackage{graphicx,grffile}
+\makeatletter
+\def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
+\def\maxheight{\ifdim\Gin@nat@height>\textheight\textheight\else\Gin@nat@height\fi}
+\makeatother
+% Scale images if necessary, so that they will not overflow the page
+% margins by default, and it is still possible to overwrite the defaults
+% using explicit options in \includegraphics[width, height, ...]{}
+\setkeys{Gin}{width=\maxwidth,height=\maxheight,keepaspectratio}
+\IfFileExists{parskip.sty}{%
+\usepackage{parskip}
+}{% else
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{6pt plus 2pt minus 1pt}
+}
+\setlength{\emergencystretch}{3em}  % prevent overfull lines
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\setcounter{secnumdepth}{0}
+% Redefines (sub)paragraphs to behave more like sections
+\ifx\paragraph\undefined\else
+\let\oldparagraph\paragraph
+\renewcommand{\paragraph}[1]{\oldparagraph{#1}\mbox{}}
+\fi
+\ifx\subparagraph\undefined\else
+\let\oldsubparagraph\subparagraph
+\renewcommand{\subparagraph}[1]{\oldsubparagraph{#1}\mbox{}}
+\fi
+
+%%% Use protect on footnotes to avoid problems with footnotes in titles
+\let\rmarkdownfootnote\footnote%
+\def\footnote{\protect\rmarkdownfootnote}
+
+%%% Change title format to be more compact
+\usepackage{titling}
+
+% Create subtitle command for use in maketitle
+\newcommand{\subtitle}[1]{
+  \posttitle{
+    \begin{center}\large#1\end{center}
+    }
+}
+
+\setlength{\droptitle}{-2em}
+  \title{STAT 435 HW1}
+  \pretitle{\vspace{\droptitle}\centering\huge}
+  \posttitle{\par}
+  \author{Chongyi Xu}
+  \preauthor{\centering\large\emph}
+  \postauthor{\par}
+  \predate{\centering\large\emph}
+  \postdate{\par}
+  \date{April 5, 2018}
+
+
+\begin{document}
+\maketitle
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  We will perform k-nearest-neighbors in this problem, in a setting with
+  2 classes, 25 observations per class, and p = 2 features. We will call
+  one class the ``red'' class and the other class the ``blue'' class.
+  The observations in the red class are drawn i.i.d. from a
+  \(N_p(\mu_r, I)\) distribution, and the observations in the blue class
+  are drawn i.i.d. from a \(N_p(\mu_b, I)\) distribution, where
+  \(\mu_r =\binom{0}{0}\) is the mean in the red class, and where
+  \(\mu_b = \binom{1.5}{1.5}\)is the mean in the blue class.
+\end{enumerate}
+
+\begin{enumerate}
+\def\labelenumi{(\alph{enumi})}
+\tightlist
+\item
+  Generate a training set, consisting of 25 observations from the read
+  class and 25 observations from the blue class. Plot the training set.
+  Make sure that the axes are properly labeled, and that the
+  observations are colored according to their class label.
+\end{enumerate}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{library}\NormalTok{(ggplot2)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Warning: package 'ggplot2' was built under R version 3.3.3
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{set.seed}\NormalTok{(}\DecValTok{12345}\NormalTok{)}
+\NormalTok{train <-}\StringTok{ }\KeywordTok{matrix}\NormalTok{(}\OtherTok{NA}\NormalTok{, }\DecValTok{50}\NormalTok{, }\DecValTok{2}\NormalTok{)}
+\NormalTok{label <-}\StringTok{ }\KeywordTok{rep}\NormalTok{(}\StringTok{''}\NormalTok{, }\DecValTok{50}\NormalTok{)}
+\CommentTok{# red}
+\NormalTok{train[}\DecValTok{1}\OperatorTok{:}\DecValTok{25}\NormalTok{, }\DecValTok{1}\NormalTok{] <-}\StringTok{ }\KeywordTok{rnorm}\NormalTok{(}\DataTypeTok{n=}\DecValTok{25}\NormalTok{, }\DataTypeTok{mean=}\DecValTok{0}\NormalTok{, }\DataTypeTok{sd=}\DecValTok{1}\NormalTok{)}
+\NormalTok{train[}\DecValTok{1}\OperatorTok{:}\DecValTok{25}\NormalTok{, }\DecValTok{2}\NormalTok{] <-}\StringTok{ }\KeywordTok{rnorm}\NormalTok{(}\DataTypeTok{n=}\DecValTok{25}\NormalTok{, }\DataTypeTok{mean=}\DecValTok{0}\NormalTok{, }\DataTypeTok{sd=}\DecValTok{1}\NormalTok{)}
+\NormalTok{label[}\DecValTok{1}\OperatorTok{:}\DecValTok{25}\NormalTok{] <-}\StringTok{ 'red'}
+
+\CommentTok{# blue}
+\NormalTok{train[}\DecValTok{26}\OperatorTok{:}\DecValTok{50}\NormalTok{, }\DecValTok{1}\NormalTok{] <-}\StringTok{ }\KeywordTok{rnorm}\NormalTok{(}\DataTypeTok{n=}\DecValTok{25}\NormalTok{, }\DataTypeTok{mean=}\FloatTok{1.5}\NormalTok{, }\DataTypeTok{sd=}\DecValTok{1}\NormalTok{)}
+\NormalTok{train[}\DecValTok{26}\OperatorTok{:}\DecValTok{50}\NormalTok{, }\DecValTok{2}\NormalTok{] <-}\StringTok{ }\KeywordTok{rnorm}\NormalTok{(}\DataTypeTok{n=}\DecValTok{25}\NormalTok{, }\DataTypeTok{mean=}\FloatTok{1.5}\NormalTok{, }\DataTypeTok{sd=}\DecValTok{1}\NormalTok{)}
+\NormalTok{label[}\DecValTok{26}\OperatorTok{:}\DecValTok{50}\NormalTok{] <-}\StringTok{ 'blue'}
+
+\NormalTok{train_dat <-}\StringTok{ }\KeywordTok{data.frame}\NormalTok{(}\DataTypeTok{feature1=}\NormalTok{train[,}\DecValTok{1}\NormalTok{], }\DataTypeTok{feature2=}\NormalTok{train[,}\DecValTok{2}\NormalTok{])}
+\NormalTok{plot <-}\StringTok{ }\KeywordTok{ggplot}\NormalTok{(train_dat, }\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x=}\NormalTok{feature1, }\DataTypeTok{y=}\NormalTok{feature2)) }\OperatorTok{+}\StringTok{ }\KeywordTok{geom_point}\NormalTok{(}\KeywordTok{aes}\NormalTok{(}\DataTypeTok{color=}\NormalTok{label)) }\OperatorTok{+}\StringTok{ }\KeywordTok{scale_color_manual}\NormalTok{(}\DataTypeTok{values=}\KeywordTok{c}\NormalTok{(}\StringTok{'blue'}\NormalTok{, }\StringTok{'red'}\NormalTok{)) }\OperatorTok{+}\StringTok{ }\KeywordTok{ggtitle}\NormalTok{(}\StringTok{"Training Set"}\NormalTok{) }\OperatorTok{+}\StringTok{ }\KeywordTok{theme}\NormalTok{(}\DataTypeTok{plot.title=}\KeywordTok{element_text}\NormalTok{(}\DataTypeTok{hjust=}\FloatTok{0.5}\NormalTok{)) }\OperatorTok{+}\StringTok{ }\KeywordTok{xlab}\NormalTok{(}\StringTok{'X1'}\NormalTok{) }\OperatorTok{+}\StringTok{ }\KeywordTok{ylab}\NormalTok{(}\StringTok{'X2'}\NormalTok{)}
+\NormalTok{plot}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{hw1_files/figure-latex/unnamed-chunk-1-1.pdf}
+
+\begin{enumerate}
+\def\labelenumi{(\alph{enumi})}
+\setcounter{enumi}{1}
+\tightlist
+\item
+  Now generate a test set consisting of 25 observations from the red
+  class and 25 observations from the blue class. On a single plot,
+  display both the training and test set, using one symbol to indicate
+  training observations (e.g.~circles) and another symbol to indicate
+  the test observations (e.g.~squares). Make sure that the axes are
+  properly labeled, that the symbols for training and test observations
+  are explained in a legend, and that the observations are colored
+  according to their class label.
+\end{enumerate}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{test <-}\StringTok{ }\KeywordTok{matrix}\NormalTok{(}\OtherTok{NA}\NormalTok{, }\DecValTok{50}\NormalTok{, }\DecValTok{2}\NormalTok{)}
+\NormalTok{testlab <-}\StringTok{ }\KeywordTok{rep}\NormalTok{(}\StringTok{''}\NormalTok{, }\DecValTok{50}\NormalTok{)}
+\CommentTok{# red}
+\NormalTok{test[}\DecValTok{1}\OperatorTok{:}\DecValTok{25}\NormalTok{, }\DecValTok{1}\NormalTok{] <-}\StringTok{ }\KeywordTok{rnorm}\NormalTok{(}\DataTypeTok{n=}\DecValTok{25}\NormalTok{, }\DataTypeTok{mean=}\DecValTok{0}\NormalTok{, }\DataTypeTok{sd=}\DecValTok{1}\NormalTok{)}
+\NormalTok{test[}\DecValTok{1}\OperatorTok{:}\DecValTok{25}\NormalTok{, }\DecValTok{2}\NormalTok{] <-}\StringTok{ }\KeywordTok{rnorm}\NormalTok{(}\DataTypeTok{n=}\DecValTok{25}\NormalTok{, }\DataTypeTok{mean=}\DecValTok{0}\NormalTok{, }\DataTypeTok{sd=}\DecValTok{1}\NormalTok{)}
+\NormalTok{testlab[}\DecValTok{1}\OperatorTok{:}\DecValTok{25}\NormalTok{] <-}\StringTok{ 'red'}
+
+\CommentTok{# blue}
+\NormalTok{test[}\DecValTok{26}\OperatorTok{:}\DecValTok{50}\NormalTok{, }\DecValTok{1}\NormalTok{] <-}\StringTok{ }\KeywordTok{rnorm}\NormalTok{(}\DataTypeTok{n=}\DecValTok{25}\NormalTok{, }\DataTypeTok{mean=}\FloatTok{1.5}\NormalTok{, }\DataTypeTok{sd=}\DecValTok{1}\NormalTok{)}
+\NormalTok{test[}\DecValTok{26}\OperatorTok{:}\DecValTok{50}\NormalTok{, }\DecValTok{2}\NormalTok{] <-}\StringTok{ }\KeywordTok{rnorm}\NormalTok{(}\DataTypeTok{n=}\DecValTok{25}\NormalTok{, }\DataTypeTok{mean=}\FloatTok{1.5}\NormalTok{, }\DataTypeTok{sd=}\DecValTok{1}\NormalTok{)}
+\NormalTok{testlab[}\DecValTok{26}\OperatorTok{:}\DecValTok{50}\NormalTok{] <-}\StringTok{ 'blue'}
+
+\NormalTok{test_dat <-}\StringTok{ }\KeywordTok{data.frame}\NormalTok{(}\DataTypeTok{feature1=}\NormalTok{test[,}\DecValTok{1}\NormalTok{], }\DataTypeTok{feature2=}\NormalTok{test[,}\DecValTok{2}\NormalTok{])}
+\KeywordTok{ggplot}\NormalTok{() }\OperatorTok{+}\StringTok{ }\KeywordTok{geom_point}\NormalTok{(}\DataTypeTok{data=}\NormalTok{train_dat, }\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x=}\NormalTok{feature1, }\DataTypeTok{y=}\NormalTok{feature2, }\DataTypeTok{color=}\NormalTok{label, }\DataTypeTok{shape=}\StringTok{'Training Set'}\NormalTok{)) }\OperatorTok{+}\StringTok{ }\KeywordTok{geom_point}\NormalTok{(}\DataTypeTok{data=}\NormalTok{test_dat, }\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x=}\NormalTok{feature1, }\DataTypeTok{y=}\NormalTok{feature2, }\DataTypeTok{color=}\NormalTok{testlab, }\DataTypeTok{shape=}\StringTok{'Testing Set'}\NormalTok{)) }\OperatorTok{+}\StringTok{ }\KeywordTok{scale_color_manual}\NormalTok{(}\DataTypeTok{values=}\KeywordTok{c}\NormalTok{(}\StringTok{'blue'}\NormalTok{, }\StringTok{'red'}\NormalTok{)) }\OperatorTok{+}\StringTok{ }\KeywordTok{ggtitle}\NormalTok{(}\StringTok{"Training Set and Testing Set Data"}\NormalTok{) }\OperatorTok{+}\StringTok{ }\KeywordTok{theme}\NormalTok{(}\DataTypeTok{plot.title=}\KeywordTok{element_text}\NormalTok{(}\DataTypeTok{hjust=}\FloatTok{0.5}\NormalTok{)) }\OperatorTok{+}\StringTok{ }\KeywordTok{xlab}\NormalTok{(}\StringTok{'X1'}\NormalTok{) }\OperatorTok{+}\StringTok{ }\KeywordTok{ylab}\NormalTok{(}\StringTok{'X2'}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{hw1_files/figure-latex/unnamed-chunk-2-1.pdf}
+
+\begin{enumerate}
+\def\labelenumi{(\alph{enumi})}
+\setcounter{enumi}{2}
+\tightlist
+\item
+  Using the knn function in the library class, fit a k-nearest neighbors
+  model on the training set, for a range of values of k from 1 to 20.
+  Make a plot that displays the value of 1=k on the x-axis, and
+  classification error (both training error and test error) on the
+  y-axis. Make sure all axes and curves are properly labeled. Explain
+  your results.
+\end{enumerate}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{library}\NormalTok{(class)}
+\NormalTok{k <-}\StringTok{ }\DecValTok{20}
+\NormalTok{err <-}\StringTok{ }\KeywordTok{matrix}\NormalTok{(}\OtherTok{NA}\NormalTok{, k, }\DecValTok{2}\NormalTok{)}
+\ControlFlowTok{for}\NormalTok{ (kk }\ControlFlowTok{in} \DecValTok{1}\OperatorTok{:}\NormalTok{k) \{}
+\NormalTok{  test_train <-}\StringTok{ }\KeywordTok{knn}\NormalTok{(train, train, }\DataTypeTok{cl=}\NormalTok{label, }\DataTypeTok{k=}\NormalTok{kk)}
+\NormalTok{  err[kk, }\DecValTok{1}\NormalTok{] <-}\StringTok{ }\KeywordTok{sum}\NormalTok{(test_train }\OperatorTok{!=}\StringTok{ }\NormalTok{label) }\OperatorTok{/}\StringTok{ }\DecValTok{50}
+\NormalTok{  test_test <-}\StringTok{ }\KeywordTok{knn}\NormalTok{(train, test, }\DataTypeTok{cl=}\NormalTok{label, }\DataTypeTok{k=}\NormalTok{kk)}
+\NormalTok{  err[kk, }\DecValTok{2}\NormalTok{] <-}\StringTok{ }\KeywordTok{sum}\NormalTok{(test_test }\OperatorTok{!=}\StringTok{ }\NormalTok{testlab) }\OperatorTok{/}\StringTok{ }\DecValTok{50}
+\NormalTok{\}}
+
+\NormalTok{x =}\StringTok{ }\DecValTok{1} \OperatorTok{/}\StringTok{ }\NormalTok{(}\DecValTok{1}\OperatorTok{:}\NormalTok{k)}
+\KeywordTok{ggplot}\NormalTok{() }\OperatorTok{+}\StringTok{ }\KeywordTok{geom_line}\NormalTok{(}\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x=}\NormalTok{x, }\DataTypeTok{y=}\NormalTok{err[, }\DecValTok{1}\NormalTok{], }\DataTypeTok{color=}\StringTok{'Training Set Error'}\NormalTok{)) }\OperatorTok{+}\StringTok{ }\KeywordTok{geom_line}\NormalTok{(}\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x=}\NormalTok{x, }\DataTypeTok{y=}\NormalTok{err[, }\DecValTok{2}\NormalTok{], }\DataTypeTok{color=}\StringTok{'Testing Set Error'}\NormalTok{)) }\OperatorTok{+}\StringTok{ }\KeywordTok{ggtitle}\NormalTok{(}\StringTok{'Classification Error According to k value'}\NormalTok{) }\OperatorTok{+}\StringTok{ }\KeywordTok{theme}\NormalTok{(}\DataTypeTok{plot.title=}\KeywordTok{element_text}\NormalTok{(}\DataTypeTok{hjust=}\FloatTok{0.5}\NormalTok{)) }\OperatorTok{+}\StringTok{ }\KeywordTok{xlab}\NormalTok{(}\StringTok{'1/k'}\NormalTok{) }\OperatorTok{+}\StringTok{ }\KeywordTok{ylab}\NormalTok{(}\StringTok{'Error'}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{hw1_files/figure-latex/unnamed-chunk-3-1.pdf}
+
+From the graph above, it can be seen that as \(\frac{1}{k}\) increases
+(\(k\) decreases), the classification error of training set decreases
+but the classification error of testing set increases. The reason is
+that as \(k\) decreases, the model becomes more flexible but
+overfitting. In the extreme case, when \(k=1\), the model is excessively
+flexible and overfits.
+
+\begin{enumerate}
+\def\labelenumi{(\alph{enumi})}
+\setcounter{enumi}{3}
+\tightlist
+\item
+  For the value of k that resulted in the smallest test error in part
+  (c) above, make a plot displaying the test observations as well as
+  their true and predicted class labels. Make sure that all axes and
+  points are clearly labeled.
+\end{enumerate}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{k <-}\StringTok{ }\KeywordTok{which}\NormalTok{(err[, }\DecValTok{2}\NormalTok{]}\OperatorTok{==}\KeywordTok{min}\NormalTok{(err[, }\DecValTok{2}\NormalTok{]))[}\DecValTok{1}\NormalTok{]}
+\NormalTok{prediction <-}\StringTok{ }\KeywordTok{knn}\NormalTok{(train, test, }\DataTypeTok{cl=}\NormalTok{label)}
+\NormalTok{blues <-}\StringTok{ }\KeywordTok{which}\NormalTok{(prediction}\OperatorTok{==}\StringTok{'blue'}\NormalTok{)}
+\NormalTok{reds <-}\StringTok{ }\KeywordTok{which}\NormalTok{(prediction}\OperatorTok{==}\StringTok{'red'}\NormalTok{)}
+
+\NormalTok{plot <-}\StringTok{ }\KeywordTok{ggplot}\NormalTok{() }\OperatorTok{+}\StringTok{ }\KeywordTok{geom_point}\NormalTok{(}\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x=}\NormalTok{test[, }\DecValTok{1}\NormalTok{], }\DataTypeTok{y=}\NormalTok{test[, }\DecValTok{2}\NormalTok{], }\DataTypeTok{color=}\NormalTok{testlab, }\DataTypeTok{shape=}\StringTok{'Real'}\NormalTok{)) }\OperatorTok{+}\StringTok{ }\KeywordTok{scale_color_manual}\NormalTok{(}\DataTypeTok{values=}\KeywordTok{c}\NormalTok{(}\StringTok{'blue'}\NormalTok{, }\StringTok{'red'}\NormalTok{)) }\OperatorTok{+}\StringTok{ }\KeywordTok{geom_point}\NormalTok{(}\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x=}\NormalTok{test[blues, }\DecValTok{1}\NormalTok{], }\DataTypeTok{y=}\NormalTok{test[blues, }\DecValTok{2}\NormalTok{], }\DataTypeTok{shape=}\StringTok{'Prediction'}\NormalTok{), }\DataTypeTok{color=}\StringTok{'blue'}\NormalTok{, }\DataTypeTok{cex=}\DecValTok{3}\NormalTok{, }\DataTypeTok{lwd=}\DecValTok{2}\NormalTok{) }\OperatorTok{+}\StringTok{ }\KeywordTok{geom_point}\NormalTok{(}\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x=}\NormalTok{test[reds, }\DecValTok{1}\NormalTok{], }\DataTypeTok{y=}\NormalTok{test[reds, }\DecValTok{2}\NormalTok{], }\DataTypeTok{shape=}\StringTok{'Prediction'}\NormalTok{), }\DataTypeTok{color=}\StringTok{'red'}\NormalTok{, }\DataTypeTok{cex=}\DecValTok{3}\NormalTok{, }\DataTypeTok{lwd=}\DecValTok{2}\NormalTok{) }\OperatorTok{+}\StringTok{ }\KeywordTok{scale_shape_manual}\NormalTok{(}\DataTypeTok{values=}\KeywordTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{, }\DecValTok{17}\NormalTok{)) }\OperatorTok{+}\StringTok{ }\KeywordTok{ggtitle}\NormalTok{(}\KeywordTok{paste}\NormalTok{(}\StringTok{'Prediction vs Real at k='}\NormalTok{, k)) }\OperatorTok{+}\StringTok{ }\KeywordTok{xlab}\NormalTok{(}\StringTok{'X1'}\NormalTok{) }\OperatorTok{+}\StringTok{ }\KeywordTok{ylab}\NormalTok{(}\StringTok{'X2'}\NormalTok{) }\OperatorTok{+}\StringTok{ }\KeywordTok{theme}\NormalTok{(}\DataTypeTok{plot.title=}\KeywordTok{element_text}\NormalTok{(}\DataTypeTok{hjust=}\FloatTok{0.5}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Warning: The plyr::rename operation has created duplicates for the
+## following name(s): (`size`)
+
+## Warning: The plyr::rename operation has created duplicates for the
+## following name(s): (`size`)
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{plot}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{hw1_files/figure-latex/unnamed-chunk-4-1.pdf}
+
+\begin{enumerate}
+\def\labelenumi{(\alph{enumi})}
+\setcounter{enumi}{4}
+\tightlist
+\item
+  In this example, what is the Bayes error rate? Justify your anwer.
+\end{enumerate}
+
+Bayes error rate is given by \[
+  \begin{align*}
+    err &= 1 - E(max_j Pr(Y = j|X)) \\
+        &= 1 - E(max_j \frac{P(X|Y=j)P(Y=j)}{P(X)}) \\
+        &= 1 - E(max_{j\in \{blue, red\}} \frac{P(X|Y=j)P(Y=j)}{P(X)}),P(Y=j)=\frac{1}{2} \\
+        &= 1 - \int max\{\frac{P(X|Y=blue)}{2P(X)}, \frac{P(X|Y=red)}{2P(X)}\} * P(X)dx \\
+        &= 1- \frac{1}{2}\int max\{P(X|Y=blue),\ where\ P(X|Y=red)\}dx \\
+        &= 1 - \frac{1}{2}\int_{E_1} P(X|Y=blue)dx - \frac{1}{2}\int_{E_2} P(X|Y=red)dx
+  \end{align*}
+  \]
+
+where \(E_1\) denotes the event that
+\(X_1\in [a_1, b_1], X_2\in [a_2, b_2]\) such that it is more likely to
+be blue, and \(E_2\) denotes for the similar event for being red.
+
+Back to graph, we would like to find out the interval for those events.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{plot }\OperatorTok{+}\StringTok{ }\KeywordTok{geom_abline}\NormalTok{(}\DataTypeTok{slope=}\OperatorTok{-}\DecValTok{1}\NormalTok{, }\DataTypeTok{intercept=}\FloatTok{1.5}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{hw1_files/figure-latex/unnamed-chunk-5-1.pdf}
+
+We can see that below the line \(X_2 = -X_1 + \frac{3}{2}\), it is more
+likely to be red and above the line, it is more likely to be blue.
+Therefore,
+
+\[
+  \begin{align*}
+    err &= 1 - \frac{1}{2}\int_{E_1} P(X|Y=blue)dx - \frac{1}{2}\int_{E_2} P(X|Y=red)dx \\
+        &= 1 - \frac{1}{2}\int_{X_2 >-X_1 + \frac{3}{2}} P(X|Y=blue)dx - \frac{1}{2}\int_{X_2 <-X_1+\frac{3}{2}} P(X|Y=red)dx
+  \end{align*}
+  \]
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\DecValTok{1} \OperatorTok{-}\StringTok{ }\KeywordTok{pnorm}\NormalTok{(}\KeywordTok{sqrt}\NormalTok{(}\FloatTok{1.5}\OperatorTok{^}\DecValTok{2}\FloatTok{+1.5}\OperatorTok{^}\DecValTok{2}\NormalTok{)}\OperatorTok{/}\DecValTok{2}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 0.1444222
+\end{verbatim}
+
+So the Bayes error is 0.1444222.
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{1}
+\tightlist
+\item
+  We will once again perform k-nearest-neighbors in a setting with p = 2
+  features. But this time, we'll generate the data differently: let
+  \(X1 \sim Unif[0, 1]\) and \(X2 \sim Unif[0, 1]\), i.e.~the
+  observations for each feature are i.i.d. from a uniform distribution.
+  An observation belongs to class ``red'' if
+  \((X_1 - 0.5)^2 + (X_2 - 0.5)^2 > 0.15\) and \(X_1 > 0.5\); to class
+  ``green'' if \((X_1 - 0.5)^2 + (X_2 - 0.5)^2 > 0.15\) and
+  \(X_1 \leq 0.5\); and to class ``blue'' otherwise.
+\end{enumerate}
+
+\begin{enumerate}
+\def\labelenumi{(\alph{enumi})}
+\tightlist
+\item
+  Generate a training set of n = 200 observations. (You will want to use
+  the R function runif.) Plot the training set. Make sure that the axes
+  are properly labeled, and that the observations are colored according
+  to their class label.
+\end{enumerate}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{set.seed}\NormalTok{(}\DecValTok{12345}\NormalTok{)}
+\NormalTok{train <-}\StringTok{ }\KeywordTok{matrix}\NormalTok{(}\OtherTok{NA}\NormalTok{, }\DecValTok{200}\NormalTok{, }\DecValTok{2}\NormalTok{)}
+\NormalTok{train_label <-}\StringTok{ }\KeywordTok{rep}\NormalTok{(}\StringTok{''}\NormalTok{, }\DecValTok{200}\NormalTok{)}
+\CommentTok{# Xs}
+\NormalTok{train[, }\DecValTok{1}\NormalTok{] <-}\StringTok{ }\KeywordTok{runif}\NormalTok{(}\DataTypeTok{n=}\DecValTok{200}\NormalTok{, }\DataTypeTok{min=}\DecValTok{0}\NormalTok{, }\DataTypeTok{max=}\DecValTok{1}\NormalTok{)}
+\NormalTok{train[, }\DecValTok{2}\NormalTok{] <-}\StringTok{ }\KeywordTok{runif}\NormalTok{(}\DataTypeTok{n=}\DecValTok{200}\NormalTok{, }\DataTypeTok{min=}\DecValTok{0}\NormalTok{, }\DataTypeTok{max=}\DecValTok{1}\NormalTok{)}
+
+\ControlFlowTok{for}\NormalTok{ (i }\ControlFlowTok{in} \DecValTok{1}\OperatorTok{:}\DecValTok{200}\NormalTok{) \{}
+  \ControlFlowTok{if}\NormalTok{ (((train[i,}\DecValTok{1}\NormalTok{]}\OperatorTok{-}\FloatTok{0.5}\NormalTok{)}\OperatorTok{^}\DecValTok{2}\OperatorTok{+}\NormalTok{(train[i,}\DecValTok{2}\NormalTok{]}\OperatorTok{-}\FloatTok{0.5}\NormalTok{)}\OperatorTok{^}\DecValTok{2}\OperatorTok{>}\FloatTok{0.15}\NormalTok{) }\OperatorTok{&}\StringTok{ }\NormalTok{(train[i,}\DecValTok{1}\NormalTok{]}\OperatorTok{>}\FloatTok{0.5}\NormalTok{)) \{}
+\NormalTok{    train_label[i] =}\StringTok{ "red"}
+\NormalTok{  \} }\ControlFlowTok{else} \ControlFlowTok{if}\NormalTok{ (((train[i,}\DecValTok{1}\NormalTok{]}\OperatorTok{-}\FloatTok{0.5}\NormalTok{)}\OperatorTok{^}\DecValTok{2}\OperatorTok{+}\NormalTok{(train[i,}\DecValTok{2}\NormalTok{]}\OperatorTok{-}\FloatTok{0.5}\NormalTok{)}\OperatorTok{^}\DecValTok{2}\OperatorTok{>}\FloatTok{0.15}\NormalTok{) }\OperatorTok{&}\StringTok{ }\NormalTok{(train[i,}\DecValTok{1}\NormalTok{]}\OperatorTok{<=}\FloatTok{0.5}\NormalTok{)) \{}
+\NormalTok{    train_label[i] =}\StringTok{ "green"}
+\NormalTok{  \} }\ControlFlowTok{else}\NormalTok{ \{}
+\NormalTok{    train_label[i] =}\StringTok{ "blue"}
+\NormalTok{  \}}
+\NormalTok{\}}
+
+\NormalTok{train_dat <-}\StringTok{ }\KeywordTok{data.frame}\NormalTok{(}\DataTypeTok{feature1=}\NormalTok{train[,}\DecValTok{1}\NormalTok{], }\DataTypeTok{feature2=}\NormalTok{train[,}\DecValTok{2}\NormalTok{])}
+\NormalTok{plot <-}\StringTok{ }\KeywordTok{ggplot}\NormalTok{(train_dat, }\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x=}\NormalTok{feature1, }\DataTypeTok{y=}\NormalTok{feature2)) }\OperatorTok{+}\StringTok{ }\KeywordTok{geom_point}\NormalTok{(}\KeywordTok{aes}\NormalTok{(}\DataTypeTok{color=}\NormalTok{train_label)) }\OperatorTok{+}\StringTok{ }\KeywordTok{scale_color_manual}\NormalTok{(}\DataTypeTok{values=}\KeywordTok{c}\NormalTok{(}\StringTok{'blue'}\NormalTok{, }\StringTok{'green'}\NormalTok{, }\StringTok{'red'}\NormalTok{)) }\OperatorTok{+}\StringTok{ }\KeywordTok{ggtitle}\NormalTok{(}\StringTok{"Training Set"}\NormalTok{) }\OperatorTok{+}\StringTok{ }\KeywordTok{theme}\NormalTok{(}\DataTypeTok{plot.title=}\KeywordTok{element_text}\NormalTok{(}\DataTypeTok{hjust=}\FloatTok{0.5}\NormalTok{)) }\OperatorTok{+}\StringTok{ }\KeywordTok{xlab}\NormalTok{(}\StringTok{'X1'}\NormalTok{) }\OperatorTok{+}\StringTok{ }\KeywordTok{ylab}\NormalTok{(}\StringTok{'X2'}\NormalTok{)}
+\NormalTok{plot}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{hw1_files/figure-latex/unnamed-chunk-7-1.pdf}
+
+\begin{enumerate}
+\def\labelenumi{(\alph{enumi})}
+\setcounter{enumi}{1}
+\tightlist
+\item
+  Now generate a test set consisting of 25 observations from the red
+  class and 25 observations from the blue class. On a single plot,
+  display both the training and test set, using one symbol to indicate
+  training observations (e.g.~circles) and another symbol to indicate
+  the test observations (e.g.~squares). Make sure that the axes are
+  properly labeled, that the symbols for training and test observations
+  are explained in a legend, and that the observations are colored
+  according to their class label.
+\end{enumerate}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{test <-}\StringTok{ }\KeywordTok{matrix}\NormalTok{(}\OtherTok{NA}\NormalTok{, }\DecValTok{200}\NormalTok{, }\DecValTok{2}\NormalTok{)}
+\NormalTok{test_label <-}\StringTok{ }\KeywordTok{rep}\NormalTok{(}\StringTok{''}\NormalTok{, }\DecValTok{200}\NormalTok{)}
+\CommentTok{# red}
+\NormalTok{test[, }\DecValTok{1}\NormalTok{] <-}\StringTok{ }\KeywordTok{runif}\NormalTok{(}\DataTypeTok{n=}\DecValTok{200}\NormalTok{, }\DataTypeTok{min=}\DecValTok{0}\NormalTok{, }\DataTypeTok{max=}\DecValTok{1}\NormalTok{)}
+\NormalTok{test[, }\DecValTok{2}\NormalTok{] <-}\StringTok{ }\KeywordTok{runif}\NormalTok{(}\DataTypeTok{n=}\DecValTok{200}\NormalTok{, }\DataTypeTok{min=}\DecValTok{0}\NormalTok{, }\DataTypeTok{max=}\DecValTok{1}\NormalTok{)}
+
+\ControlFlowTok{for}\NormalTok{ (i }\ControlFlowTok{in} \DecValTok{1}\OperatorTok{:}\DecValTok{200}\NormalTok{) \{}
+  \ControlFlowTok{if}\NormalTok{ (((test[i,}\DecValTok{1}\NormalTok{]}\OperatorTok{-}\FloatTok{0.5}\NormalTok{)}\OperatorTok{^}\DecValTok{2}\OperatorTok{+}\NormalTok{(test[i,}\DecValTok{2}\NormalTok{]}\OperatorTok{-}\FloatTok{0.5}\NormalTok{)}\OperatorTok{^}\DecValTok{2}\OperatorTok{>}\FloatTok{0.15}\NormalTok{) }\OperatorTok{&}\StringTok{ }\NormalTok{(test[i,}\DecValTok{1}\NormalTok{]}\OperatorTok{>}\FloatTok{0.5}\NormalTok{)) \{}
+\NormalTok{    test_label[i] =}\StringTok{ "red"}
+\NormalTok{  \} }\ControlFlowTok{else} \ControlFlowTok{if}\NormalTok{ (((test[i,}\DecValTok{1}\NormalTok{]}\OperatorTok{-}\FloatTok{0.5}\NormalTok{)}\OperatorTok{^}\DecValTok{2}\OperatorTok{+}\NormalTok{(test[i,}\DecValTok{2}\NormalTok{]}\OperatorTok{-}\FloatTok{0.5}\NormalTok{)}\OperatorTok{^}\DecValTok{2}\OperatorTok{>}\FloatTok{0.15}\NormalTok{) }\OperatorTok{&}\StringTok{ }\NormalTok{(test[i,}\DecValTok{1}\NormalTok{]}\OperatorTok{<=}\FloatTok{0.5}\NormalTok{)) \{}
+\NormalTok{    test_label[i] =}\StringTok{ "green"}
+\NormalTok{  \} }\ControlFlowTok{else}\NormalTok{ \{}
+\NormalTok{    test_label[i] =}\StringTok{ "blue"}
+\NormalTok{  \}}
+\NormalTok{\}}
+
+\NormalTok{test_dat <-}\StringTok{ }\KeywordTok{data.frame}\NormalTok{(}\DataTypeTok{feature1=}\NormalTok{test[,}\DecValTok{1}\NormalTok{], }\DataTypeTok{feature2=}\NormalTok{test[,}\DecValTok{2}\NormalTok{])}
+\KeywordTok{ggplot}\NormalTok{() }\OperatorTok{+}\StringTok{ }\KeywordTok{geom_point}\NormalTok{(}\DataTypeTok{data=}\NormalTok{train_dat, }\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x=}\NormalTok{feature1, }\DataTypeTok{y=}\NormalTok{feature2, }\DataTypeTok{color=}\NormalTok{train_label, }\DataTypeTok{shape=}\StringTok{'Training Set'}\NormalTok{)) }\OperatorTok{+}\StringTok{ }\KeywordTok{geom_point}\NormalTok{(}\DataTypeTok{data=}\NormalTok{test_dat, }\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x=}\NormalTok{feature1, }\DataTypeTok{y=}\NormalTok{feature2, }\DataTypeTok{color=}\NormalTok{test_label, }\DataTypeTok{shape=}\StringTok{'Testing Set'}\NormalTok{)) }\OperatorTok{+}\StringTok{ }\KeywordTok{scale_color_manual}\NormalTok{(}\DataTypeTok{values=}\KeywordTok{c}\NormalTok{(}\StringTok{'blue'}\NormalTok{, }\StringTok{'green'}\NormalTok{, }\StringTok{'red'}\NormalTok{), }\DataTypeTok{name=}\StringTok{'label'}\NormalTok{) }\OperatorTok{+}\StringTok{ }\KeywordTok{ggtitle}\NormalTok{(}\StringTok{"Training Set and Testing Set Data"}\NormalTok{) }\OperatorTok{+}\StringTok{ }\KeywordTok{theme}\NormalTok{(}\DataTypeTok{plot.title=}\KeywordTok{element_text}\NormalTok{(}\DataTypeTok{hjust=}\FloatTok{0.5}\NormalTok{)) }\OperatorTok{+}\StringTok{ }\KeywordTok{xlab}\NormalTok{(}\StringTok{'X1'}\NormalTok{) }\OperatorTok{+}\StringTok{ }\KeywordTok{ylab}\NormalTok{(}\StringTok{'X2'}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{hw1_files/figure-latex/unnamed-chunk-8-1.pdf}
+
+\begin{enumerate}
+\def\labelenumi{(\alph{enumi})}
+\setcounter{enumi}{2}
+\tightlist
+\item
+  Using the knn function in the library class, fit a k-nearest neighbors
+  model on the training set, for a range of values of k from 1 to 50.
+  Make a plot that displays the value of 1=k on the x-axis, and
+  classification error (both training error and test error) on the
+  y-axis. Make sure all axes and curves are properly labeled. Explain
+  your results.
+\end{enumerate}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{k <-}\StringTok{ }\DecValTok{50}
+\NormalTok{err <-}\StringTok{ }\KeywordTok{matrix}\NormalTok{(}\OtherTok{NA}\NormalTok{, k, }\DecValTok{2}\NormalTok{)}
+\ControlFlowTok{for}\NormalTok{ (kk }\ControlFlowTok{in} \DecValTok{1}\OperatorTok{:}\NormalTok{k) \{}
+\NormalTok{  test_train <-}\StringTok{ }\KeywordTok{knn}\NormalTok{(train, train, }\DataTypeTok{cl=}\NormalTok{train_label, }\DataTypeTok{k=}\NormalTok{kk)}
+\NormalTok{  err[kk, }\DecValTok{1}\NormalTok{] <-}\StringTok{ }\KeywordTok{sum}\NormalTok{(test_train }\OperatorTok{!=}\StringTok{ }\NormalTok{train_label) }\OperatorTok{/}\StringTok{ }\DecValTok{200}
+\NormalTok{  test_test <-}\StringTok{ }\KeywordTok{knn}\NormalTok{(train, test, }\DataTypeTok{cl=}\NormalTok{train_label, }\DataTypeTok{k=}\NormalTok{kk)}
+\NormalTok{  err[kk, }\DecValTok{2}\NormalTok{] <-}\StringTok{ }\KeywordTok{sum}\NormalTok{(test_test }\OperatorTok{!=}\StringTok{ }\NormalTok{test_label) }\OperatorTok{/}\StringTok{ }\DecValTok{200}
+\NormalTok{\}}
+
+\NormalTok{x =}\StringTok{ }\DecValTok{1} \OperatorTok{/}\StringTok{ }\NormalTok{(}\DecValTok{1}\OperatorTok{:}\NormalTok{k)}
+\KeywordTok{ggplot}\NormalTok{() }\OperatorTok{+}\StringTok{ }\KeywordTok{geom_line}\NormalTok{(}\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x=}\NormalTok{x, }\DataTypeTok{y=}\NormalTok{err[, }\DecValTok{1}\NormalTok{], }\DataTypeTok{color=}\StringTok{'Training Set Error'}\NormalTok{)) }\OperatorTok{+}\StringTok{ }\KeywordTok{geom_line}\NormalTok{(}\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x=}\NormalTok{x, }\DataTypeTok{y=}\NormalTok{err[, }\DecValTok{2}\NormalTok{], }\DataTypeTok{color=}\StringTok{'Testing Set Error'}\NormalTok{)) }\OperatorTok{+}\StringTok{ }\KeywordTok{ggtitle}\NormalTok{(}\StringTok{'Classification Error According to k value'}\NormalTok{) }\OperatorTok{+}\StringTok{ }\KeywordTok{theme}\NormalTok{(}\DataTypeTok{plot.title=}\KeywordTok{element_text}\NormalTok{(}\DataTypeTok{hjust=}\FloatTok{0.5}\NormalTok{)) }\OperatorTok{+}\StringTok{ }\KeywordTok{xlab}\NormalTok{(}\StringTok{'1/k'}\NormalTok{) }\OperatorTok{+}\StringTok{ }\KeywordTok{ylab}\NormalTok{(}\StringTok{'Error'}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{hw1_files/figure-latex/unnamed-chunk-9-1.pdf}
+
+From the graph above, we can see that the classification error has a
+completely different curve comparing to problem 1. This indicates that
+the \(k=1\) case does not overfit as much as it does in problem 1.
+
+\begin{enumerate}
+\def\labelenumi{(\alph{enumi})}
+\setcounter{enumi}{3}
+\tightlist
+\item
+  For the value of k that resulted in the smallest test error in part
+  (c) above, make a plot displaying the test observations as well as
+  their true and predicted class labels. Make sure that all axes and
+  points are clearly labeled.
+\end{enumerate}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{k <-}\StringTok{ }\KeywordTok{which}\NormalTok{(err[, }\DecValTok{2}\NormalTok{]}\OperatorTok{==}\KeywordTok{min}\NormalTok{(err[, }\DecValTok{2}\NormalTok{]))[}\DecValTok{1}\NormalTok{]}
+\NormalTok{prediction <-}\StringTok{ }\KeywordTok{knn}\NormalTok{(train, test, }\DataTypeTok{cl=}\NormalTok{train_label)}
+\NormalTok{blues <-}\StringTok{ }\KeywordTok{which}\NormalTok{(prediction}\OperatorTok{==}\StringTok{'blue'}\NormalTok{)}
+\NormalTok{greens <-}\StringTok{ }\KeywordTok{which}\NormalTok{(prediction}\OperatorTok{==}\StringTok{'green'}\NormalTok{)}
+\NormalTok{reds <-}\StringTok{ }\KeywordTok{which}\NormalTok{(prediction}\OperatorTok{==}\StringTok{'red'}\NormalTok{)}
+
+\KeywordTok{ggplot}\NormalTok{() }\OperatorTok{+}\StringTok{ }\KeywordTok{geom_point}\NormalTok{(}\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x=}\NormalTok{test[, }\DecValTok{1}\NormalTok{], }\DataTypeTok{y=}\NormalTok{test[, }\DecValTok{2}\NormalTok{], }\DataTypeTok{color=}\NormalTok{test_label, }\DataTypeTok{shape=}\StringTok{'Real'}\NormalTok{)) }\OperatorTok{+}\StringTok{ }\KeywordTok{scale_color_manual}\NormalTok{(}\DataTypeTok{values=}\KeywordTok{c}\NormalTok{(}\StringTok{'blue'}\NormalTok{, }\StringTok{'green'}\NormalTok{, }\StringTok{'red'}\NormalTok{)) }\OperatorTok{+}\StringTok{ }\KeywordTok{geom_point}\NormalTok{(}\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x=}\NormalTok{test[blues, }\DecValTok{1}\NormalTok{], }\DataTypeTok{y=}\NormalTok{test[blues, }\DecValTok{2}\NormalTok{], }\DataTypeTok{shape=}\StringTok{'Prediction'}\NormalTok{), }\DataTypeTok{color=}\StringTok{'blue'}\NormalTok{, }\DataTypeTok{cex=}\DecValTok{3}\NormalTok{, }\DataTypeTok{lwd=}\DecValTok{2}\NormalTok{) }\OperatorTok{+}\StringTok{ }\KeywordTok{geom_point}\NormalTok{(}\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x=}\NormalTok{test[reds, }\DecValTok{1}\NormalTok{], }\DataTypeTok{y=}\NormalTok{test[reds, }\DecValTok{2}\NormalTok{], }\DataTypeTok{shape=}\StringTok{'Prediction'}\NormalTok{), }\DataTypeTok{color=}\StringTok{'red'}\NormalTok{, }\DataTypeTok{cex=}\DecValTok{3}\NormalTok{, }\DataTypeTok{lwd=}\DecValTok{2}\NormalTok{) }\OperatorTok{+}\StringTok{ }\KeywordTok{geom_point}\NormalTok{(}\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x=}\NormalTok{test[greens, }\DecValTok{1}\NormalTok{], }\DataTypeTok{y=}\NormalTok{test[greens, }\DecValTok{2}\NormalTok{], }\DataTypeTok{shape=}\StringTok{'Prediction'}\NormalTok{), }\DataTypeTok{color=}\StringTok{'green'}\NormalTok{, }\DataTypeTok{cex=}\DecValTok{3}\NormalTok{, }\DataTypeTok{lwd=}\DecValTok{2}\NormalTok{) }\OperatorTok{+}\StringTok{ }\KeywordTok{scale_shape_manual}\NormalTok{(}\DataTypeTok{values=}\KeywordTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{, }\DecValTok{17}\NormalTok{)) }\OperatorTok{+}\StringTok{ }\KeywordTok{ggtitle}\NormalTok{(}\KeywordTok{paste}\NormalTok{(}\StringTok{'Prediction vs Real at k='}\NormalTok{, k)) }\OperatorTok{+}\StringTok{ }\KeywordTok{xlab}\NormalTok{(}\StringTok{'X1'}\NormalTok{) }\OperatorTok{+}\StringTok{ }\KeywordTok{ylab}\NormalTok{(}\StringTok{'X2'}\NormalTok{) }\OperatorTok{+}\StringTok{ }\KeywordTok{theme}\NormalTok{(}\DataTypeTok{plot.title=}\KeywordTok{element_text}\NormalTok{(}\DataTypeTok{hjust=}\FloatTok{0.5}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Warning: The plyr::rename operation has created duplicates for the
+## following name(s): (`size`)
+
+## Warning: The plyr::rename operation has created duplicates for the
+## following name(s): (`size`)
+
+## Warning: The plyr::rename operation has created duplicates for the
+## following name(s): (`size`)
+\end{verbatim}
+
+\includegraphics{hw1_files/figure-latex/unnamed-chunk-10-1.pdf}
+
+\begin{enumerate}
+\def\labelenumi{(\alph{enumi})}
+\setcounter{enumi}{4}
+\tightlist
+\item
+  In this example, what is the Bayes error rate?
+\end{enumerate}
+
+In this problem, since \(Y\) is well-defined as a piece-wise constant
+function, we will have \(max_j P(Y=j|X)=1\) for all \(X\). So the error
+will be \(err = 1 - max_j P(Y=j|X) = 0\).
+
+In part (c) and (d), we found that the data will not overfit too much
+even with small \(k\) values. This is due to the well-defined \(Y\)
+function. Under this circumstance, the three kinds of data (blue, green
+and red) does not overlap (according to the graph above) and it supports
+us to derive a more complex model (such as \(k=1\)) without overfitting
+the data.
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{2}
+\tightlist
+\item
+  For each scenario, determine whether it is a regression or a
+  classification problem, determine whether the goal is inference or
+  prediction, and state the values of n (sample size) and p (number of
+  predictors).
+\end{enumerate}
+
+\begin{enumerate}
+\def\labelenumi{(\alph{enumi})}
+\tightlist
+\item
+  I want to predict each student's final exam score based on his or her
+  homework scores. There are 50 students enrolled in the course, and
+  each student has completed 8 homeworks.
+\end{enumerate}
+
+A regression problem and the final exam score is quantative. We would
+like to predict the scores (the goal is prediction). The sample size
+\(n=50\) and \(p=8\) for 8 homework scores.
+
+\begin{enumerate}
+\def\labelenumi{(\alph{enumi})}
+\setcounter{enumi}{1}
+\tightlist
+\item
+  I want to understand the factors that contribute to whether or not a
+  student passes this course. The factors that I consider are (i)
+  whether or not the student has previous programming experience; (ii)
+  whether or not the student has previously studied linear algebra;
+  (iii) whether or not the student has taken a previous
+  stats/probability course; (iv) whether or not the student attends
+  office hours; (v) the student's overall GPA; (vi) the student's year
+  (e.g.~freshman, sophomore, junior, senior, or grad student). I have
+  data for all 50 students enrolled in the course.
+\end{enumerate}
+
+A classification problem. The goal is inference since we are interested
+in if these factors contributes to passing the course or not. The sample
+size \(n=50\) and \(p=6\) for 6 different categories of factors we are
+interested in.
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{3}
+\tightlist
+\item
+  In each setting, would you generally expect a flexible or an
+  inflexible statistical machine learning method to perform better?
+  Justify your answer.
+\end{enumerate}
+
+\begin{enumerate}
+\def\labelenumi{(\alph{enumi})}
+\tightlist
+\item
+  Sample size n is very small, and number of predictors p is very large.
+\end{enumerate}
+
+An inflexible method. With large number of predictors, a flexible method
+will result in overfitting.
+
+\begin{enumerate}
+\def\labelenumi{(\alph{enumi})}
+\setcounter{enumi}{1}
+\tightlist
+\item
+  Sample size n is very large, and number of predictors p is very small.
+\end{enumerate}
+
+A flexible method. Since \(n\) is large and \(p\) is small, a flexible
+model will have less bias without overfitting the data too much.
+
+\begin{enumerate}
+\def\labelenumi{(\alph{enumi})}
+\setcounter{enumi}{2}
+\tightlist
+\item
+  Relationship between predictors and response is highly non-linear.
+\end{enumerate}
+
+A flexible method. An inflexible model is not good enough at telling the
+non-linearity of the response.
+
+\begin{enumerate}
+\def\labelenumi{(\alph{enumi})}
+\setcounter{enumi}{3}
+\tightlist
+\item
+  The variance of the error terms, i.e. \(\sigma^2 = Var(\epsilon)\), is
+  extremely high.
+\end{enumerate}
+
+An inflexible method. Since high variance will make the model
+overfitting the data if we are using a flexible method.
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{4}
+\tightlist
+\item
+  This question has to do with the bias-variance decomposition.
+\end{enumerate}
+
+\begin{enumerate}
+\def\labelenumi{(\alph{enumi})}
+\tightlist
+\item
+  Make a sketch of typical (squared) bias, variance, training error,
+  test error, and Bayes (or irreducible) error curves, on a single plot,
+  as we go from less flexible statistical learning methods to more
+  flexible approaches. The x-axis should represent the amount of
+  flexibility in the model, and the y-axis should represent the values
+  of each curve. There should be five curves.
+\end{enumerate}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{flexibility <-}\StringTok{ }\KeywordTok{seq}\NormalTok{(}\DataTypeTok{from=}\DecValTok{1}\NormalTok{, }\DataTypeTok{to=}\DecValTok{10}\NormalTok{, }\DataTypeTok{by=}\FloatTok{0.01}\NormalTok{)}
+\NormalTok{variance <-}\StringTok{ }\DecValTok{2}\OperatorTok{*}\KeywordTok{exp}\NormalTok{(flexibility}\OperatorTok{*}\FloatTok{0.1}\NormalTok{)}\OperatorTok{-}\DecValTok{2}
+\NormalTok{train <-}\StringTok{ }\DecValTok{5}\OperatorTok{*}\KeywordTok{cos}\NormalTok{(}\FloatTok{0.4}\OperatorTok{*}\NormalTok{flexibility}\OperatorTok{+}\DecValTok{12}\NormalTok{) }\OperatorTok{+}\StringTok{ }\DecValTok{8}
+\NormalTok{test <-}\StringTok{ }\DecValTok{5}\OperatorTok{*}\KeywordTok{cos}\NormalTok{(}\FloatTok{0.4}\OperatorTok{*}\NormalTok{flexibility}\OperatorTok{+}\DecValTok{25}\NormalTok{) }\OperatorTok{+}\StringTok{ }\DecValTok{12}
+\NormalTok{bias <-}\StringTok{ }\DecValTok{4}\OperatorTok{*}\KeywordTok{cos}\NormalTok{(}\FloatTok{0.4}\OperatorTok{*}\NormalTok{flexibility}\OperatorTok{+}\DecValTok{12}\NormalTok{) }\OperatorTok{+}\StringTok{ }\DecValTok{5}
+\NormalTok{irreducible_err <-}\StringTok{ }\DecValTok{3}
+
+\KeywordTok{ggplot}\NormalTok{() }\OperatorTok{+}\StringTok{ }\KeywordTok{geom_line}\NormalTok{(}\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x=}\NormalTok{flexibility, }\DataTypeTok{y=}\NormalTok{variance, }\DataTypeTok{color=}\StringTok{'Variance'}\NormalTok{)) }\OperatorTok{+}\StringTok{ }\KeywordTok{geom_line}\NormalTok{(}\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x=}\NormalTok{flexibility, }\DataTypeTok{y=}\NormalTok{train, }\DataTypeTok{color=}\StringTok{'Train'}\NormalTok{)) }\OperatorTok{+}\StringTok{ }\KeywordTok{geom_line}\NormalTok{(}\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x=}\NormalTok{flexibility, }\DataTypeTok{y=}\NormalTok{bias, }\DataTypeTok{color=}\StringTok{'Bias'}\NormalTok{)) }\OperatorTok{+}\StringTok{ }\KeywordTok{geom_line}\NormalTok{(}\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x=}\NormalTok{flexibility, }\DataTypeTok{y=}\NormalTok{irreducible_err, }\DataTypeTok{color=}\StringTok{'Irreducible Error'}\NormalTok{)) }\OperatorTok{+}\StringTok{ }\KeywordTok{geom_line}\NormalTok{(}\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x=}\NormalTok{flexibility, }\DataTypeTok{y=}\NormalTok{test, }\DataTypeTok{color=}\StringTok{'Test'}\NormalTok{)) }\OperatorTok{+}\StringTok{ }\KeywordTok{ggtitle}\NormalTok{(}\StringTok{'MSE Values vs Flexibility'}\NormalTok{) }\OperatorTok{+}\StringTok{ }\KeywordTok{theme}\NormalTok{(}\DataTypeTok{plot.title=}\KeywordTok{element_text}\NormalTok{(}\DataTypeTok{hjust=}\FloatTok{0.5}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{hw1_files/figure-latex/unnamed-chunk-11-1.pdf}
+
+\begin{enumerate}
+\def\labelenumi{(\alph{enumi})}
+\setcounter{enumi}{1}
+\tightlist
+\item
+  Explain why each of the five curves has the shape displayed in (a).
+\end{enumerate}
+
+\begin{itemize}
+\item
+  Bias: With increasing flexibility, bias decreases and it will have a
+  greater decreasing speed rather than variance increasing.
+\item
+  Variance: With increasing flexibility, variance increases.
+\item
+  Training Error: With increasing flexibility, the training error will
+  decrease because a mroe flexible model will fits the data better which
+  will decrease the training error.
+\item
+  Testing Error: With increasing flexibility, the testing error will
+  generally decrease but if the model overfits, the testing error will
+  significantly increase at that point.
+\item
+  Irreducible Error: Will be a constant since it is irreducible and
+  would not change due to the flexibility.
+\end{itemize}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{5}
+\tightlist
+\item
+  This exercise involves the Boston housing data set, which is part of
+  the MASS library in R.
+\end{enumerate}
+
+\begin{enumerate}
+\def\labelenumi{(\alph{enumi})}
+\tightlist
+\item
+  How many rows are in this data set? How many columns? What do the rows
+  and columns represent?
+\end{enumerate}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{library}\NormalTok{(MASS)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Warning: package 'MASS' was built under R version 3.3.3
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{dat <-}\StringTok{ }\NormalTok{Boston}
+
+\KeywordTok{nrow}\NormalTok{(Boston)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 506
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{ncol}\NormalTok{(Boston)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 14
+\end{verbatim}
+
+It has 506 rows and 14 columns. And it contains the columns according to
+the documentation: * crim: per capita crime rate by town. * zn:
+proportion of residential land zoned for lots over 25,000 sq.ft. *
+indus: proportion of non-retail business acres per town. * chas: Charles
+River dummy variable (= 1 if tract bounds river; 0 otherwise). * nox:
+nitrogen oxides concentration (parts per 10 million). * rm: average
+number of rooms per dwelling. * age: proportion of owner-occupied units
+built prior to 1940. * dis: weighted mean of distances to five Boston
+employment centres. * rad: index of accessibility to radial highways. *
+tax: full-value property-tax rate per \$10,000. * ptratio: pupil-teacher
+ratio by town. * black: \(1000(B_k - 0.63)^2\) where B\_k is the
+proportion of blacks by town. * lstat: lower status of the population
+(percent). * medv: median value of owner-occupied homes in \$1000s.
+
+\begin{enumerate}
+\def\labelenumi{(\alph{enumi})}
+\setcounter{enumi}{1}
+\tightlist
+\item
+  Make some pairwise scatterplots of the predictors (columns) in this
+  data set. Describe your findings.
+\end{enumerate}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{library}\NormalTok{(GGally)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Warning: package 'GGally' was built under R version 3.3.3
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{ggpairs}\NormalTok{(Boston)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{hw1_files/figure-latex/unnamed-chunk-13-1.pdf}
+
+We can get a lot of correlations from the pair-wise plot above. For
+example, the \((nox,dis)\) pair tells that nitrogen oxides concentration
+is highly related with weighted mean of distances to five Boston
+employment centres which makes sense.
+
+\begin{enumerate}
+\def\labelenumi{(\alph{enumi})}
+\setcounter{enumi}{2}
+\tightlist
+\item
+  Are any of the predictors associated with per capita crime rate? If
+  so, explain the relationship.
+\end{enumerate}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{cor}\NormalTok{(Boston)[}\StringTok{"crim"}\NormalTok{, ]}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##        crim          zn       indus        chas         nox          rm 
+##  1.00000000 -0.20046922  0.40658341 -0.05589158  0.42097171 -0.21924670 
+##         age         dis         rad         tax     ptratio       black 
+##  0.35273425 -0.37967009  0.62550515  0.58276431  0.28994558 -0.38506394 
+##       lstat        medv 
+##  0.45562148 -0.38830461
+\end{verbatim}
+
+From the covariance above, we can see that rad and tax has relatively
+high association with per capita crime rate. There are also some
+relatively weak associations such as indus, nox, lstat.
+
+\begin{enumerate}
+\def\labelenumi{(\alph{enumi})}
+\setcounter{enumi}{3}
+\tightlist
+\item
+  Do any of the suburbs of Boston appear to have particularly high crime
+  rates? Tax rates? Pupil-teacher ratios? Comment on the range of each
+  predictor.
+\end{enumerate}
+
+Use histogram and density plot to find if any suburbs satisfies the
+conditions above.
+
+\begin{itemize}
+\tightlist
+\item
+  Crime Rate
+\end{itemize}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{ggplot}\NormalTok{(}\DataTypeTok{dat=}\NormalTok{Boston, }\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x=}\NormalTok{crim)) }\OperatorTok{+}\StringTok{ }\KeywordTok{geom_histogram}\NormalTok{(}\KeywordTok{aes}\NormalTok{(}\DataTypeTok{y=}\NormalTok{..density..), }\DataTypeTok{color=}\StringTok{"black"}\NormalTok{, }\DataTypeTok{fill=}\StringTok{"grey"}\NormalTok{) }\OperatorTok{+}\StringTok{ }\KeywordTok{geom_density}\NormalTok{(}\DataTypeTok{alpha=}\NormalTok{.}\DecValTok{2}\NormalTok{, }\DataTypeTok{fill=}\StringTok{"#FF6666"}\NormalTok{) }\OperatorTok{+}\StringTok{ }\KeywordTok{ggtitle}\NormalTok{(}\StringTok{'Density Plot of Crim Rate'}\NormalTok{) }\OperatorTok{+}\StringTok{ }\KeywordTok{theme}\NormalTok{(}\DataTypeTok{plot.title=}\KeywordTok{element_text}\NormalTok{(}\DataTypeTok{hjust=}\FloatTok{0.5}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
+\end{verbatim}
+
+\includegraphics{hw1_files/figure-latex/unnamed-chunk-15-1.pdf}
+
+We can see that most suburbs have really low crime rate (close to 0) but
+there are a few suburbs have high crime rate. The range of crime rate is
+widely spread.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{range}\NormalTok{(Boston}\OperatorTok{$}\NormalTok{crim)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1]  0.00632 88.97620
+\end{verbatim}
+
+\begin{itemize}
+\tightlist
+\item
+  Tax Rate
+\end{itemize}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{ggplot}\NormalTok{(}\DataTypeTok{dat=}\NormalTok{Boston, }\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x=}\NormalTok{tax)) }\OperatorTok{+}\StringTok{ }\KeywordTok{geom_histogram}\NormalTok{(}\KeywordTok{aes}\NormalTok{(}\DataTypeTok{y=}\NormalTok{..density..), }\DataTypeTok{color=}\StringTok{"black"}\NormalTok{, }\DataTypeTok{fill=}\StringTok{"grey"}\NormalTok{) }\OperatorTok{+}\StringTok{ }\KeywordTok{geom_density}\NormalTok{(}\DataTypeTok{alpha=}\NormalTok{.}\DecValTok{2}\NormalTok{, }\DataTypeTok{fill=}\StringTok{"#FF6666"}\NormalTok{) }\OperatorTok{+}\StringTok{ }\KeywordTok{ggtitle}\NormalTok{(}\StringTok{'Density Plot of Tax Rate'}\NormalTok{) }\OperatorTok{+}\StringTok{ }\KeywordTok{theme}\NormalTok{(}\DataTypeTok{plot.title=}\KeywordTok{element_text}\NormalTok{(}\DataTypeTok{hjust=}\FloatTok{0.5}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
+\end{verbatim}
+
+\includegraphics{hw1_files/figure-latex/unnamed-chunk-17-1.pdf}
+
+From the graph above, we can see that the sububrs that have low tax rate
+and those have high tax rate are generally in two groups.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{range}\NormalTok{(Boston}\OperatorTok{$}\NormalTok{tax)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 187 711
+\end{verbatim}
+
+And the range is also wide.
+
+\begin{itemize}
+\tightlist
+\item
+  Pupil-teacher Ratio
+\end{itemize}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{ggplot}\NormalTok{(}\DataTypeTok{dat=}\NormalTok{Boston, }\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x=}\NormalTok{ptratio)) }\OperatorTok{+}\StringTok{ }\KeywordTok{geom_histogram}\NormalTok{(}\KeywordTok{aes}\NormalTok{(}\DataTypeTok{y=}\NormalTok{..density..), }\DataTypeTok{color=}\StringTok{"black"}\NormalTok{, }\DataTypeTok{fill=}\StringTok{"grey"}\NormalTok{) }\OperatorTok{+}\StringTok{ }\KeywordTok{geom_density}\NormalTok{(}\DataTypeTok{alpha=}\NormalTok{.}\DecValTok{2}\NormalTok{, }\DataTypeTok{fill=}\StringTok{"#FF6666"}\NormalTok{) }\OperatorTok{+}\StringTok{ }\KeywordTok{ggtitle}\NormalTok{(}\StringTok{'Density Plot of Pulpi-teacher Ratio'}\NormalTok{) }\OperatorTok{+}\StringTok{ }\KeywordTok{theme}\NormalTok{(}\DataTypeTok{plot.title=}\KeywordTok{element_text}\NormalTok{(}\DataTypeTok{hjust=}\FloatTok{0.5}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
+\end{verbatim}
+
+\includegraphics{hw1_files/figure-latex/unnamed-chunk-19-1.pdf}
+
+It can be seen that there are a few schools have low pulpi-teacher ratio
+but generally the ratio is pretty high.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{range}\NormalTok{(Boston}\OperatorTok{$}\NormalTok{ptratio)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 12.6 22.0
+\end{verbatim}
+
+\begin{enumerate}
+\def\labelenumi{(\alph{enumi})}
+\setcounter{enumi}{4}
+\tightlist
+\item
+  How many suburbs in this data set bound the Charles river?
+\end{enumerate}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{length}\NormalTok{(}\KeywordTok{which}\NormalTok{(Boston}\OperatorTok{$}\NormalTok{chas}\OperatorTok{==}\DecValTok{1}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 35
+\end{verbatim}
+
+There are 35 suburbs in this data set bound the Charles river.
+
+\begin{enumerate}
+\def\labelenumi{(\alph{enumi})}
+\setcounter{enumi}{5}
+\tightlist
+\item
+  What are the mean and standard deviation of the pupil-teacher ratio
+  among the towns in this data set?
+\end{enumerate}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{mean}\NormalTok{(Boston}\OperatorTok{$}\NormalTok{ptratio)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 18.45553
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{sd}\NormalTok{(Boston}\OperatorTok{$}\NormalTok{ptratio)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 2.164946
+\end{verbatim}
+
+The mean of the pupil-teacher ratio is 18.46 and the standard deviation
+is 2.16
+
+\begin{enumerate}
+\def\labelenumi{(\alph{enumi})}
+\setcounter{enumi}{6}
+\tightlist
+\item
+  Which suburb of Boston has highest median value of owner-occupied
+  homes? What are the values of the other predictors for that suburb,
+  and how do those values compare to the overall ranges for those
+  predictors?
+\end{enumerate}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{Boston[}\KeywordTok{which}\NormalTok{(Boston}\OperatorTok{$}\NormalTok{medv}\OperatorTok{==}\KeywordTok{max}\NormalTok{(Boston}\OperatorTok{$}\NormalTok{medv)),]}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##        crim zn indus chas    nox    rm   age    dis rad tax ptratio  black
+## 162 1.46336  0 19.58    0 0.6050 7.489  90.8 1.9709   5 403    14.7 374.43
+## 163 1.83377  0 19.58    1 0.6050 7.802  98.2 2.0407   5 403    14.7 389.61
+## 164 1.51902  0 19.58    1 0.6050 8.375  93.9 2.1620   5 403    14.7 388.45
+## 167 2.01019  0 19.58    0 0.6050 7.929  96.2 2.0459   5 403    14.7 369.30
+## 187 0.05602  0  2.46    0 0.4880 7.831  53.6 3.1992   3 193    17.8 392.63
+## 196 0.01381 80  0.46    0 0.4220 7.875  32.0 5.6484   4 255    14.4 394.23
+## 205 0.02009 95  2.68    0 0.4161 8.034  31.9 5.1180   4 224    14.7 390.55
+## 226 0.52693  0  6.20    0 0.5040 8.725  83.0 2.8944   8 307    17.4 382.00
+## 258 0.61154 20  3.97    0 0.6470 8.704  86.9 1.8010   5 264    13.0 389.70
+## 268 0.57834 20  3.97    0 0.5750 8.297  67.0 2.4216   5 264    13.0 384.54
+## 284 0.01501 90  1.21    1 0.4010 7.923  24.8 5.8850   1 198    13.6 395.52
+## 369 4.89822  0 18.10    0 0.6310 4.970 100.0 1.3325  24 666    20.2 375.52
+## 370 5.66998  0 18.10    1 0.6310 6.683  96.8 1.3567  24 666    20.2 375.33
+## 371 6.53876  0 18.10    1 0.6310 7.016  97.5 1.2024  24 666    20.2 392.05
+## 372 9.23230  0 18.10    0 0.6310 6.216 100.0 1.1691  24 666    20.2 366.15
+## 373 8.26725  0 18.10    1 0.6680 5.875  89.6 1.1296  24 666    20.2 347.88
+##     lstat medv
+## 162  1.73   50
+## 163  1.92   50
+## 164  3.32   50
+## 167  3.70   50
+## 187  4.45   50
+## 196  2.97   50
+## 205  2.88   50
+## 226  4.63   50
+## 258  5.12   50
+## 268  7.44   50
+## 284  3.16   50
+## 369  3.26   50
+## 370  3.73   50
+## 371  2.96   50
+## 372  9.53   50
+## 373  8.88   50
+\end{verbatim}
+
+From the table above, we can see that there are two groups that one with
+relatively high crime rate (\textasciitilde{}9\%) and one with lower
+(\textasciitilde{}0\% to \textasciitilde{}2\%). However, both groups
+have relatively low crime rate comparing to the total range of the crime
+rate in the town. The age spread widely from 24 to 100. And the index of
+accessibility to radial highways are mostly grouping at 5 and 24.
+Comparing to the total range, these suburbs are all close to Boston
+employment centres.
+
+\begin{enumerate}
+\def\labelenumi{(\alph{enumi})}
+\setcounter{enumi}{7}
+\tightlist
+\item
+  In this data set, how many of the suburbs average more than six rooms
+  per dwelling? More than eight rooms per dwelling? Comment on the
+  suburbs that average more than eight rooms per dwelling.
+\end{enumerate}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{length}\NormalTok{(}\KeywordTok{which}\NormalTok{(Boston}\OperatorTok{$}\NormalTok{rm }\OperatorTok{>}\StringTok{ }\DecValTok{6}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 333
+\end{verbatim}
+
+There are 333 suburbs have an average that is more than six rooms per
+dwelling.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{length}\NormalTok{(}\KeywordTok{which}\NormalTok{(Boston}\OperatorTok{$}\NormalTok{rm }\OperatorTok{>}\StringTok{ }\DecValTok{8}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 13
+\end{verbatim}
+
+There are 13 suburbs have an average that is more than eight rooms per
+dwelling.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{above8 <-}\StringTok{ }\KeywordTok{apply}\NormalTok{(Boston[}\KeywordTok{which}\NormalTok{(Boston}\OperatorTok{$}\NormalTok{rm }\OperatorTok{>}\StringTok{ }\DecValTok{8}\NormalTok{),], }\DecValTok{2}\NormalTok{, mean)}
+\NormalTok{above8}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##        crim          zn       indus        chas         nox          rm 
+##   0.7187954  13.6153846   7.0784615   0.1538462   0.5392385   8.3485385 
+##         age         dis         rad         tax     ptratio       black 
+##  71.5384615   3.4301923   7.4615385 325.0769231  16.3615385 385.2107692 
+##       lstat        medv 
+##   4.3100000  44.2000000
+\end{verbatim}
+
+We can see that the group that has more than eight rooms per dwelling
+(say, \(Group_1\))has extremely low crime rate and high median value of
+owner-occupied home in \$1000s.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{above8 }\OperatorTok{-}\StringTok{ }\KeywordTok{apply}\NormalTok{(Boston[}\KeywordTok{which}\NormalTok{(Boston}\OperatorTok{$}\NormalTok{rm }\OperatorTok{<=}\StringTok{ }\DecValTok{8}\NormalTok{),], }\DecValTok{2}\NormalTok{, mean)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##         crim           zn        indus         chas          nox 
+##  -2.97105975   2.31112498  -4.16533156   0.08690903  -0.01586418 
+##           rm          age          dis          rad          tax 
+##   2.11832751   3.04170697  -0.37447118  -2.14292401 -85.35309721 
+##      ptratio        black        lstat         medv 
+##  -2.14921205  29.28922765  -8.56306288  22.23853955
+\end{verbatim}
+
+From comparing the \(Group_1\) and the rest, we can see that the
+\(Group_1\) has less crime rate, less proportion of non-retail business
+acres per town, less tax and less percentage of population. But it has
+more proportion of residential land zoned for lots over 25,000 sq.ft.
+and a larger median value of owner-occupied home in \$1000s.
+
+
+\end{document}
