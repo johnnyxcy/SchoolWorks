@@ -1,0 +1,57 @@
+---
+title: "STAT 435 HW2"
+author: "Chongyi Xu"
+date: "April 12, 2018"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+1. Suppose we have a quantitative response $Y$, and a single feature $X\leq \mathbb{R}$. Let $RSS_1$ denote the residual sum of squares that results from fitting the modedl
+$$Y = \beta_0 + \beta_1X + \epsilon$$
+using least squares. Let $RSS_{12}$ denote the residual sum of squares that results from fitting the model
+$$Y = \beta_0 + \beta_1X + \beta_2X^2 + \epsilon$$
+using least squares.
+
+(a) Prove that $RSS_{12} \leq RSS_1$.
+
+Denote $RSS$ to be the residual sum of squares. The method of least squares fitting is to minimize $RSS$.  
+
+(b) Prove that $R^2$ of the model containing just the feature $X$ is no greater than the $R^2$ of the model containing both $X$ and $X^2$.
+
+Since from part(a), we have concluded that $RSS_{12} \leq RSS_1$. And $R^2$ is definded to be $R^2 = 1 - \frac{RSS}{TSS}$
+$$
+\begin{aligned}
+  R_1^2       &= 1 - \frac{RSS_1}{TSS} \\
+  R_{12}^2    &= 1 - \frac{RSS_{12}}{TSS}
+\end{aligned}
+$$
+
+$TSS$ are the same to two $R^2$ since they are from the same response $Y$.
+
+$$RSS_{12} \leq RSS_1\Rightarrow 1 - \frac{RSS_1}{TSS} \leq 1 - \frac{RSS_{12}}{TSS} \Rightarrow R_1^2 \leq R_{12}^2$$.
+
+2. Describe the null hypotheses to which the p-value in Table 3.4 of the text book correspond. Explain what conclusion you can draw based on these p-values. Your explanation should be phrased in term of `sales`, `TV`, `radio`, and `newspaper`.
+
+* `TV`
+
+  + $H_0$: The sales is not related with TV advertising.
+  + $H_1$: The sales is related with TV advertising.
+  
+  From the p-value we found in Table 3.4 for TV ($p-value<0.0001$), it indicates strong evidence against the null hypothesese, the null hypothese is rejected, in the other word, the sales is related with TV advertising.
+  
+* `radio`
+
+  + $H_0$: The sales is not related with radio advertising.
+  + $H_1$: The sales is related with radio advertising.
+  
+  From the p-value we found in Table 3.4 for radio ($p-value<0.0001$), it indicates strong evidence against the null hypothesese, the null hypothese is rejected, in the other word, the sales is related with radio advertising.
+  
+* `newspaper`
+
+  + $H_0$: The sales is not related with newspaper advertising.
+  + $H_1$: The sales is related with newspaper advertising.
+  
+  From the p-value we found in Table 3.4 for radio ($p-value=0.8599$), it indicates that there is no sufficient evidence that supports rejecting the null hypotheses with a level of $\alpha=0.01$, the rejection fails. In the other word,  the sales is not related with newspaper advertising.
