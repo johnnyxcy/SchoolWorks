@@ -1,0 +1,74 @@
+---
+title: "STAT 403 HW 3"
+author: "Chongyi Xu"
+date: "April 18, 2018"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Question 1
+
+a. Under a significant level $\alpha=10\%$, can we reject the null hypothesis using t-test?
+
+```{r}
+t.test(chickwts[chickwts$feed=="linseed",1], mu = 240)
+```
+
+Using t-test, we can see that the p-value we got is $\approx 0.1864$. Under $\alpha=0.1$, we cannot reject the null hypothesis that chicken whose feed is linseed has an average weight 240.
+
+b. What are the mean and standard deviation of this 12 chicken whose feed is linseed?
+
+```{r}
+dat <- chickwts[chickwts$feed=="linseed",]
+print(paste('The mean of these chicken is: ', mean(dat$weight)))
+print(paste('The standard deviation of these chicken is: ', sd(dat$weight)))
+```
+
+c. Assume the actual distribution of those chicken taking linseed as their feed follows from a normal distribution with mean 220 and standard deviation 52, i.e.,N(220,52^2).  Use a size $N= 10,000$ Monte Carlo Simulation to find out the power of this t-test under significance level $\alpha= 10\%$?
+
+```{r}
+sample_size <- 12
+N <- 10000
+set.seed(403)
+
+ts <- rep(NA, N)
+for (i in 1:N) {
+  sim_dat <- rnorm(sample_size, mean=220, sd=52)
+  ts[i] <- t.test(sim_dat, mu=240)$p.value<=0.1
+}
+print(paste("The power of under alpha=10% is ", mean(ts)))
+```
+
+d. What will the power be if the samplesize  is $n=  12,24,36,48,60,72,84,96$?   Use  a  size $N=  10,000$ Monte  Carlo Simulation for each case to find out.  Moreover, use a figure to display the power versus sample size.
+
+```{r}
+n <- 12 * 1:8
+powers <- rep(NA, length(n))
+for (k in 1:length(n)) {
+  sample_size <- n[k]
+  N <- 10000
+  
+  ts <- rep(NA, N)
+  for (i in 1:N) {
+    sim_dat <- rnorm(sample_size, mean=220, sd=52)
+    ts[i] <- t.test(sim_dat, mu=240)$p.value<=0.1
+  }
+  powers[k] <- mean(ts)
+  print(paste("The power of under alpha=10% at n =", n[k], "is ", powers[k]))
+}
+```
+
+Using a figure
+```{r}
+library(ggplot2)
+ggplot() + geom_line(aes(x=n, y=powers)) + 
+  ggtitle('Power of the t-tests under a significant level of 10%') + 
+  theme(plot.title = element_text(hjust = 0.5))
+```
+
+e. Assume that when the sample size $n= 20$, estimating the power using a size $N= 10,000$ Monte Carlo Simulation has a Monte Carlo Error 0.005 (the variance caused by $N$).  What will the Monte Carlo Error be when we increase $N$ to $1,000,000$?
+
+Since at $N=10000$, we have a $\sigma^2=0.005$,
