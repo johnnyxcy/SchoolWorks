@@ -1,0 +1,30 @@
+---
+title: "STAT 435 HW 4"
+author: "Chongyi Xu"
+date: "May 3, 2018"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Question 1
+
+Consider the validation set approach, with a 50/50 split into training and validation sets
+
+(a) Suppose you perform the validation set approach twice, each timme with a different random seed. What is the probability that an observation, chosen at random, is in both of those training sets?
+
+  $$
+  \begin{aligned}
+    P(\text{in training set 2}|\text{in training set 1}) &= P(\text{in training set 2}) \cdot P(\text{in training set 1})\\
+    &= \frac{1}{2}\cdot \frac{1}{2} = \frac{1}{4}
+  \end{aligned}
+  $$
+  
+(b) If you perform the validation set approach repeatedly, will you get the same result each time? Explain your answer.
+
+
+  
+  
+  
