@@ -2,7 +2,10 @@
 title: "STAT 435 HW2"
 author: "Chongyi Xu"
 date: "April 12, 2018"
-output: pdf_document
+output:
+  pdf_document: default
+  html_document:
+    df_print: paged
 ---
 
 ```{r setup, include=FALSE}
@@ -10,9 +13,9 @@ knitr::opts_chunk$set(echo = TRUE)
 ```
 
 1. Suppose we have a quantitative response $Y$, and a single feature $X\leq \mathbb{R}$. Let $RSS_1$ denote the residual sum of squares that results from fitting the modedl
-$$Y = \beta_0 + \beta_1X + \epsilon$$
+  $$Y = \beta_0 + \beta_1X + \epsilon$$
 using least squares. Let $RSS_{12}$ denote the residual sum of squares that results from fitting the model
-$$Y = \beta_0 + \beta_1X + \beta_2X^2 + \epsilon$$
+  $$Y = \beta_0 + \beta_1X + \beta_2X^2 + \epsilon$$
 using least squares.
 
 (a) Prove that $RSS_{12} \leq RSS_1$.
@@ -22,22 +25,23 @@ Denote $RSS$ to be the residual sum of squares. The method of least squares fitt
 (b) Prove that $R^2$ of the model containing just the feature $X$ is no greater than the $R^2$ of the model containing both $X$ and $X^2$.
 
 Since from part(a), we have concluded that $RSS_{12} \leq RSS_1$. And $R^2$ is definded to be $R^2 = 1 - \frac{RSS}{TSS}$
-$$
-\begin{aligned}
-  R_1^2       &= 1 - \frac{RSS_1}{TSS} \\
-  R_{12}^2    &= 1 - \frac{RSS_{12}}{TSS}
-\end{aligned}
-$$
+  $$
+  \begin{aligned}
+    R_1^2       &= 1 - \frac{RSS_1}{TSS} \\
+    R_{12}^2    &= 1 - \frac{RSS_{12}}{TSS}
+  \end{aligned}
+  $$
 
 $TSS$ are the same to two $R^2$ since they are from the same response $Y$.
 
-$$RSS_{12} \leq RSS_1\Rightarrow 1 - \frac{RSS_1}{TSS} \leq 1 - \frac{RSS_{12}}{TSS} \Rightarrow R_1^2 \leq R_{12}^2$$.
+  $$RSS_{12} \leq RSS_1\Rightarrow 1 - \frac{RSS_1}{TSS} \leq 1 - \frac{RSS_{12}}{TSS} \Rightarrow R_1^2 \leq R_{12}^2$$
 
 2. Describe the null hypotheses to which the p-value in Table 3.4 of the text book correspond. Explain what conclusion you can draw based on these p-values. Your explanation should be phrased in term of `sales`, `TV`, `radio`, and `newspaper`.
 
 * `TV`
 
   + $H_0$: The sales is not related with TV advertising.
+  
   + $H_1$: The sales is related with TV advertising.
   
   From the p-value we found in Table 3.4 for TV ($p-value<0.0001$), it indicates strong evidence against the null hypothesese, the null hypothese is rejected, in the other word, the sales is related with TV advertising.
@@ -45,6 +49,7 @@ $$RSS_{12} \leq RSS_1\Rightarrow 1 - \frac{RSS_1}{TSS} \leq 1 - \frac{RSS_{12}}{
 * `radio`
 
   + $H_0$: The sales is not related with radio advertising.
+  
   + $H_1$: The sales is related with radio advertising.
   
   From the p-value we found in Table 3.4 for radio ($p-value<0.0001$), it indicates strong evidence against the null hypothesese, the null hypothese is rejected, in the other word, the sales is related with radio advertising.
@@ -52,6 +57,289 @@ $$RSS_{12} \leq RSS_1\Rightarrow 1 - \frac{RSS_1}{TSS} \leq 1 - \frac{RSS_{12}}{
 * `newspaper`
 
   + $H_0$: The sales is not related with newspaper advertising.
+  
   + $H_1$: The sales is related with newspaper advertising.
   
-  From the p-value we found in Table 3.4 for radio ($p-value=0.8599$), it indicates that there is no sufficient evidence that supports rejecting the null hypotheses with a level of $\alpha=0.01$, the rejection fails. In the other word,  the sales is not related with newspaper advertising.
+  From the p-value we found in Table 3.4 for radio ($p-value=0.8599$), it indicates that there is no sufficient evidence that supports rejecting the null hypotheses with a level of $\alpha=0.01$, the rejection fails. In the other word, we can not reject the hypotheses that there is no relationship between newpaper advertising and sales.
+  
+3. Consider a linear model with just one feature.
+
+  $$
+  Y = \beta_0 + \beta_1X +\epsilon
+  $$
+
+Suppose we have $n$ observations from this model, $(x_1,y_1),\cdots,(x_n,y_n)$. The least squares estimators is given in (3.4) of the textbook. Furthermore, we saw in class that if we construct a n x 2 matrix $\tilde{\mathbf{X}}$. If we let $\mathbf{y}$ denote the vector with elements $y_1,\cdots,y_n$, then the least squares estimator takes the form
+
+  $$
+  \binom{\hat{\beta_0}}{\hat{\beta_1}} = (\tilde{\mathbf{X}}^T\tilde{\mathbf{X}})^{-1}\tilde{\mathbf{X}}^T\mathbf{y}
+  $$
+
+Prove that the equation agrees with equation (3.4) of the textbook.
+
+  $$
+  \begin{aligned}
+    (\tilde{\mathbf{X}}^T\tilde{\mathbf{X}})^{-1}\tilde{\mathbf{X}}^T\mathbf{y}   
+                &= 
+                \begin{pmatrix}
+                  n   &   \sum x_i \\
+                  \sum x_i  & \sum x_i^2 
+                \end{pmatrix}^{-1} 
+                \begin{pmatrix}
+                  1 &\cdots & 1 \\
+                  x_1 &\cdots & x_n
+                \end{pmatrix}  
+                \begin{pmatrix}
+                  y_1 \\
+                  \vdots \\
+                  y_n 
+                \end{pmatrix} \\
+                &= 
+                \frac{1}{n\sum x_i^2 - (\sum x_i)^2}
+                \begin{pmatrix}
+                \sum x_i^2  & -\sum x_i \\
+                -\sum x_i   & n
+                \end{pmatrix}
+                \begin{pmatrix}
+                  1 &\cdots & 1 \\
+                  x_1 &\cdots & x_n
+                \end{pmatrix}  
+                \begin{pmatrix}
+                  y_1 \\
+                  \vdots \\
+                  y_n 
+                \end{pmatrix} \\
+                &= 
+                \frac{1}{n\sum x_i^2 - (\sum x_i)^2}
+                \sum_{j=1}^n
+                \begin{pmatrix}
+                  y_j\sum x_i^2 - x_jy_j\sum x_i \\
+                  - y_j\sum x_i + nx_jy_j
+                \end{pmatrix}
+  \end{aligned}
+  $$
+
+
+Consider the bottom of $\frac{1}{n\sum x_i^2 - (\sum x_i)^2}$, use that $\sum x_i = n\bar{x}$
+
+  $$
+  \begin{aligned}
+    n\sum x_i^2 - (\sum x_i)^2  &= n\sum x_i^2 - n^2\bar{x}^2 \\
+                                &= n^2(\frac{1}{n}\sum x_i^2 - \bar{x}^2) \\
+                                &= n^2\frac{1}{n}(\sum x_i^2 - 2n\bar{x}\bar{x} + n\bar{x}^2) \\
+                                &= n^2\frac{1}{n}(\sum x_i^2 - 2x_i\bar{x} + \bar{x}^2) \\
+                                &= n\sum(x_i - \bar{x})^2
+  \end{aligned}
+  $$
+
+Now consider the second row of summation part($\beta_1$). We know that $n\bar{x}\bar{y} = \bar{x}\sum_{i} y_i = \bar{y}\sum_{i} x_i$
+
+  $$
+  \begin{aligned}
+    \sum_{j=1}^n (- y_j\sum x_i + nx_jy_j)  &= \sum_{j=1}^n (nx_jy_j - n\bar{x}y_j) \\
+                                            &= n(\sum_{j} x_jy_j - \bar{x}\sum_{j} y_j) \\
+                                            &= n(\sum_{j} x_jy_j - \bar{x}\sum_{j} y_j + n\bar{x}\bar{y} - \bar{y}\sum_{j} x_j) \\
+                                            &= n\sum_j(x_jy_j -\bar{y}x_j - \bar{x}y_j + \bar{x}\bar{y}) \\
+                                            &= n\sum_{j=1}^n (x_j-\bar{x})(y_j-\bar{y})
+  \end{aligned}
+  $$
+
+Therefore,
+
+  $$
+  \beta_1 = \frac{n\sum_{j=1}^n (x_j-\bar{x})(y_j-\bar{y})}{n\sum(x_i - \bar{x})^2} = \frac{\sum_{j=1}^n (x_j-\bar{x})(y_j-\bar{y})}{\sum(x_i - \bar{x})^2} = \hat{\beta_1}
+  $$
+
+Now consider the first row of summation part($\beta_0$). We want to check if $\beta_0 = \bar{y} - \beta_1\bar{x}$
+
+  $$
+  \begin{aligned}
+    \frac{\sum_{j=1}^n (y_j\sum x_i^2 - x_jy_j\sum x_i)}{n\sum(x_i - \bar{x})^2}  &=
+  \frac{\sum_j (y_j\sum x_i^2)}{n\sum(x_i - \bar{x})^2} - \frac{\sum_j (x_jy_j\sum x_i)}{n\sum(x_i - \bar{x})^2}
+  \\
+    &= \frac{n\bar{y}\bar{x^2}}{\sum(x_i - \bar{x})^2} - \frac{\bar{x}\sum_j x_jy_j}{\sum(x_i - \bar{x})^2} \\
+    &= \bar{y} - \beta_1 \bar{x}\\
+    &\beta_0 = \bar{y} - \beta_1\bar{x}(QED)
+  \end{aligned}   
+  $$
+
+4. This question involves the use of multiple linear regression on the Auto data set.
+
+(a) Use the `lm()` function to perform a multiple linear regression with `mpg` as the response and all other variables except `name` as the predictors.
+
+```{r}
+library(ISLR)
+dat <- Auto
+dat$origin.f <- factor(dat$origin,labels=c('American','European','Japanese'))
+
+model.fit <- lm(data=dat, mpg~. - name - origin)
+
+summary(model.fit)
+```
+
+From the result above, we are able to give the following conclusions:
+
++ With a significant level of $\alpha=0.001$, we can not reject the hypotheses that `cylinders`, `displacement`, `horsepower`, `acceleration` have no relationship with `mpg`. However, if we are using a siginificant level of $\alpha=0.01$, `displacement` might considered to be a factor of `mpg`.
+
++ For every $\approx 75$ years, a vehicle will be able to drive 100 more miles per gallon.
+
++ I also make the `origin` data to be categorical for appropriate use.
+
+```{r}
+is.factor(dat$origin.f)
+```
+
+(b) Try out some models to predict mpg using functions of variable horsepower.
+
+```{r}
+library(ggplot2)
+# mpg = a * horsepower + b
+fit1 <- lm(data=dat, mpg~horsepower^2 + horsepower)
+fit1.predict <- predict(fit1, newdata=dat)
+
+# mpg = a * horsepower^-1 + b
+fit2 <- lm(data=dat, mpg~1 / horsepower + horsepower)
+fit2.predict <- predict(fit2, newdata=dat)
+
+# mpg = a * e^(horsepower) + b * horsepower + c
+fit3 <- lm(data=dat, mpg~exp(horsepower) + horsepower)
+fit3.predict <- predict(fit3, newdata=dat)
+
+# mpg = alog(horsepower) + b * horsepower + c
+fit4 <- lm(data=dat, mpg~log(horsepower) + horsepower)
+fit4.predict <- predict(fit4, newdata=dat)
+
+# mpg = asin(horsepower) + bcos(horsepower) + c
+fit5 <- lm(data=dat, mpg~sin(horsepower) + cos(horsepower))
+fit5.predict <- predict(fit5, newdata=dat)
+
+
+p <- ggplot() + geom_line(aes(dat$horsepower, fit1.predict, color= 'ax^2+bx+c')) + 
+  geom_line(aes(dat$horsepower, fit2.predict, color='a*x^-1+b')) + 
+  geom_line(aes(dat$horsepower, fit3.predict, color='a*e^(x)+b*x+c')) + 
+  geom_line(aes(dat$horsepower, fit4.predict, color='a*log(x)+b*x+c')) + 
+  geom_line(aes(dat$horsepower, fit5.predict, color='asin(x)+bcos(x)+c')) + 
+  geom_line(aes(dat$horsepower, dat$mpg, color='observation')) +
+  xlab('Engine Horsepower') + ylab('Miles Per Gallon') + 
+  ggtitle('Prediction from Different Models') +
+  theme(plot.title=element_text(hjust=0.5)) 
+p
+
+```
+
+From the plot, we can see that in fact none of the models has an acceptable result. In general, the $alog(x) + bx + c$ function has a relatively better result.
+
+
+(c) Now fit a model to predict `mpg` using `horsepower`, `origin` and an interaction between them.
+
+```{r}
+fit.model <- lm(data=dat, mpg ~ horsepower + origin.f + origin.f * horsepower)
+fit.predict <- predict(fit.model, newdata=dat)
+p + geom_line(aes(dat$horsepower, fit.predict, color='a*x + b*y + c*xy'))
+
+```
+
+We can see that the new model fits the data much better than single feature models in the preivous part.
+
+```{r}
+summary(fit.model)
+```
+
+The model tells that consider at significant level $\alpha=0.001$, all of the factors we have used to build the model are statistically significant, including the interaction between origins and horsepower. The model says that for American vehicles, loosing every $\approx 0.121$ unit of horsepower, the vehicle will be also run $1$ more mile per gallon. For those vehicles that are from Europe and Japan, loosing every $\approx 0.101, 0.109$ unit of horsepower will make the vehicle run $1$ more mile per gallon.
+
+5. Consider fitting a model to predict credit card `balance` using `income` and `student`, where `student` is a quantative variable that takes on one of three values
+
+(a) Encode the student variable using two dummy variables, one of which equals $1$ if `student=graduate` (and 0 otherwise), and one of which equals $1$ is `student=undergraduate` (and 0 otherwise). Write out an expression for a linear model to predict `balance` using `income` and `student`, using this coding of dummy variables.
+
+```{r}
+library(dplyr)
+dat <- Credit
+
+students <- which(dat$Student == "Yes")
+dat$NotStudent <- 1
+dat$NotStudent[students] <- 0
+dat$NotStudent <- factor(dat$NotStudent)
+
+# Graduate: years of education is greater than 16
+dat$Graduate <- 0
+graduates <- students[dat$Education >= 16]
+under <- students[!(students %in% graduates)]
+
+dat$Graduate[graduates] <- 1
+dat$Graduate <- factor(dat$Graduate)
+
+dat$Undergraduate <- 0
+dat$Undergraduate[under] <- 1
+dat$Undergraduate <- factor(dat$Undergraduate)
+
+
+dat_a <- dat%>% select(Balance, Income, Graduate, Undergraduate)
+
+model.fit_a <- lm(data=dat_a, Balance ~ .)
+
+summary(model.fit_a)
+```
+
+From the result above, we can see that, with a significant level $\alpha \geq 0.001$, we could say that whether the student is graduate student or not affects the credit balance. In general, all factors we are considering have sufficient evidence to support that they are related to the credit card balance. With $\$598$ higher income, the credit balance will increase by $\$100$.
+
+
+(b) Now encode the student variable using two dummy variables, one of which equals $1$ if `student=not student` (and 0 otherwise), and one of which equals $1$ is `student=graduate` (and 0 otherwise). Write out an expression for a linear model to predict `balance` using `income` and `student`, using this coding of dummy variables.
+
+```{r}
+dat_b <- dat%>% select(Balance, Income, NotStudent, Graduate)
+
+model.fit_b <- lm(data=dat_b, Balance ~ .)
+
+summary(model.fit_b)
+```
+
+With a significant level of $0.1$, we are not able to reject the hypothese that whether is graduate student or not does not affect the balance of credit card. In general, both income and the fact that is student or not play roles in credit card balance analysis. With $\$598$ higher income, the credit balance will increase by $\$100$.
+
+
+(c) Using the coding in (a), write out an expression for a linear model to predict `balance` using `income`, `student` and interaction between `income` and `student`.
+
+```{r}
+dat_c <- dat%>% select(Balance, Income, Graduate, Undergraduate)
+
+model.fit_c <- lm(data=dat_c, Balance ~ . + Income*Graduate + Income*Undergraduate)
+
+summary(model.fit_c)
+```
+
+From the result above, we can see that the incomes of graduate(undergraduate) student or not are not statistically significant at a significant level $\alpha=0.1$. But the income itself and the fact if the customer is a undergraduate student or not are related to the credit card balance. For not graduate nor undergraduate customer, with $\$622$ higher income, the credit balance will increase by $\$100$
+
+(d) Using the coding in (b), write out an expression for a linear model to predict `balance` using `income`, `student` and interaction between `income` and `student`.
+
+```{r}
+dat_d <- dat%>% select(Balance, Income, Graduate, NotStudent)
+
+model.fit_d <- lm(data=dat_d, Balance ~ . + Income*Graduate + Income*NotStudent)
+
+summary(model.fit_d)
+```
+
+With a significant level of $0.1$, we are not able to reject the hypothese that whether is graduate student or not does not affect the balance of credit card. The fact that is student or not will affect the credit card balance. With a significant level $\alpha \geq 0.05$, we will say the income is related to the credit card balance. In general, the income for student but not graduate student, with $\$402$ higher income, the credit balance will increase by $\$100$.
+
+(e) Using simulated data to show that the fitted values from the models in (a) - (d) do not depend on the coding of the dummy variables.
+
+```{r}
+dat<- dat%>% select(Balance, Income, Graduate, NotStudent, Undergraduate)
+model.predict_a <- predict(model.fit_a, newdata=dat)
+model.predict_b <- predict(model.fit_b, newdata=dat)
+model.predict_c <- predict(model.fit_c, newdata=dat)
+model.predict_d <- predict(model.fit_d, newdata=dat)
+```
+
+We want to see if the predictions are identical. Set the tolerence to be $10^{-10}$
+
+```{r}
+tol = 1e-10
+any(abs(model.predict_a - model.predict_b) > tol)
+```
+
+So we know that the prediction from the model in part(a) is identical with the model in part(b). Similarly, we have
+
+```{r}
+any(abs(model.predict_c - model.predict_d) > tol)
+```
+
+So the prediction from the model in part(c) is also identical with the model in part(d).

@@ -71,4 +71,124 @@ ggplot() + geom_line(aes(x=n, y=powers)) +
 
 e. Assume that when the sample size $n= 20$, estimating the power using a size $N= 10,000$ Monte Carlo Simulation has a Monte Carlo Error 0.005 (the variance caused by $N$).  What will the Monte Carlo Error be when we increase $N$ to $1,000,000$?
 
-Since at $N=10000$, we have a $\sigma^2=0.005$,
+```{r}
+N <- 1000000
+sample_size <- 20
+ts <- rep(NA, N)
+for (i in 1:N) {
+  sim_dat <- rnorm(sample_size, mean=220, sd=52)
+  ts[i] <- t.test(sim_dat, mu=240)$p.value<=0.1
+}
+
+sd(ts)/sqrt(N)
+
+```
+
+With $N$ change to $1000000$, the Monte Carlo Error will reduce to $0.0005$.
+
+
+## Question 2
+
+a. Use a size $N=10000$ Monte Carlo Simulation to compute the mean of $M_{50}$ and the standard deviation of $M_{50}$.
+
+```{r}
+N <- 10000
+sample_size <- 50
+
+M50 <- rep(NA, N)
+for (k in 1:N) {
+  M50[k] = min(runif(sample_size, min=0, max=1))
+}
+
+print(paste('The mean of M_50 is: ', mean(M50)))
+print(paste('The standard deviation of M_50 is: ', sd(M50)))
+```
+
+b It appears that the mean and standard deviation are roughly the same.This is a feature of the exponential distribution. Now use histogram to show that the distribution is roughly Exp(50), the exponential distribution with rate $\lambda = 50$. You need to attach the theoretical density curve of Exp(50) to this histogram.
+
+```{r}
+x <- seq(from=0, to=max(M50), by=0.01)
+target <- dexp(x, rate=50)
+ggplot() + geom_histogram(aes(M50, y=..density..), binwidth=0.01) + 
+  geom_line(aes(x, y=target, color='exp(50)')) + 
+  ggtitle('Density Histogram of the Simulation') +
+  xlim(0, max(M50)) +
+  theme(plot.title = element_text(hjust = 0.5))
+```
+
+c. Now change the sample size 50 to 100 and repeat compute the histogram of $M_{100}=min\{U_1,\cdots,U_{100}\}$. Show the histogram and compare to the density curve of Exp(100).
+
+```{r}
+sample_size <- 100
+
+M100 <- rep(NA, N)
+for (k in 1:N) {
+  M100[k] = min(runif(sample_size, min=0, max=1))
+}
+x <- seq(from=0, to=max(M100), by=0.01)
+target <- dexp(x, rate=sample_size)
+ggplot() + geom_histogram(aes(M100, y=..density..), binwidth=0.01) + 
+  geom_line(aes(x, y=target, color='exp(100)')) + 
+  ggtitle('Density Histogram of the Simulation') +
+  xlim(0, max(M100)) +
+  theme(plot.title = element_text(hjust = 0.5))
+```
+
+From the plot, we can see that the distribution still looks like Exp(100).
+
+d. Show that for $n$ IID random variables, $U_1,\cdots,U_n$~Uni[0,1], the random variable $M_n=min{U_1,\cdots,U_n}$ converges in distribution in the following sense:
+
+  $$n\cdot M_n\xrightarrow[]{\text{D}}\text{Exp}(1)$$
+
+For $n$ IID random variables, the probability 
+
+  $$ P(min\{U_1,\cdots,U_n\}\leq y) = 1 - P(\forall U\geq y) = 1 - (1-F(y))^n $$
+
+, where $F(y)$ is the CDF of Unif[0,1]. 
+
+  $$
+  F(y) =
+  \begin{cases}
+  0   &\text{for } y < 0\\
+  \frac{y-0}{1-0}   &\text{for } y\in[0,1)\\
+  1   &\text{otherwise}
+  \end{cases}
+  $$
+
+So 
+
+  $$
+  \begin{aligned}
+  F_{n\cdot M_n}(y) &= P(n\cdot min\{U_1,\cdots,U_n\}\leq y)\\
+    &= 1 - (1-F(y/n))^n\\
+    &= 1-(1-y/n)^n, 0\leq y/n< 1
+  \end{aligned}
+  $$
+
+Consider $\text{lim}_{n\rightarrow +\infty}(1-y/n)^n$
+
+  $$
+  \begin{aligned}
+    e^{ln(1-\frac{y}{n})}   &= e^{nln(1-\frac{y}{n})} \\
+    \text{lim}_{n\rightarrow +\infty}(1-\frac{y}{n})^n  &= \text{lim}_{n\rightarrow +\infty}e^{nln(1-y/n)} \\
+      &= e^{\text{lim }nln(1-y/n)} \\
+      &= e^{\text{lim } \frac{ln(1-y/n)}{1/n}} \\
+      &= e^{\text{lim } \frac{\frac{y}{n^2}\frac{1}{1-y/n}}{-\frac{1}{n^2}}} \\
+      &= e^{\text{lim }\frac{-y}{1-y/n}} \\
+      &= e^{-y}
+  \end{aligned}
+  $$ 
+  
+Therefore, we have $\text{lim}_{n\rightarrow +\infty}(1-y/n)^n \rightarrow e^{-y}$
+
+So
+
+  $$
+  \begin{aligned}
+    F_{n\cdot M_n}(y) &= 1-(1-y/n)^n, 0\leq y/n< 1 \\
+                      &\rightarrow 1 - e^{-y} \\
+                      &= F_{exp(1)}(y)
+    \end{aligned}
+  $$
+
+In the other word, $n\cdot M_n \rightarrow$Exp(1). Q.E.D.
