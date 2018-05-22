@@ -1,12 +1,10 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017/W32TeX) (preloaded format=pdflatex 2018.4.12)  6 MAY 2018 23:13
+This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017/W32TeX) (preloaded format=pdflatex 2018.4.12)  21 MAY 2018 20:57
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
  %&-line parsing enabled.
-**c:/Users/johnn/Documents/UW/SchoolWorks/2018Spring/STAT391/HW4/stat391_hw4.te
-x
-
-(c:/Users/johnn/Documents/UW/SchoolWorks/2018Spring/STAT391/HW4/stat391_hw4.tex
+**c:/Users/johnn/Documents/UW/SchoolWorks/2018Spring/STAT391/HW6/myhw6.tex
+(c:/Users/johnn/Documents/UW/SchoolWorks/2018Spring/STAT391/HW6/myhw6.tex
 LaTeX2e <2017-04-15>
 Babel <3.18> and hyphenation patterns for 84 language(s) loaded.
 (c:/texlive/2017/texmf-dist/tex/latex/elsarticle/elsarticle.cls
@@ -82,7 +80,7 @@ File: upsy.fd 2001/06/04 font definitions for U/psy.
 \@enLab=\toks16
 \@sep=\skip43
 \@@sep=\skip44
- (./stat391_hw4.spl)
+ (./myhw6.spl)
 (c:/texlive/2017/texmf-dist/tex/latex/natbib/natbib.sty
 Package: natbib 2010/09/13 8.31b (PWD, AO)
 \bibhang=\skip45
@@ -91,7 +89,7 @@ LaTeX Info: Redefining \cite on input line 694.
 \c@NAT@ctr=\count93
 )
 \splwrite=\write3
-\openout3 = `stat391_hw4.spl'.
+\openout3 = `myhw6.spl'.
 
 )
 (c:/texlive/2017/texmf-dist/tex/latex/psnfss/mathpazo.sty
@@ -792,49 +790,57 @@ Package caption Info: listings package is loaded.
 \c@subfigure=\count139
 \c@subtable=\count140
 )
+(c:/texlive/2017/texmf-dist/tex/latex/multirow/multirow.sty
+Package: multirow 2016/11/25 v2.2 Span multiple rows of a table
+\multirow@colwidth=\skip59
+\multirow@cntb=\count141
+\multirow@dima=\skip60
+\bigstrutjot=\dimen155
+)
 (c:/texlive/2017/texmf-dist/tex/latex/appendix/appendix.sty
 Package: appendix 2009/09/02 v1.2b extra appendix facilities
-\c@@pps=\count141
-\c@@ppsavesec=\count142
-\c@@ppsaveapp=\count143
+\c@@pps=\count142
+\c@@ppsavesec=\count143
+\c@@ppsaveapp=\count144
 )
-Package hyperref Info: Option `colorlinks' set `true' on input line 27.
+Package hyperref Info: Option `colorlinks' set `true' on input line 28.
 
 (c:/texlive/2017/texmf-dist/tex/latex/listings/lstlang1.sty
 File: lstlang1.sty 2015/06/04 1.6 listings language file
-) (./stat391_hw4.aux)
-\openout1 = `stat391_hw4.aux'.
+) (./myhw6.aux)
+\openout1 = `myhw6.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 53.
-LaTeX Font Info:    ... okay on input line 53.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 53.
-LaTeX Font Info:    ... okay on input line 53.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 53.
-LaTeX Font Info:    ... okay on input line 53.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 53.
-LaTeX Font Info:    ... okay on input line 53.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 53.
-LaTeX Font Info:    ... okay on input line 53.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 53.
-LaTeX Font Info:    ... okay on input line 53.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 53.
-LaTeX Font Info:    ... okay on input line 53.
-LaTeX Font Info:    Try loading font information for T1+pplx on input line 53.
- (c:/texlive/2017/texmf-dist/tex/latex/psnfss/t1pplx.fd
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 54.
+LaTeX Font Info:    ... okay on input line 54.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 54.
+LaTeX Font Info:    ... okay on input line 54.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 54.
+LaTeX Font Info:    ... okay on input line 54.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 54.
+LaTeX Font Info:    ... okay on input line 54.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 54.
+LaTeX Font Info:    ... okay on input line 54.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 54.
+LaTeX Font Info:    ... okay on input line 54.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 54.
+LaTeX Font Info:    ... okay on input line 54.
+LaTeX Font Info:    Try loading font information for T1+pplx on input line 54.
+
+(c:/texlive/2017/texmf-dist/tex/latex/psnfss/t1pplx.fd
 File: t1pplx.fd 2004/09/06 font definitions for T1/pplx.
 )
 (c:/texlive/2017/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
-\scratchcounter=\count144
-\scratchdimen=\dimen155
+\scratchcounter=\count145
+\scratchdimen=\dimen156
 \scratchbox=\box37
-\nofMPsegments=\count145
-\nofMParguments=\count146
+\nofMPsegments=\count146
+\nofMParguments=\count147
 \everyMPshowfont=\toks31
-\MPscratchCnt=\count147
-\MPscratchDim=\dimen156
-\MPnumerator=\count148
-\makeMPintoPDFobject=\count149
+\MPscratchCnt=\count148
+\MPscratchDim=\dimen157
+\MPnumerator=\count149
+\makeMPintoPDFobject=\count150
 \everyMPtoPDFconversion=\toks32
 ) (c:/texlive/2017/texmf-dist/tex/latex/oberdiek/epstopdf-base.sty
 Package: epstopdf-base 2016/05/15 v2.6 Base part for package epstopdf
@@ -853,7 +859,7 @@ G,.JBIG2,.JB2,.eps]
 File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Liv
 e
 ))
-LaTeX Info: Redefining \microtypecontext on input line 53.
+LaTeX Info: Redefining \microtypecontext on input line 54.
 Package microtype Info: Generating PDF output.
 Package microtype Info: Character protrusion enabled (level 2).
 Package microtype Info: Using default protrusion set `alltext'.
@@ -868,7 +874,7 @@ Package microtype Info: No adjustment of character kerning.
 File: mt-ppl.cfg 2005/11/16 v1.6 microtype config. file: Palatino (RS)
 )
 \AtBeginShipoutBox=\box38
-Package hyperref Info: Link coloring ON on input line 53.
+Package hyperref Info: Link coloring ON on input line 54.
 
 (c:/texlive/2017/texmf-dist/tex/latex/hyperref/nameref.sty
 Package: nameref 2016/05/21 v2.44 Cross-referencing by name of section
@@ -876,15 +882,15 @@ Package: nameref 2016/05/21 v2.44 Cross-referencing by name of section
 (c:/texlive/2017/texmf-dist/tex/generic/oberdiek/gettitlestring.sty
 Package: gettitlestring 2016/05/16 v1.5 Cleanup title references (HO)
 )
-\c@section@level=\count150
+\c@section@level=\count151
 )
-LaTeX Info: Redefining \ref on input line 53.
-LaTeX Info: Redefining \pageref on input line 53.
-LaTeX Info: Redefining \nameref on input line 53.
+LaTeX Info: Redefining \ref on input line 54.
+LaTeX Info: Redefining \pageref on input line 54.
+LaTeX Info: Redefining \nameref on input line 54.
 
-(./stat391_hw4.out) (./stat391_hw4.out)
+(./myhw6.out) (./myhw6.out)
 \@outlinefile=\write4
-\openout4 = `stat391_hw4.out'.
+\openout4 = `myhw6.out'.
 
 
 (c:/texlive/2017/texmf-dist/tex/latex/oberdiek/pdflscape.sty
@@ -895,14 +901,14 @@ Package: lscape 2000/10/22 v3.01 Landscape Pages (DPC)
 )
 Package pdflscape Info: Auto-detected driver: pdftex on input line 81.
 )
-\c@lstlisting=\count151
+\c@lstlisting=\count152
 Package caption Info: Begin \AtBeginDocument code.
 Package caption Info: End \AtBeginDocument code.
 LaTeX Font Info:    Font shape `T1/pplx/bx/n' in size <20.74> not available
-(Font)              Font shape `T1/pplx/b/n' tried instead on input line 64.
+(Font)              Font shape `T1/pplx/b/n' tried instead on input line 65.
 LaTeX Font Info:    Font shape `T1/pplx/bx/n' in size <12> not available
-(Font)              Font shape `T1/pplx/b/n' tried instead on input line 64.
-LaTeX Font Info:    Try loading font information for T1+cmtt on input line 64.
+(Font)              Font shape `T1/pplx/b/n' tried instead on input line 65.
+LaTeX Font Info:    Try loading font information for T1+cmtt on input line 65.
 
 (c:/texlive/2017/texmf-dist/tex/latex/base/t1cmtt.fd
 File: t1cmtt.fd 2014/09/29 v2.5h Standard LaTeX font definitions
@@ -911,31 +917,31 @@ Package microtype Info: Loading generic protrusion settings for font family
 (microtype)             `cmtt' (encoding: T1).
 (microtype)             For optimal results, create family-specific settings.
 (microtype)             See the microtype manual for details.
-LaTeX Font Info:    Try loading font information for OT1+pplx on input line 64.
+LaTeX Font Info:    Try loading font information for OT1+pplx on input line 65.
 
 
 (c:/texlive/2017/texmf-dist/tex/latex/psnfss/ot1pplx.fd
 File: ot1pplx.fd 2004/09/06 font definitions for OT1/pplx.
 )
-LaTeX Font Info:    Try loading font information for OML+zplm on input line 64.
+LaTeX Font Info:    Try loading font information for OML+zplm on input line 65.
 
 
 (c:/texlive/2017/texmf-dist/tex/latex/psnfss/omlzplm.fd
 File: omlzplm.fd 2002/09/08 Fontinst v1.914 font definitions for OML/zplm.
 )
-LaTeX Font Info:    Try loading font information for OMS+zplm on input line 64.
+LaTeX Font Info:    Try loading font information for OMS+zplm on input line 65.
 
 
 (c:/texlive/2017/texmf-dist/tex/latex/psnfss/omszplm.fd
 File: omszplm.fd 2002/09/08 Fontinst v1.914 font definitions for OMS/zplm.
 )
-LaTeX Font Info:    Try loading font information for OMX+zplm on input line 64.
+LaTeX Font Info:    Try loading font information for OMX+zplm on input line 65.
 
 
 (c:/texlive/2017/texmf-dist/tex/latex/psnfss/omxzplm.fd
 File: omxzplm.fd 2002/09/08 Fontinst v1.914 font definitions for OMX/zplm.
 )
-LaTeX Font Info:    Try loading font information for OT1+zplm on input line 64.
+LaTeX Font Info:    Try loading font information for OT1+zplm on input line 65.
 
 
 (c:/texlive/2017/texmf-dist/tex/latex/psnfss/ot1zplm.fd
@@ -945,191 +951,78 @@ Package microtype Info: Loading generic protrusion settings for font family
 (microtype)             `zplm' (encoding: OT1).
 (microtype)             For optimal results, create family-specific settings.
 (microtype)             See the microtype manual for details.
-LaTeX Font Info:    Try loading font information for U+esvect on input line 64.
+LaTeX Font Info:    Try loading font information for U+esvect on input line 65.
 
 
 (c:/texlive/2017/texmf-dist/tex/latex/esvect/uesvect.fd
 File: uesvect.fd 
 )
 LaTeX Font Info:    Font shape `T1/pplx/bx/n' in size <9> not available
-(Font)              Font shape `T1/pplx/b/n' tried instead on input line 64.
+(Font)              Font shape `T1/pplx/b/n' tried instead on input line 65.
 LaTeX Font Info:    Font shape `T1/pplx/bx/n' in size <10> not available
-(Font)              Font shape `T1/pplx/b/n' tried instead on input line 64.
+(Font)              Font shape `T1/pplx/b/n' tried instead on input line 65.
 LaTeX Font Info:    Font shape `T1/pplx/bx/it' in size <10> not available
-(Font)              Font shape `T1/pplx/b/it' tried instead on input line 64.
+(Font)              Font shape `T1/pplx/b/it' tried instead on input line 65.
 
-Underfull \hbox (badness 10000) in paragraph at lines 67--70
 
+LaTeX Warning: No positions in optional float specifier.
+               Default added (so using `tbp') on input line 70.
+
+
+Overfull \hbox (47.85315pt too wide) detected at line 94
+[]
  []
 
-LaTeX Font Info:    Try loading font information for U+fplmbb on input line 72.
-
-(c:/texlive/2017/texmf-dist/tex/latex/psnfss/ufplmbb.fd
-File: ufplmbb.fd 2003/10/30 Fontinst v1.914 font definitions for U/fplmbb.
-)
-Overfull \hbox (24.90546pt too wide) in paragraph at lines 80--81
-[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
-][][][][][][][][][][][][][][][][][][][][][]  
- []
-
-[1
+[1{c:/texlive/2017/texmf-var/fonts/map/pdftex/updmap/pdftex.map}
 
 
-{c:/texlive/2017/texmf-var/fonts/map/pdftex/updmap/pdftex.map}]
-Underfull \hbox (badness 10000) in paragraph at lines 101--105
-
- []
-
-[2] [3]
-<1.png, id=102, 462.528pt x 346.896pt>
-File: 1.png Graphic file (type png)
-<use 1.png>
-Package pdftex.def Info: 1.png  used on input line 187.
-(pdftex.def)             Requested size: 312.00119pt x 234.01236pt.
-<2.png, id=104, 462.528pt x 346.896pt>
-File: 2.png Graphic file (type png)
-<use 2.png>
-Package pdftex.def Info: 2.png  used on input line 192.
-(pdftex.def)             Requested size: 312.00119pt x 234.01236pt.
-
-Underfull \hbox (badness 10000) in paragraph at lines 199--200
-
+]
+Overfull \hbox (245.16771pt too wide) detected at line 110
+[]
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 218--220
-
+Overfull \hbox (52.70955pt too wide) detected at line 138
+[]
  []
 
-[4] [5 <./1.png> <./2.png>]
-Underfull \hbox (badness 10000) in paragraph at lines 237--240
-
+[2]
+Overfull \hbox (74.28903pt too wide) detected at line 171
+[]
  []
 
-[6]
-Overfull \hbox (3.77252pt too wide) in paragraph at lines 254--256
-[][][][][][][][][][][][][][][][][] 
- []
-
-
-Overfull \hbox (3.30208pt too wide) in paragraph at lines 266--266
- []\T1/cmtt/m/n/12 The[] Log-Likelihood[] Score[] for[] People[] is[] [] -485.1
-2788083461237[] 
- []
-
-
-Overfull \hbox (15.64906pt too wide) in paragraph at lines 266--266
- []\T1/cmtt/m/n/12 The[] Log-Likelihood[] Score[] for[] Furniture[] is[] [] -79
-1.6883358525606[] 
- []
-
-<3.png, id=159, 462.528pt x 346.896pt>
-File: 3.png Graphic file (type png)
-<use 3.png>
-Package pdftex.def Info: 3.png  used on input line 275.
-(pdftex.def)             Requested size: 312.00119pt x 234.01236pt.
-[7]
-Underfull \hbox (badness 10000) in paragraph at lines 312--313
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 316--318
-
- []
-
-[8 <./3.png>]
-<4.png, id=185, 462.528pt x 346.896pt>
-File: 4.png Graphic file (type png)
-<use 4.png>
-Package pdftex.def Info: 4.png  used on input line 359.
-(pdftex.def)             Requested size: 312.00119pt x 234.01236pt.
-<5.png, id=186, 462.528pt x 346.896pt>
-File: 5.png Graphic file (type png)
-<use 5.png>
-Package pdftex.def Info: 5.png  used on input line 364.
-(pdftex.def)             Requested size: 312.00119pt x 234.01236pt.
- [9] [10 <./4.png> <./5.png>]
-Overfull \hbox (24.90546pt too wide) in paragraph at lines 409--410
-[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
-][][][][][][][][][][][][][][][][][][][][][]  
- []
-
-[11]
-<6.png, id=248, 462.528pt x 346.896pt>
-File: 6.png Graphic file (type png)
-<use 6.png>
-Package pdftex.def Info: 6.png  used on input line 447.
-(pdftex.def)             Requested size: 312.00119pt x 234.01236pt.
-<7.png, id=249, 462.528pt x 346.896pt>
-File: 7.png Graphic file (type png)
-<use 7.png>
-Package pdftex.def Info: 7.png  used on input line 453.
-(pdftex.def)             Requested size: 312.00119pt x 234.01236pt.
- [12] [13 <./6.png> <./7.png>]
-Underfull \hbox (badness 10000) in paragraph at lines 467--468
-
- []
-
-
-Overfull \hbox (24.90546pt too wide) in paragraph at lines 471--472
-[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
-][][][][][][][][][][][][][][][][][][][][][]  
- []
-
-[14]
-<8.png, id=335, 462.528pt x 346.896pt>
-File: 8.png Graphic file (type png)
-<use 8.png>
-Package pdftex.def Info: 8.png  used on input line 514.
-(pdftex.def)             Requested size: 312.00119pt x 234.01236pt.
-<9.png, id=336, 462.528pt x 346.896pt>
-File: 9.png Graphic file (type png)
-<use 9.png>
-Package pdftex.def Info: 9.png  used on input line 520.
-(pdftex.def)             Requested size: 312.00119pt x 234.01236pt.
-
-
-LaTeX Warning: Float too large for page by 7.3247pt on input line 528.
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 535--538
-
- []
-
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 546.
-[15] [16 <./8.png> <./9.png>]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 546.
- (./stat391_hw4.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 546.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 546.
-Package rerunfilecheck Info: File `stat391_hw4.out' has not changed.
-(rerunfilecheck)             Checksum: FB1019835DE8C40DE43725218FA56D91;210.
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 546.
+[3]
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 191.
+ [4]
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 191.
+ (./myhw6.aux)
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 191.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 191.
+Package rerunfilecheck Info: File `myhw6.out' has not changed.
+(rerunfilecheck)             Checksum: 8BCD721ECD79DDE558717519CCB4593D;212.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 191.
  ) 
 Here is how much of TeX's memory you used:
- 14094 strings out of 492982
- 204799 string characters out of 6136225
- 396950 words of memory out of 5000000
- 16956 multiletter control sequences out of 15000+600000
- 69547 words of font info for 246 fonts, out of 8000000 for 9000
+ 13152 strings out of 492982
+ 194776 string characters out of 6136225
+ 359454 words of memory out of 5000000
+ 16387 multiletter control sequences out of 15000+600000
+ 42964 words of font info for 111 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 42i,9n,41p,373b,2023s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 42i,13n,40p,337b,506s stack positions out of 5000i,500n,10000p,200000b,80000s
 {c:/texlive/2017/texmf-dist/fonts/enc/dvips/cm-super/cm-super-t1.enc}{c:/texl
 ive/2017/texmf-dist/fonts/enc/dvips/base/8r.enc}<c:/texlive/2017/texmf-dist/fon
 ts/type1/public/amsfonts/cm/cmmi10.pfb><c:/texlive/2017/texmf-dist/fonts/type1/
 public/amsfonts/cm/cmr10.pfb><c:/texlive/2017/texmf-dist/fonts/type1/public/ams
 fonts/cm/cmsy10.pfb><c:/texlive/2017/texmf-dist/fonts/type1/public/mathpazo/fpl
-mbb.pfb><c:/texlive/2017/texmf-dist/fonts/type1/public/mathpazo/fplmr.pfb><c:/t
-exlive/2017/texmf-dist/fonts/type1/public/mathpazo/fplmri.pfb><c:/texlive/2017/
-texmf-dist/fonts/type1/public/cm-super/sftt1095.pfb><c:/texlive/2017/texmf-dist
-/fonts/type1/public/cm-super/sftt1200.pfb><c:/texlive/2017/texmf-dist/fonts/typ
-e1/urw/palatino/uplb8a.pfb><c:/texlive/2017/texmf-dist/fonts/type1/urw/palatino
-/uplr8a.pfb><c:/texlive/2017/texmf-dist/fonts/type1/urw/palatino/uplri8a.pfb>
-Output written on stat391_hw4.pdf (16 pages, 375053 bytes).
+mri.pfb><c:/texlive/2017/texmf-dist/fonts/type1/public/cm-super/sftt1095.pfb><c
+:/texlive/2017/texmf-dist/fonts/type1/urw/palatino/uplb8a.pfb><c:/texlive/2017/
+texmf-dist/fonts/type1/urw/palatino/uplr8a.pfb><c:/texlive/2017/texmf-dist/font
+s/type1/urw/palatino/uplri8a.pfb>
+Output written on myhw6.pdf (4 pages, 115027 bytes).
 PDF statistics:
- 453 PDF objects out of 1000 (max. 8388607)
- 401 compressed objects within 5 object streams
- 257 named destinations out of 1000 (max. 500000)
- 42054 words of extra memory for PDF output out of 42996 (max. 10000000)
+ 91 PDF objects out of 1000 (max. 8388607)
+ 76 compressed objects within 1 object stream
+ 22 named destinations out of 1000 (max. 500000)
+ 28697 words of extra memory for PDF output out of 29859 (max. 10000000)
 

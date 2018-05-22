@@ -1,0 +1,198 @@
+---
+title: "STAT 435 HW6"
+author: "Chongyi Xu"
+date: "May 17, 2018"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+setwd('C:/Users/johnn/Documents/UW/SchoolWorks/2018Spring/STAT435/HW6')
+```
+
+## Question 1
+
+First this problem, you will analyze a data set of your choice.
+
+(a) Describe the data in words.
+
+The dataset I will use is `New York Stock Exchange` Dataset that I found at [kaggle](https://www.kaggle.com/dgawlik/nyse/data). The dataset is extraced from annual SEC 10k fillings. In order to have $n\approx p$, I will first reduce the size of original dataset(1781 observations) to 100 observations.
+
+```{r}
+dat <- read.csv('fundamentals.csv', header=T)[1:100,]
+colnames(dat)
+```
+
+Among the features we have above, we could remove some features that we are not really interested in, such as `Period Ending`, the ending period of the trade, and `For Year`, the year of the trade happened. 
+
+```{r}
+dat$For.Year <- NULL
+dat$Period.Ending <- NULL
+dat$Ticker.Symbol <- NULL
+```
+
+For this problem, I will use `Earnings Per Share` as my response $Y$. And study for how other features are related to earning. And note that there could be some missing values in the dataset. I first use `is.na()` to identify missing observations.
+
+```{r}
+sum(is.na(dat))
+```
+
+Then we should use `na.omit()` to remove all observations that has missing values.
+
+```{r}
+dat <- na.omit(dat)
+sum(is.na(dat))
+```
+
+And now we would like to  know our $n$ and $p$.
+
+```{r}
+print(paste('n=', dim(dat)[1]))
+print(paste('p=', dim(dat)[2]))
+```
+
+Now we would like to have a look at the distribution of the response that we are interested in.
+
+```{r}
+library(ggplot2)
+ggplot() + geom_histogram(aes(dat$Earnings.Per.Share), 
+                          bins=50, 
+                          color="black",
+                          fill="cornsilk3") +
+  xlab('Earnings Per Share')
+```
+
+From the plot we can see that there are only a few outliers and most are concentrated. This is a good news since some models could be robust some would be not.
+
+(b) Split the data into a training set and a test set. What are the values of $n$ and $p$ on the training set?
+
+```{r}
+set.seed(435)
+train.index <- sample(nrow(dat),50)
+train <- dat[train.index,]
+test <- dat[-train.index,]
+test.eps <- test$Earnings.Per.Share
+print(paste('n_train=', dim(train)[1]))
+print(paste('p_train=', dim(train)[2]))
+```
+
+(c) Fit a linear model using least squares on training set. And report the test error.
+
+```{r,warning=FALSE}
+lm.model <- lm(data=train, Earnings.Per.Share~.)
+lm.pred <- predict(lm.model, newdata=test)
+print(paste('test MSE=',mean((test.eps-lm.pred)^2)))
+```
+
+(d) Fit a ridge model on the training set, with $\lambda$ chosen by cross-validation. Report the test error.
+
+```{r}
+library(glmnet)
+library(glmnetUtils)
+
+grid <- 10^seq(10,-2,length=100)
+ridge.model <- glmnet(Earnings.Per.Share ~ ., data=train, lambda=grid, alpha=0)
+ridge.cv <- cv.glmnet(Earnings.Per.Share ~ ., data=train, alpha=0)
+ridge.pred <- predict(ridge.model, s=ridge.cv$lambda.min,newdata=test)
+print(paste('test MSE=', mean((test.eps-ridge.pred)^2)))
+```
+
+(e) Fit a lasso model on the training set, which $lambda$ chosen by CV. Report the test error, along with the number of non-zero coefficient estimates.
+
+```{r}
+lasso.model <- glmnet(Earnings.Per.Share ~ ., data=train, lambda=grid, alpha=1)
+lasso.cv <- cv.glmnet(Earnings.Per.Share ~ ., data=train, alpha=1)
+lasso.pred <- predict(lasso.model, s=lasso.cv$lambda.min, newdata=test)
+print(paste('test MSE=', mean((test.eps-lasso.pred)^2)))
+```
+
+```{r}
+out <- glmnet(Earnings.Per.Share ~ ., data=dat, alpha=1, lambda=grid)
+lasso.coef <- predict(out, type="coefficients", s=lasso.cv$lambda.min, newdata=dat)
+print(paste('The number of non-zero coefficient estimates is ', length(lasso.coef[lasso.coef!=0])))
+```
+
+(f) Fit a PCR model on the training set, with M chosen by CV. Report the test error, along with the value of M selected by CV.
+
+```{r}
+library(pls)
+set.seed(435)
+pcr.model <- pcr(Earnings.Per.Share ~ ., data=train, scale=TRUE, validation="CV")
+validationplot(pcr.model, val.type="MSEP")
+```
+
+We find that the lowest CV error occurs when $M=16$ component is used. 
+
+```{r}
+pcr.pred <- predict(pcr.model, test, ncomp=16)
+print(paste('test MSE=', mean((test.eps-pcr.pred)^2)))
+```
+
+(g) Fit a partial least squares model on the training set, with $M$ chonse by CV. Report the error along with the value of $M$.
+
+```{r}
+set.seed(1)
+pls.model <- plsr(Earnings.Per.Share ~ ., data=train, scale=TRUE, validation="CV")
+validationplot(pls.model, val.type="MSEP")
+```
+
+We could find that the cross validation error is lowest at $M=28$.
+
+```{r}
+pls.pred <- predict(pls.model, test, ncomp=28)
+print(paste('test MSE=', mean((test.eps-pls.pred)^2)))
+```
+
+(h) Comment on the result obtained.
+
+As a result, the best model I got to the data set I used is partial least squares model, which only gives a test MSE of 13.01. This value is extremely small comparing to the MSE I got in the linear regression model that gives me a MSE of 5015.91. However, other models are also good that only have their MSE under 100. Among all models, I prefer partial least square model since it gives the best result.
+
+## Question 2
+
+```{r}
+b1 <- function(x) {
+  b1 <- 0
+  if (x > -1 && x <= 1) {
+    b1 <- b1 + 1
+  }
+  if (x > 1 && x <= 3) {
+    b1 <- b1 - (2 * x - 1)
+  }
+  return(b1)
+}
+
+b2 <- function(x) {
+  b2 <- 0
+  if (x > 3 && x <= 5) {
+    b2 <- b2 + (x + 1)
+  }
+  if (x > 5 && x <= 6) {
+    b2 <- b2 - 1
+  }
+  return(b2)
+}
+```
+
+Sketch the estimated curve between $X=-3$ and $X=8$.
+
+```{r}
+beta0 <- 2
+beta1 <- -1
+beta2 <- 2
+X <- seq(-3, 8, length=1000)
+Y <- rep(NA, 1000)
+for (i in 1:1000) {
+  Y[i] <- beta0 + beta1*b1(X[i]) + beta2*b2(X[i])
+}
+```
+
+```{r}
+ggplot() + geom_line(aes(X,Y)) + 
+  annotate("text", x=-1.5, y=2.5, label="Y=2") +
+  annotate("text", x=0, y=2, label="Y=1") +
+  annotate("text", x=2, y=5, label="Y=2+(2X-1)=2X+1") +
+  annotate("text", x=4, y=11, label="Y=2+2(X+1)=2X+4") +
+  annotate("text", x=5.5, y=1, label="Y=0") +
+  annotate("text", x=7, y=2.5, label="Y=2")
+
+```

@@ -1,0 +1,291 @@
+\documentclass[preprint,12pt]{elsarticle}
+
+    \usepackage[sc]{mathpazo} % Use the Palatino font
+    \usepackage[T1]{fontenc} % Use 8-bit encoding that has 256 glyphs
+    \usepackage{microtype} % Slightly tweak font spacing for aesthetics
+    \usepackage[english]{babel} % Language hyphenation and typographical rules
+    \usepackage{booktabs} % Horizontal rules in tables
+    \usepackage{enumitem} % Customized lists
+    \usepackage[table,xcdraw]{xcolor}
+    \usepackage[utf8]{inputenc} % Required for inputting international characters
+    \usepackage{parskip}
+    \usepackage{graphicx}
+    \usepackage{hyperref}
+    \usepackage{pdfpages}
+    \usepackage{amsmath}
+    \usepackage{esvect}
+    \usepackage{listings}
+    \usepackage{color}
+    \usepackage{spverbatim}
+    \usepackage{subcaption}
+    \usepackage[title]{appendix}
+    \hypersetup{
+        colorlinks=true,
+        linkcolor=blue,
+        filecolor=magenta,      
+        urlcolor=cyan,
+    }
+    \definecolor{dkgreen}{rgb}{0,0.6,0}
+    \definecolor{gray}{rgb}{0.5,0.5,0.5}
+    \definecolor{mauve}{rgb}{0.58,0,0.82}
+    \definecolor{lightgray}{rgb}{0.83, 0.83, 0.83}
+    \definecolor{timberwolf}{rgb}{0.86, 0.84, 0.82}
+    \definecolor{whitesmoke}{rgb}{0.96, 0.96, 0.96}
+    
+    \lstset{frame=tb,
+    language=python,
+    aboveskip=3mm,
+    belowskip=3mm,
+    showstringspaces=false,
+    columns=flexible,
+    basicstyle={\small\ttfamily},
+    numbers=none,
+    numberstyle=\tiny\color{gray},
+    keywordstyle=\color{blue},
+    commentstyle=\color{dkgreen},
+    stringstyle=\color{mauve},
+    breaklines=true,
+    breakatwhitespace=true,
+    tabsize=3,
+    backgroundcolor = \color{whitesmoke}
+    }
+
+    \begin{document}
+    \title{\LARGE \bf
+        STAT 391 Homework 5
+        }
+        
+        \author{ \parbox{3 in}{\centering Chongyi Xu \\
+                 University of Washington\\
+                 STAT 391 Spring 2018\\
+                 {\tt\small chongyix@uw.edu}}
+        }
+    \maketitle
+
+    \section{Problem 1 - Bias and variance for the Poisson distribution}
+    \begin{enumerate}[label=\alph*]
+        \item Calculate $E[\lambda^{ML}]$ as a function of $\lambda$.
+        \begin{equation*}
+            E[\lambda^{ML}] = \lambda
+        \end{equation*}
+
+        \item Calculate $Var(\lambda^{ML})$ as a function of $\lambda$.
+        \begin{equation*}
+            Var(\lambda^{ML}) = \frac{\lambda}{n}            
+        \end{equation*}
+
+        \item Assume that $n$ is large enough for CLT to apply. Express
+        the probability that $\lambda^{ML}\geq \lambda+1$ as a function
+        of $n$, $\lambda$ and $\phi$ the CDF of the standard normal. Let
+        $Y=(x_1+\cdots +x_n)$. Then $P(\lambda^{ML}\geq \lambda+1) 
+        = P(Y\geq n\lambda+n)$.
+        \begin{align*}
+            P(\lambda^{ML}\geq \lambda+1) &= P(Y\geq n\lambda+n)\\
+            &= 1 - P(Z\leq \frac{n\lambda+n-n\lambda}{\sqrt{n\lambda}})\\
+            &= 1 - \phi(\sqrt{\frac{n}{\lambda}})
+        \end{align*}
+        
+        \item Numerical answer for $\lambda=10$, $n=100$.
+        \begin{align*}
+            P(\lambda^{ML}\geq \lambda+1) &= 1- \phi(\sqrt{\frac{100}{10}})\\
+            &= 1 - \phi(3.1622776601683795)\\
+            &= 1 - 0.99921 \approx 0.000790
+        \end{align*}
+    \end{enumerate}
+
+    \section{Confidence Intervals and Boostrap}
+    \begin{enumerate}[label=\alph*]
+        \item Esimate $\mu^{ML}$ the mean of $f$.
+        \begin{lstlisting}
+import statistics as stat
+
+dir = r'C:\Users\johnn\Documents\UW\SchoolWorks\2018Spring\STAT391\HW5'
+f = open(dir+r'\hw5-data1.dat')
+dat = [float(xx) for xx in f]
+
+mu = stat.mean(dat)
+print('mu = ', mu)
+        \end{lstlisting}
+        \begin{spverbatim}
+mu =  0.013597092102287756            
+        \end{spverbatim}
+
+        \item Estimate $\sigma^{2,ML}$ the Maximum Likelihood variance of $f$.
+        Then calculate $\sigma^{2,C}$ the unbiased estimator of $Var(f)$.\\
+        
+        Remark, $\sigma^{2,C} = \frac{n}{n-1}\sigma^{2,ML}$.
+        \begin{lstlisting}
+n = len(dat)
+sigmaML = stat.variance(dat)/n
+stdML = stat.stdev(dat)/n
+sigmaC = n*sigmaML/(n-1)
+print('s^2ML = ', sigmaML)
+print('stdML = ', stdML)
+print('s^2C = ', sigmaC)
+ciC = (mu-2.576*math.sqrt(sigmaC/n), mu+2.576*math.sqrt(sigmaC/n))
+print('99 confidence interval ', ciC)
+        \end{lstlisting}
+        \begin{spverbatim}
+s^2ML =  0.9962067496295647
+stdML =  0.9981015728018691
+s^2C =  0.9972039535831478            
+        \end{spverbatim}
+        
+        \item Estimate the variance and standard deviation of $\mu^{ML}$,
+        pretending that $\sigma^{2,C}$ is the true variance $Var(f)$.
+        \begin{align*}
+            Var(\mu^{ML}) &= Var(\frac{\sum_{i}X_i}{n})\\
+            &= \frac{1}{n^2}Var(\sum_{i}X_i)
+            &= \frac{1}{n^2}\sum_{i=1}^{n}Var(X_i)\\
+            &= \frac{n\sigma^{2,C}}{n^2}
+            &=\frac{\sigma^{2,C}}{n}
+            &= 0.0009972039535831479
+        \end{align*}
+
+        \item Use the CLT approximation to obtain the Confidence Interval for
+        confidence level $1-\delta$, for $delta=0.01$.
+        \begin{equation*}
+            \mu^{ML} \pm 2.576\sqrt{\frac{\sigma^{2,C}}{n}}
+        \end{equation*}
+        \begin{lstlisting}
+ciC = (mu-2.576*math.sqrt(sigmaC/n), mu+2.576*math.sqrt(sigmaC/n))
+print('99 confidence interval ', ci) 
+        \end{lstlisting}
+        \begin{spverbatim}
+99 confidence interval  (-0.06774921735482387, 0.09494340155939937)
+        \end{spverbatim}
+
+        \item Now estimate the variance of $\mu^{ML}$ by Bootstrap; denote this
+        by $\sigma^{2,B}$. Take $B=1000$ bootstrap samples, and calculate from
+        them the numberical value of $\sigma^{2,B}$.
+
+        Using the method of Bootstrap, resample with replacement from $n$ data points
+        , leading to new observations $X_1^{*},\cdots,X_B^{*}$.
+        \begin{lstlisting}
+B=1000
+np.random.seed(391)
+xB = np.random.choice(dat, size=B, replace=True)
+sigmaB = stat.variance(xB)
+stdB = stat.stdev(xB)
+print('s^2B = ', sigmaB/n)
+        \end{lstlisting}
+        \begin{spverbatim}
+s^2B =  0.0009465929207450022
+        \end{spverbatim}
+
+        \item Use CLT approximation again to obtain the CI.
+        \begin{lstlisting}
+ciB = (mu-2.576*math.sqrt(sigmaB/n), mu+2.576*math.sqrt(sigmaB/n))
+print('99 confidence interval ', ci)
+        \end{lstlisting}
+        \begin{spverbatim}
+99 confidence interval  (-0.06565805653330303, 0.09285224073787854)
+        \end{spverbatim}
+        \\ The difference between $CI^B$ and $CI^C$ is 
+        \begin{lstlisting}
+print('The difference is ', tuple(np.subtract(ciB, ciC)))            
+        \end{lstlisting}
+        \begin{spverbatim}
+The difference is  (0.002091160821520832, -0.002091160821520832)
+        \end{spverbatim}
+        \\ Calculate $e_r=\frac{|SD_C(\mu^{ML})-\sigma^{B}|}{SD_C(\mu^{ML})}$.
+        \begin{lstlisting}
+print('e_r = ', abs(stdML-stdB)/stdML)
+        \end{lstlisting}
+        \begin{spverbatim}
+e_r =  0.02521938014674153
+        \end{spverbatim}
+        \\ We can see that $e_r$ is much smaller than $1$, we can say the CI's
+        are close.
+    \end{enumerate}
+
+    \section{Problem 3- Median of Means(MOM)}
+    \begin{enumerate}[label=\alph*]
+        \item Compute $\mu^{ML}$ the mean of the data, and $\mu^{MOM}$ for 
+        $K=56$($n=2800$ for this data set).
+        \begin{lstlisting}
+import statistics as stat
+import numpy as np
+import math
+
+dir = r'C:\Users\johnn\Documents\UW\SchoolWorks\2018Spring\STAT391\HW5'
+f = open(dir+r'\hw5-data2.dat')
+dat = [float(xx) for xx in f]
+
+muML = stat.mean(dat)
+print('muML = ', stat.mean(dat))
+
+def MOMhelper(dat, K):
+    muk = [0.]*K
+    m = int(len(dat)/K)
+    for k in range(K):
+        muk[k] = stat.mean(dat[k*m:(k+1)*m+1])
+    return muk
+
+print('muMOM = ', stat.median(MOMhelper(dat, 56)))
+        \end{lstlisting}
+        \begin{spverbatim}
+muML =  5.630414291829327
+muMOM =  -0.06647177349707914
+        \end{spverbatim}
+
+        \item Extract $B=1000$ bootstrap samples, and compute $\mu^{MOM,b}$ 
+        for $b=1:B$. Then estimate the variance of $\mu^{MOM},\mu^{ML}$ by 
+        bootstrap.
+        \begin{lstlisting}
+B=1000
+np.random.seed(391)
+datB = np.random.choice(dat, size=B, replace=True)
+mom = MOMhelper(datB)
+print('muMLb = ', stat.mean(datB))
+print('muMOMb = ', stat.mean(mom))
+print('sigma(muML) = ', stat.variance(datB)/B)
+print('sigma(muMOM) = ', stat.variance(mom)/B)
+        \end{lstlisting}
+        \begin{spverbatim}
+muMLb =  -3.4009646037169663
+muMOMb =  18.18605627055922
+sigma(muML) =  3126.105596362195
+sigma(muMOM) =  251.92774632619899
+        \end{spverbatim}
+        \\ This experiment agrees with the theory that $\mu^{MOM}$ is robust
+        since we can see that it has less variance rather than $\mu^{ML}$, which
+        means it is less influenced than $\mu^{ML}$.
+        
+        \item Repeat a,b for the data from the previous problem.
+        \\ For hw5-dat1.dat, $n=1000$, use $K=20$, then there are 20 groups
+        as we had in part(a),(b).
+        \begin{lstlisting}
+print('Considering file hw5-data1.dat')
+f = open(dir+r'\hw5-data1.dat')
+dat = [float(xx) for xx in f]
+
+print('muML = ', stat.mean(dat))
+print('muMOM = ', stat.median(MOMhelper(dat, 20)))
+
+B=1000
+datB = np.random.choice(dat, size=B, replace=True)
+mom = MOMhelper(datB, 20)
+print('muMLb = ', stat.mean(datB))
+print('muMOMb = ', stat.mean(mom))
+print('var(muML) = ', stat.variance(datB)/B)
+print('var(muMOM) = ', stat.variance(mom)/B)
+        \end{lstlisting}
+        \begin{spverbatim}
+Considering file hw5-data1.dat
+muML =  0.013597092102287756
+muMOM =  0.02477232801920145
+muMLb =  0.01116517673353682
+muMOMb =  0.006316025344143354
+var(muML) =  0.0009170493279787797
+var(muMOM) =  4.685839582870582e-05
+        \end{spverbatim}
+        \\ We can see that for hw5-data1.dat, the MOM estimation is really
+        close to ML estimation. The reason might be that for hw5-data2.dat,
+        there are too many outliers that influences $\mu^{ML}$.
+
+    \end{enumerate}
+
+
+
+\end{document}

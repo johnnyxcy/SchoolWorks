@@ -1,0 +1,247 @@
+---
+title: "STAT435 HW5"
+author: "Chongyi Xu"
+date: "May 10, 2018"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Question 1
+
+(a) Use the `rnorm()` function to generate a predictor $X$ of length $n=100$, and a noise vector of length $n=100$.
+
+```{r}
+set.seed(435)
+X <- rnorm(100,mean=0,sd=1)
+noise <- rnorm(100,mean=0,sd=1)
+```
+
+
+(b) Generate a response vector $Y$ of length $n=100$ according to the model.
+
+```{r}
+Y <- 3 - 2*X + X^2 + noise
+dat <- data.frame(poly(X,7,raw=T), Y)
+```
+
+(c) Use the `regsubsets()` function to perform best subset selection, considering $X,X^2,\cdots,X^7$ as candidate predictors.
+
+```{r}
+library(leaps)
+library(ggplot2)
+library(gridExtra)
+
+fit.sub <- regsubsets(data=dat, Y~.)
+fit <- summary(fit.sub)
+
+cp <- ggplot() + geom_line(aes(1:7, fit$cp), col='violetred1') + 
+  geom_point(aes(1:7, fit$cp), col='cornflowerblue') +
+  geom_point(aes(which.min(fit$cp), 
+                 fit$cp[which.min(fit$cp)]), 
+             col='cornflowerblue', shape=4, size=3) + 
+  ylab('C_p') + xlab('Number of predictors')
+
+bic <- ggplot() + geom_line(aes(1:7, fit$bic), col='violetred1') + 
+  geom_point(aes(1:7, fit$bic), col='cornflowerblue') +
+  geom_point(aes(which.min(fit$bic), 
+                 fit$bic[which.min(fit$bic)]), 
+             col='cornflowerblue', shape=4, size=3) + 
+  ylab('BIC') + xlab('Number of predictors')
+
+r2 <- ggplot() + geom_line(aes(1:7, fit$adjr2), col='violetred1') + 
+  geom_point(aes(1:7, fit$adjr2), col='cornflowerblue') +
+  geom_point(aes(which.max(fit$adjr2), 
+                 fit$adjr2[which.max(fit$adjr2)]), 
+             col='cornflowerblue', shape=4, size=4) + 
+  ylab('Adjusted R^2') + xlab('Number of predictors')
+
+grid.arrange(cp,bic,r2,nrow=1)
+```
+
+Check the coefficients
+
+```{r}
+cp <- coef(fit.sub, which.min(fit$cp))
+bic <- coef(fit.sub, which.min(fit$bic))
+adjr2 <- coef(fit.sub, which.max(fit$adjr2))
+output <- matrix(0, 3, 8)
+colnames(output) <-
+  c('(Intercept)','X1','X2','X3','X4','X5','X6','X7')
+rownames(output) <- c('C_p', 'BIC', 'Adjusted R^2')
+output['C_p',names(cp)] <- cp
+output['BIC',names(bic)] <- bic
+output['Adjusted R^2',names(adjr2)] <- adjr2
+print(output)
+```
+
+From the table above, we can see that all of them select  $X_1,X_4,X_6$ for their best model. But only adjusted $R^2$ selected $X_3,X_5,X_7$.
+
+(d) Repeat using forward stepwise selection.
+
+```{r}
+fit.sub <- regsubsets(data=dat, Y~., method='forward')
+fit <- summary(fit.sub)
+
+cp <- ggplot() + geom_line(aes(1:7, fit$cp), col='violetred1') + 
+  geom_point(aes(1:7, fit$cp), col='cornflowerblue') +
+  geom_point(aes(which.min(fit$cp), 
+                 fit$cp[which.min(fit$cp)]), 
+             col='cornflowerblue', shape=4, size=3) + 
+  ylab('C_p') + xlab('Number of predictors')
+
+bic <- ggplot() + geom_line(aes(1:7, fit$bic), col='violetred1') + 
+  geom_point(aes(1:7, fit$bic), col='cornflowerblue') +
+  geom_point(aes(which.min(fit$bic), 
+                 fit$bic[which.min(fit$bic)]), 
+             col='cornflowerblue', shape=4, size=3) + 
+  ylab('BIC') + xlab('Number of predictors')
+
+r2 <- ggplot() + geom_line(aes(1:7, fit$adjr2), col='violetred1') + 
+  geom_point(aes(1:7, fit$adjr2), col='cornflowerblue') +
+  geom_point(aes(which.max(fit$adjr2), 
+                 fit$adjr2[which.max(fit$adjr2)]), 
+             col='cornflowerblue', shape=4, size=4) + 
+  ylab('Adjusted R^2') + xlab('Number of predictors')
+
+grid.arrange(cp,bic,r2,nrow=1)
+```
+
+```{r}
+cp <- coef(fit.sub, which.min(fit$cp))
+bic <- coef(fit.sub, which.min(fit$bic))
+adjr2 <- coef(fit.sub, which.max(fit$adjr2))
+output <- matrix(0, 3, 8)
+colnames(output) <-
+  c('(Intercept)','X1','X2','X3','X4','X5','X6','X7')
+rownames(output) <- c('C_p', 'BIC', 'Adjusted R^2')
+output['C_p',names(cp)] <- cp
+output['BIC',names(bic)] <- bic
+output['Adjusted R^2',names(adjr2)] <- adjr2
+print(output)
+```
+
+This time, BIC only select $X_1,X_2$.
+
+(e) Repeat using backward selection
+
+```{r}
+
+fit.sub <- regsubsets(data=dat, Y~., method='backward')
+fit <- summary(fit.sub)
+
+cp <- ggplot() + geom_line(aes(1:7, fit$cp), col='violetred1') + 
+  geom_point(aes(1:7, fit$cp), col='cornflowerblue') +
+  geom_point(aes(which.min(fit$cp), 
+                 fit$cp[which.min(fit$cp)]), 
+             col='cornflowerblue', shape=4, size=3) + 
+  ylab('C_p') + xlab('Number of predictors')
+
+bic <- ggplot() + geom_line(aes(1:7, fit$bic), col='violetred1') + 
+  geom_point(aes(1:7, fit$bic), col='cornflowerblue') +
+  geom_point(aes(which.min(fit$bic), 
+                 fit$bic[which.min(fit$bic)]), 
+             col='cornflowerblue', shape=4, size=3) + 
+  ylab('BIC') + xlab('Number of predictors')
+
+r2 <- ggplot() + geom_line(aes(1:7, fit$adjr2), col='violetred1') + 
+  geom_point(aes(1:7, fit$adjr2), col='cornflowerblue') +
+  geom_point(aes(which.max(fit$adjr2), 
+                 fit$adjr2[which.max(fit$adjr2)]), 
+             col='cornflowerblue', shape=4, size=4) + 
+  ylab('Adjusted R^2') + xlab('Number of predictors')
+
+grid.arrange(cp,bic,r2,nrow=1)
+```
+
+```{r}
+cp <- coef(fit.sub, which.min(fit$cp))
+bic <- coef(fit.sub, which.min(fit$bic))
+adjr2 <- coef(fit.sub, which.max(fit$adjr2))
+output <- matrix(0, 3, 8)
+colnames(output) <-
+  c('(Intercept)','X1','X2','X3','X4','X5','X6','X7')
+rownames(output) <- c('C_p', 'BIC', 'Adjusted R^2')
+output['C_p',names(cp)] <- cp
+output['BIC',names(bic)] <- bic
+output['Adjusted R^2',names(adjr2)] <- adjr2
+print(output)
+```
+
+This time, $C_p$ and BIC give the same result. However adjusted $R^2$ still select all 7 predictors.
+
+## Question 2
+
+(a) Use the `rnorm()` function to generate 100 vectors and noise, each of length $n=1000$.
+
+```{r}
+X <- matrix(NA, 1000, 100)
+noise <- rep(NA, 1000)
+for (i in 1:1000) {
+  noise[i] <- rnorm(1,mean=0,sd=1)
+  X[i,] <- rnorm(100,mean=0,sd=1)
+}
+```
+
+
+(b) Generate data according to 
+
+  $$
+    Y = \beta_0 +\beta_1X_1+\cdots+\beta_{100}X_{100}+\epsilon
+  $$
+
+where $\beta_1=\cdots=\beta_{100}=0$
+
+```{r}
+Y <- rep(0,1000)
+for (i in 1:1000) {
+  Y[i] <- sum(0*X[i,]) + noise[i]
+}
+
+```
+
+(c) Fit a least squares regression model to predict $Y$ using $X_1,\cdots,X_p$. Make a histogram of the p-values associated with the null hypotheses $H_{0j}:\beta_j=0$ for $j=1,\cdots,100$.
+
+```{r}
+pvalue <- rep(NA,100)
+for (i in 1:100) {
+  pvalue[i] <- (summary(lm(Y~X[,i])))$coef[,4][2]
+}
+
+ggplot() + geom_histogram(aes(pvalue),
+                          bins=50,
+                          color="black",
+                          fill="cornsilk3") +
+  xlab('pvalue') + ylab('') + 
+  ggtitle('Histogram of p-value') +
+  theme(plot.title = element_text(hjust = 0.5))
+```
+
+(d) Comment on result in (c).
+
+```{r}
+xx <- seq(0,1,0.01)
+ggplot() + geom_histogram(aes(pvalue,
+                              y=..density..),
+                          bins=50,
+                          color="black",
+                          fill="cornsilk3") +
+  xlab('pvalue') + ylab('') + 
+  ggtitle('Histogram of p-value') +
+  theme(plot.title = element_text(hjust = 0.5)) + geom_line(aes(xx, dunif(xx)))
+```
+
+From the plot, we can see that the density of p-value generally follows the Unif[0,1] distribution. With a significant level of $0.01$, there are about 11 features appear to be associated with the response.
+
+(e) Perform forward stepwise selection in order to identify $M_2$, the best two-variable model.
+
+```{r}
+dat <- data.frame(X,Y)
+fit.coef <- matrix(NA,1000,100)
+for (i in 1:1000) {
+  fit <- regsubsets(dat, Y[i]~X[i,], method='forward')
+  fit.coef[i,] <- coef(fit, which.min(summary(fit)$bic))
+}
+```
