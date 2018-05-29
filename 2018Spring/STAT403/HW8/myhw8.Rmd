@@ -1,0 +1,169 @@
+---
+title: "STAT 403 HW8"
+author: "Chongyi Xu"
+date: "May 24, 2018"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Question 1
+
+Let $X_1,\cdots,X_n\sim p$ be an unknown smooth density function. Let $\hat{p_n}(x)=\frac{1}{nh}\sum_{i=1}^nK(\frac{X_i-x}{h})$ be the KDE. In the first three sub-questions, we use the Gaussian kernel.
+
+(a) Assume $p$ is infinitely differentiable. Let $g(x)=p^{'}(x)$ be the derivative of $p(x)$ and $\hat{g_n}(x)=\hat{p}^{'}_n(x)$ be the derivative of the KDE. For a fixed point $x_0$, assume $p(x_0)>0$ and the third derivative $p^{'''}(x_0)\neq 0$. Show that there are two positive constants $C_1,C_2<\infty$ such that 
+
+$$
+\textbf{bias}(\hat{g_n}(x_0))=C_1h^2+O(h^2),\quad \textbf{Var}(\hat{g_n}(x_0))\leq \frac{C_2}{nh^3}+O(\frac{1}{nh^3})
+$$
+
+## Question 2
+
+In this question, we will analyze the dataset `faithful`, a built-in dataset in R. We focus on the variable `eruptions`.
+
+(a) Apply the KDE with three smoothing bandwidth $h=0.1,0.3,0.9$ Show the three estimated density curves in the same plot.
+
+```{r}
+library(ggplot2)
+dat <- faithful$eruptions
+
+bws <- c(0.1,0.3,0.9)
+
+p <- ggplot() + xlab('eruptions') + 
+  ylab('') + ggtitle('Estimated density curves') +
+  guides(color=guide_legend(title='Band Width')) +
+  theme(plot.title = element_text(hjust = 0.5))
+
+for (bw in bws) {
+  kde <- density(dat, bw)
+  p <- p + geom_line(aes_string(kde$x, kde$y,
+                                col=as.factor(bw))) 
+}
+
+p
+```
+
+(b) Apply the KDE with smoothing bandwidth $h=0.3$ and compare to the density histogram (width `breaks`=20)
+
+```{r}
+kde <- density(dat, bw=0.3)
+ggplot() + geom_line(aes(kde$x, kde$y)) +
+  geom_histogram(aes(dat, y=..density..),
+                 bins=20, color='black',
+                 fill="cornsilk3", alpha=0.5) +
+  xlab('eruptions') +ylab('') + 
+  ggtitle('KDE with density histogram') +
+  theme(plot.title = element_text(hjust = 0.5))
+```
+
+(c) Apply the KDE with smoothing bandwidth $h=0.3$. Use the bootstrap to construct a $95\%$ confidence band.
+
+```{r}
+h0 <- 0.3
+kde <- density(dat, bw=h0)
+n <- length(dat)
+
+B <- 10000
+gr_y <- matrix(NA, nrow=B, ncol=length(kde$x))
+
+for (i in 1:B) {
+  w <- sample(n, n, replace=TRUE)
+  dat_BT <- dat[w]
+  kde_BT <- density(dat_BT, bw=h0)
+  
+  gr_y[i,] <- kde_BT$y
+}
+
+gr_y_var <- diag(var(gr_y))
+gr_y_sd <- sqrt(gr_y_var)
+```
+
+```{r}
+plot(kde, lwd=3, col="blue", ylim=c(0,0.04),
+     main="95% CI of the KDE using bootstrap SD")
+polygon(x=c(kde$x, rev(kde$x)),
+        y=c(kde$y+qnorm(0.975)*gr_y_sd,
+            rev(kde$y-qnorm(0.975)*gr_y_sd)),
+        col='skyblue', border = 'skyblue')
+lines(kde,  lwd=3, col="blue")
+```
+
+
+## Question 3
+
+In this question, we will use Monte Carlo Simualtion to analyze the errors of the KDE. In particular, we will draw samples from the double exponential distribution with rate parameter $\lambda=1$. The sample size is $n=1000$.
+
+(a) Draw a single sample from that double exponential distribution. Apply the KDE with smoothing bandwidth $h=0.2$. Show the KDE and the true density curve in the same plot.
+
+```{r}
+library(smoothmest)
+n <- 1000
+h <- 0.2
+set.seed(403)
+dat <- rdoublex(n, mu=0, lambda=1)
+kde <- density(dat, n=n, bw=h)
+
+density.true <- ddoublex(kde$x, mu=0, lambda=1)
+
+ggplot() + geom_line(aes(x=kde$x, y=kde$y, 
+                         color='kde'), lwd=1) +
+  geom_line(aes(x=kde$x, y=density.true, 
+                color='true density'), lwd=1) +
+  xlab('x') +ylab('') + 
+  ggtitle('KDE and true density') +
+  theme(plot.title = element_text(hjust = 0.5))
+
+
+```
+
+(b) We see a huge difference between KDE and the true density curve at $x=0$. Explain why this occurs.
+
+The difference is from bias. Sicne as $x_0=0$, the bias of KDE at $x_0=0$ will be 
+
+$$
+\textbf{bias}(KDE(x_0)) = \frac{1}{2}h^2p^{''}(x_0)\mu_k + O(h^2) = O(h^2)
+$$
+
+due to $p^{''}(x_0)=0$. Therefore, the bias is leading by the error term, which will give a huge difference between KDE and the density curve.
+
+(c) Analyzing the MISE for $h$ within the range $0.05$ to $0.5$ using Monte Carlo Simulation with at least $N=10000$. For simplicity, when evaluating the MISE, we only compare the density $p(x)$ and the KDE $\hat{p_n}$ within the range $x\in [-6,6]$. Show the MISE versus smoothing bandwidth $h$ in a single plot.
+
+```{r}
+h_seq <- seq(from=0.05, to=0.5, by=0.01)
+N <- 10000
+MISEs <- rep(NA, length(h_seq))
+
+for (i in 1:length(h_seq)) {
+  kde1 <- density(dat, n=n, bw=h_seq[i])
+  kde.y_MC <- matrix(0, nrow=N, ncol=n)
+  for (j in 1:N) {
+    dat <- rdoublex(n, mu=0, lambda=1)
+    kde <- density(dat, n=n, bw=h_seq[i])
+    kde.y_MC[j,] <- kde$y
+  }
+  kde.y_mse = colSums((t(t(kde.y_MC)-
+                           density.true))^2)/N
+  MISEs[i] <- sum(kde.y_mse)
+}
+```
+
+```{r}
+ggplot() + geom_line(aes(x=h_seq, y=MISEs), lwd=2) +
+  xlab('Smoothing Bandwidth h') +
+  ylab('') +
+  ggtitle('MISE versus bandwidth') +
+  theme(plot.title = element_text(hjust = 0.5))
+```
+
+
+
+
+
+
+
+
+
+
+
