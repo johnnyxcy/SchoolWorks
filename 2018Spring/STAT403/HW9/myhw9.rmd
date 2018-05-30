@@ -60,12 +60,53 @@ n <- nrow(dat)
 cv.n <- 100
 k <- 3
 
+set.seed(403)
 
+h.seq <- seq(from=100,to=1000,by=20)
+cv.err <- rep(0, length(h.seq))
+
+for (i in 1:cv.n) {
+  cv.err_temp <- rep(0, length(h.seq))
+  cv.index <- sample(n, n, replace=F) %% k
+  for (j in 1:length(h.seq)) {
+    h0 <- h.seq[j]
+    err <- 0
+    for (kk in 1:k) {
+      w <- which(cv.index==(kk-1))
+      train.dat <- dat[-w,]
+      train.x <- train.dat$peri
+      train.y <- train.dat$area
+      test.dat <- dat[w,]
+      test.x <- test.dat$peri
+      test.y <- test.dat$area
+      model <- ksmooth(x=train.x,
+                       y=train.y,
+                       kernel='normal',
+                       bandwidth=h0,
+                       x.points=test.x)
+      err <- err + mean((test.y[order(test.x)] -
+                           model$y)^2, na.rm=T)
+    }
+    cv.err_temp[j] <- err/k
+  }
+  cv.err <- cv.err + cv.err_temp
+}
+cv.err <- cv.err/cv.n
+df <- data.frame(h=h.seq, err=cv.err)
+ggplot(df, aes(h, err)) + geom_line(lwd=1) + geom_point() +
+  xlab('Smoothing Bandwidth') + ylab('CV Error')
 ```
 
+```{r}
+print(paste('The optimized bandwidth value h=',
+            h.seq[which(cv.err==min(cv.err))]))
+```
 
+(e) Using the smoothing bandwidth $h=500$, apply a bootstrap approach to construct a $95\%$ confidence interval of the regression function.
 
+```{r}
 
+```
 
 
 
