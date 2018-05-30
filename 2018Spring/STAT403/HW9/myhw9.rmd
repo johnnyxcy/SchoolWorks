@@ -1,0 +1,78 @@
+---
+title: "STAT403 HW9"
+author: "Chongyi Xu"
+date: "May 29, 2018"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Question 1
+
+(a) Show the scatter plot and attach a regression line from the simple linear regression.
+
+```{r}
+library(ggplot2)
+dat <- rock
+plt <- ggplot() + geom_point(aes(dat$peri, dat$area))
+plt
+```
+
+(b) Fit a kernel regression with Gaussian kernel and smoothing bandwidth $h=500$. Show the fitted regression curve in the scatter plot.
+
+```{r}
+ker.model <- ksmooth(x=dat$peri,
+                     y=dat$area,
+                     kernel='normal',
+                     bandwidth=500)
+plt + geom_line(aes(x=ker.model$x, 
+                    y=ker.model$y),
+                col='limegreen', lwd=2)
+```
+
+(c) Now we consider three smoothing bandwidths: 250, 500, and 1000. In a scatter plot, attach three fitted regression curves.
+
+```{r}
+hs <- c(250, 500, 1000)
+plt <- ggplot() + geom_point(aes(dat$peri, dat$area))
+for (h in hs) {
+  ker.model <- ksmooth(x=dat$peri,
+                      y=dat$area,
+                      kernel='normal',
+                      bandwidth=h)
+  plt <- plt + geom_line(aes_string(x=ker.model$x, 
+                                    y=ker.model$y,
+                                    col=as.factor(h)),
+                         lwd=1)
+}
+
+plt + guides(color=guide_legend(title='bandwidth')) + 
+  xlab('peri') + ylab('area')
+  
+```
+
+(d) Use a 3-fold CV to show the CV error versus smoothing bandwidth plot. About which value does the smoothing bandwidth attain the minimum CV error?
+
+```{r}
+n <- nrow(dat)
+cv.n <- 100
+k <- 3
+
+
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
